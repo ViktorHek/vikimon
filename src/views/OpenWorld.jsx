@@ -1,5 +1,6 @@
 import React from 'react'
 import StarterMap from '../components/maps/Startermap'
+import Player from '../components/player/Player'
 
 const OpenWorld = () => {
   // let displayMap = StarterMap
@@ -12,6 +13,7 @@ const OpenWorld = () => {
   })  
   return (
     <div className="map_container">
+      <Player/>
       {displayMap}
     </div>
   )
