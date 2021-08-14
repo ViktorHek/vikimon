@@ -1,0 +1,11 @@
+@import 'config';
+
+.main_game_container {
+  display: flex;
+  
+  height: 600px;
+  width: 1000px;
+  background-color: $primaryColor
+}
+
+@import 'maps';

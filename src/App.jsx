@@ -1,8 +1,10 @@
+import OpenWorld from './views/OpenWorld';
+import './styles/css/styles.css'
 
 function App() {
   return (
-    <div className="App">
-      <h1>vikomon</h1>
+    <div className="main_game_container">
+      <OpenWorld/>
     </div>
   );
 }
