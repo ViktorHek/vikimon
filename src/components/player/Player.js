@@ -3,21 +3,25 @@ import React from 'react'
 const Player = () => {
   let y = 96
   let x = 25
-  let img="/images/players/Characters_Overworld.png"
+  let img="/images/players/Ash_Character_Overworld.jpg"
   return (
     <div 
       style={{
-        position: 'absolute',
-        height: '46px',
-        width: '46px',
-        top: `100px`,
-        left: `500px`,
-        overflow: 'hidden'
+        position: 'relative',
+        height: '50px',
+        width: '50px',
+        top: `200px`,
+        left: `200px`,
+        overflow: 'hidden',
+        zIndex: 5
       }}
     >
       <img src={`${img}`} alt='' style={{
-        height: '300%',
-        width: '100%',
+        height: '156px',
+        width: '513px',
+        position: 'absolute',
+        top: '0px',
+        left: '0px'
       }}/>
     </div>
   )

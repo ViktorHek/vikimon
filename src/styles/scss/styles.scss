@@ -1,11 +1,17 @@
 @import 'config';
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .main_game_container {
   display: flex;
-  
-  height: 600px;
-  width: 1000px;
-  background-color: $primaryColor
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  // background-color: $primaryColor
 }
 
 @import 'maps';
