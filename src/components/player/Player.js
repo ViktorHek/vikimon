@@ -1,8 +1,9 @@
 import React from 'react'
 
 const Player = () => {
-  let y = 96
-  let x = 25
+  // let y = 96
+  // let x = 25
+  let mainPlayerDir = 2
   let img="/images/players/Ash_Character_Overworld.jpg"
   return (
     <div 
@@ -21,7 +22,7 @@ const Player = () => {
         width: '513px',
         position: 'absolute',
         top: '0px',
-        left: '0px'
+        left: `-${mainPlayerDir}px`
       }}/>
     </div>
   )
