@@ -1,8 +1,8 @@
 const WalkKeys = {
     down: 0,
-    left: 1,
-    right: 2,
-    up: 3
+    up: 1,
+    left: 2,
+    right: 3,
 }
 
 export default WalkKeys

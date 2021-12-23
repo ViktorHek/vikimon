@@ -1,8 +1,6 @@
 import React from 'react'
 import StarterMap from '../components/maps/Startermap'
 import Player from '../components/player/Player'
-import useKeys from '../hooks/use-keys'
-import WalkKeys from '../utils/availableKeys'
 
 const OpenWorld = () => {
   // let mapData = StarterMap
@@ -13,18 +11,6 @@ const OpenWorld = () => {
   let y = 200
   let x = 150
   // const pixelStep = 50
-
-
-
-  useKeys((event) => {
-    const dir = event.key.replace("Arrow", "").toLowerCase()
-    event.preventDefault()
-    if(WalkKeys.hasOwnProperty(dir)) {
-      console.log('direction is: ', dir)
-    } else {
-      console.log('error ', dir)
-    }
-  })
 
   return (
     <div style={{position: 'relative', top: '0px', left: '0px'}}>
