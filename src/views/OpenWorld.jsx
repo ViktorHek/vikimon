@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import StarterMap from '../components/maps/Startermap'
 import Player from '../components/player/Player'
+import { useSelector } from 'react-redux'
 
 const OpenWorld = () => {
-  // let mapData = StarterMap
+  const { playermovement } = useSelector((state) => state)
+  const [mapPos, setMapPos] = useState(playermovement.map)
+  let mapImg = '/images/maps/Pallet_Town_Outside.jpg'
+
+  useEffect(() => {
+    setMapPos(playermovement.map)
+  },[playermovement])
+
   let mapData = StarterMap.map((el) => {
     return <div className={`map_chunk-${el}`}>{el}</div>
   })
-  let mapImg = '/images/maps/Pallet_Town_Outside.jpg'
-  let y = 200
-  let x = 150
-  // const pixelStep = 50
 
   return (
     <div style={{position: 'relative', top: '0px', left: '0px'}}>
@@ -36,8 +40,8 @@ const OpenWorld = () => {
               width: '997px',
               height: '901px',
               position: 'absolute',
-              left: `-${y}px`,
-              top: `-${x}px` ,
+              left: `-${mapPos.x}px`,
+              top: `-${mapPos.y}px` ,
             }}
           />
         </div>
