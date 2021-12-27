@@ -27,7 +27,7 @@ const OpenWorld = () => {
             position: 'relative',
             top: '-450px',
             left: '0px',
-            opacity: '50%',
+            // opacity: '50%',
             height: '450px',
             width: '500px',
             overflow: 'hidden',
