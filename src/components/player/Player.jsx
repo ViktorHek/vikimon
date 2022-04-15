@@ -1,6 +1,6 @@
 import React from 'react'
 import useKeys from '../../hooks/use-keys'
-import WalkKeys from '../../utils/availableKeys'
+import availableKeys from '../../utils/availableKeys'
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import PlayerMove from '../../funktionality/move/PlayerMove';
@@ -17,24 +17,47 @@ const Player = () => {
   }, [playermovement, mainPlayerDir])
 
   useKeys((event) => {
-    const dir = event.key.replace("Arrow", "").toLowerCase()
+    console.log('full event',event)
+    const dir = event.key.toLowerCase()
+    // event.code is better for keys like space and shift
     event.preventDefault()
-    if (WalkKeys.hasOwnProperty(dir)) {
+    if (availableKeys.hasOwnProperty(dir)) {
+      console.log('checking key')
       checkKeys(dir)
     } else {
-      console.log('error ', dir)
+      console.log('Not a valid Key', {dir})
     }
   })
 
   function checkKeys(dir) {
-    for (const key in WalkKeys) {
-      if (Object.hasOwnProperty.call(WalkKeys, key)) {
-        const element = WalkKeys[key];
+    for (const key in availableKeys) {
+      if (Object.hasOwnProperty.call(availableKeys, key)) {
+        const element = availableKeys[key];
         if (key === dir) {
-          PlayerMove(dispatch, mapObj, element)
+          identifyType(dir, element)
+          // PlayerMove(dispatch, mapObj, element)
         }
       }
     }
+  }
+
+  function identifyType(dir, element) {
+
+    switch (dir) {
+      case 'arrowdown':
+      case 'arrowup':
+      case 'arrowleft':
+      case 'arrowright':
+        PlayerMove(dispatch, mapObj, element)        
+        break;
+      case 'i':
+        dispatch({type: "OPEN_BACKPACK"})
+        break;
+      default:
+        console.log('is a valid key, but can not find the type')
+        break;
+    }
+
   }
 
   return (
