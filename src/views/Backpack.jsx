@@ -1,40 +1,68 @@
 import React, { useEffect, useState } from 'react'
-// import StarterMap from '../components/maps/Startermap'
-// import Player from '../components/player/Player'
 import { useSelector } from 'react-redux'
 
+import pokemons from '../database/pokemons'
+import PokemonParty from '../components/backpack/PokemonParty' 
+
 const Backpack = () => {
-	const { backpackOpen } = useSelector((state) => state)
-	const [openBackpack, setOpenBackpack] = useState(state => state)
+	const { backpackOpen, myPokemons } = useSelector((state) => state)
+	const [openBackpack, setOpenBackpack] = useState(backpackOpen)
+	const [displaypokemons, setDisplaypokemons] = useState(false)
+	// const [myParty, setMyParty] = useState(state => state)
+	const populatedPartyList = []
 
 	useEffect(() => {
-		console.log({openBackpack})
-		setOpenBackpack(backpackOpen)
+		setOpenBackpack(!openBackpack)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [backpackOpen])
 
-	let mapData = StarterMap.map((el) => {
-		return <div className={`map_chunk-${el}`}>{el}</div>
-	})
+	useEffect(() => {
+		populatePokemonParty()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [myPokemons])
+
+	function populatePokemonParty() {
+		for (let index = 0; index < 6; index++) {
+			if (myPokemons[index]) {
+				pokemons.forEach((el) => {
+					if(el.id === myPokemons[index].id) {
+						populatedPartyList.push(el)
+					}
+				})
+			}
+		}
+	}
+
+	function displayParty() {
+		setDisplaypokemons(!displaypokemons)
+	}
 
 	return (
-		<div style={{ position: 'relative', top: '0px', left: '0px', display: (openBackpack ? 'block' : 'none') }}>
-			<div className="main_backpack_container">
-				<div
-					className="backpack_container"
-					style={{
-						position: 'relative',
-						top: '-450px',
-						left: '0px',
-						// opacity: '50%',
-						height: '450px',
-						width: '500px',
-						overflow: 'hidden',
-					}}
-				>
-					<div>
-						<p>here is the backpack</p>
-					</div>
-
+		<div style={{ display: (openBackpack ? 'none' : 'block') }} className="main_backpack_container">
+			<div style={{ display: (displaypokemons ? 'flex' : 'none') }}>
+				<PokemonParty />
+			</div>
+			<div className="backpack_container">
+				<div className='backpack_option_container'>
+					<p className='backpack_text'>Pokedex</p>
+				</div>
+				<div className='backpack_option_container' onClick={displayParty}>
+					<p className='backpack_text'>Pokemons</p>
+				</div>
+				<div className='backpack_option_container'>
+					<p className='backpack_text'>Items</p>
+				</div>
+				<div className='backpack_option_container'>
+					<p className='backpack_text'>Bobby</p>
+				</div>
+				<div className='backpack_option_container'>
+					<p className='backpack_text'>Save</p>
+				</div>
+				<div className='backpack_option_container'>
+					<p className='backpack_text'>Options</p>
+				</div>
+				<div className='backpack_option_container'>
+					<p className='backpack_text'>Exit</p>
 				</div>
 			</div>
 		</div>

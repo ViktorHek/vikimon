@@ -1,5 +1,6 @@
 import OpenWorld from './views/OpenWorld'
 import './styles/css/styles.css'
+import './styles/scss/styles.css'
 
 function App() {
   return (

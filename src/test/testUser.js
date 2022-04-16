@@ -38,3 +38,5 @@ const testUser = {
         ]
     }
 }
+
+export default testUser

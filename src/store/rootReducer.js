@@ -22,10 +22,14 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         backpackOpen: !state.backpackOpen
       }
+    case 'SET_MY_POKEMONS':
+      return {
+        ...state,
+        myPokemons: action.payload
+      }
     default:
       return state
   }
-
 }
 
 export default rootReducer

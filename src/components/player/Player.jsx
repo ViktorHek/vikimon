@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import PlayerMove from '../../funktionality/move/PlayerMove';
 import DisplayPlayerSprite from './DisplayPlayerSprite';
+import testUser from '../../test/testUser'
 
 const Player = () => {
   const dispatch = useDispatch()
@@ -12,17 +13,24 @@ const Player = () => {
   const { playermovement } = useSelector((state) => state)
 
   let mapObj = playermovement.map
+
+  useEffect(() => {
+    populatePokemons()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+  function populatePokemons() {
+    dispatch({type: 'SET_MY_POKEMONS', payload: testUser.pokemons})
+  }
+
   useEffect(() => {
     setMainPlayerDir(playermovement.sprite)
   }, [playermovement, mainPlayerDir])
 
   useKeys((event) => {
-    console.log('full event',event)
-    const dir = event.key.toLowerCase()
     // event.code is better for keys like space and shift
+    const dir = event.key.toLowerCase()
     event.preventDefault()
     if (availableKeys.hasOwnProperty(dir)) {
-      console.log('checking key')
       checkKeys(dir)
     } else {
       console.log('Not a valid Key', {dir})
@@ -35,14 +43,12 @@ const Player = () => {
         const element = availableKeys[key];
         if (key === dir) {
           identifyType(dir, element)
-          // PlayerMove(dispatch, mapObj, element)
         }
       }
     }
   }
 
   function identifyType(dir, element) {
-
     switch (dir) {
       case 'arrowdown':
       case 'arrowup':
@@ -57,7 +63,6 @@ const Player = () => {
         console.log('is a valid key, but can not find the type')
         break;
     }
-
   }
 
   return (

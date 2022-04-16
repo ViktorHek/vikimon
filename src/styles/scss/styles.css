@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.main_game_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.map_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  height: 300px;
+  width: 500px;
+  position: relative;
+  top: -50px;
+  left: 0;
+}
+
+.map_chunk-1, .map_chunk-2, .map_chunk-3 {
+  height: 50px;
+  width: 50px;
+}
+
+.map_chunk-1 {
+  background-color: green;
+}
+
+.map_chunk-2 {
+  background-color: gray;
+}
+
+.map_chunk-3 {
+  background-color: blue;
+}
+
+.main_backpack_container {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: green;
+  z-index: 9;
+  height: 90%;
+  width: 50%;
+}
+
+.backpack_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 13%;
+}
+
+.backpack_option_container {
+  margin-left: 50px;
+  cursor: pointer;
+}
+
+.main_pokemon_party_container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 450px;
+  width: 500px;
+  background-color: #ff00009e;
+}
+
+.backpack_text {
+  font-size: 2.6rem;
+}
+/*# sourceMappingURL=styles.css.map */
