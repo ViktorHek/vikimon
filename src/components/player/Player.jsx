@@ -59,6 +59,9 @@ const Player = () => {
       case 'i':
         dispatch({type: "OPEN_BACKPACK"})
         break;
+      case 'backspace':
+        dispatch({type: "BACK_KEY"})
+        break;
       default:
         console.log('is a valid key, but can not find the type')
         break;

@@ -4,15 +4,18 @@ import { useSelector } from 'react-redux'
 import PokemonParty from '../components/backpack/PokemonParty' 
 
 const Backpack = () => {
-	const { backpackOpen } = useSelector((state) => state)
+	const { backpackOpen, backKey } = useSelector((state) => state)
 	const [openBackpack, setOpenBackpack] = useState(backpackOpen)
 	const [displaypokemons, setDisplaypokemons] = useState(false)
-
 
 	useEffect(() => {
 		setOpenBackpack(!openBackpack)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [backpackOpen])
+	useEffect(() => {
+		setDisplaypokemons(false)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [backKey])
 
 	function displayParty() {
 		setDisplaypokemons(!displaypokemons)

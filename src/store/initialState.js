@@ -15,7 +15,8 @@ const initialState = {
         }
       ] 
     }
-  ]
+  ],
+  backKey: false
 }
 
 export default initialState

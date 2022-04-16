@@ -27,6 +27,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         myPokemons: action.payload
       }
+    case 'BACK_KEY':
+      return {
+        ...state,
+        backKey: !state.backKey
+      }
     default:
       return state
   }

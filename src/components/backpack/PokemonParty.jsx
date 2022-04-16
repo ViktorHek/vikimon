@@ -11,6 +11,7 @@ const PokemonParty = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [myPokemons])
 
+
 	function populatePokemonParty() {
 		let populatedPartyList = []
 		for (let index = 0; index < 6; index++) {
