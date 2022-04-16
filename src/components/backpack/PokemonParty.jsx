@@ -1,43 +1,60 @@
-import React from 'react'
-// import React, { useEffect, useState } from 'react'
-// import { useSelector } from 'react-redux'
-// import pokemons from '../database/pokemons'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import pokemons from '../../database/pokemons'
 
 const PokemonParty = () => {
-	// const { backpackOpen, myPokemons } = useSelector((state) => state)
-	// const [openBackpack, setOpenBackpack] = useState(backpackOpen)
-	// // const [myParty, setMyParty] = useState(state => state)
-	// const populatedPartyList = []
+	const { myPokemons } = useSelector((state) => state)
+	const populatedPartyList = []
+	let count = 0
 
-	// useEffect(() => {
-	// 	setOpenBackpack(!openBackpack)
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, [backpackOpen])
+	useEffect(() => {
+		populatePokemonParty()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [myPokemons])
 
-	// useEffect(() => {
-	// 	populatePokemonParty()
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, [myPokemons])
+	function populatePokemonParty() {
+		console.log('@populatePokemonParty!!')
+		for (let index = 0; index < 6; index++) {
+			if (myPokemons[index]) {
+				pokemons.forEach((el) => {
+					if(el.id === myPokemons[index].id) {
+						populatedPartyList.push(el)
+					}
+				})
+			}
+		}
+		console.log({populatedPartyList})
+	}
+	
+  // let pokemonList = populatedPartyList.map((el) => {
+	// 	console.log('in map!!',{el})
+  //   count = count + 1
+  //   return (
+	// 		<div key={`pokemonParty-${count}`}>
+	// 			<p>
+	// 				{el.name}
+	// 			</p>
+	// 		</div>
+	// 	)
+  // })
 
-	// function populatePokemonParty() {
-	// 	for (let index = 0; index < 6; index++) {
-	// 		if (myPokemons[index]) {
-	// 			pokemons.forEach((el) => {
-	// 				if(el.id === myPokemons[index].id) {
-	// 					populatedPartyList.push(el)
-	// 				}
-	// 			})
-	// 		}
-	// 	}
-	// }
-
-	// function displayParty() {
-	// 	console.log('är här')
-	// }
+	// console.log('pokemonList',pokemonList)
 
 	return (
 		<div className='main_pokemon_party_container'>
-			<p>Här är mina pokemons</p>
+			{/* <p>Här är mina pokemons</p> */}
+			<div >
+				{/* {pokemonList && pokemonList} */}
+				{populatedPartyList.length > 0 ? (
+            populatedPartyList.map((el, index) => {
+              return <div key={index}>{el.name}</div>;
+            })
+          ) : (
+            <div>
+              You have no Pokemons {populatedPartyList.length}
+            </div>
+          )}
+			</div>
 		</div>
 	)
 }

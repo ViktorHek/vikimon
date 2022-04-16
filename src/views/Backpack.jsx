@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import pokemons from '../database/pokemons'
+// import pokemons from '../database/pokemons'
 import PokemonParty from '../components/backpack/PokemonParty' 
 
 const Backpack = () => {
-	const { backpackOpen, myPokemons } = useSelector((state) => state)
+	const { backpackOpen } = useSelector((state) => state)
+	// const { backpackOpen, myPokemons } = useSelector((state) => state)
 	const [openBackpack, setOpenBackpack] = useState(backpackOpen)
 	const [displaypokemons, setDisplaypokemons] = useState(false)
 	// const [myParty, setMyParty] = useState(state => state)
@@ -16,22 +17,22 @@ const Backpack = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [backpackOpen])
 
-	useEffect(() => {
-		populatePokemonParty()
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [myPokemons])
+	// useEffect(() => {
+	// 	populatePokemonParty()
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [myPokemons])
 
-	function populatePokemonParty() {
-		for (let index = 0; index < 6; index++) {
-			if (myPokemons[index]) {
-				pokemons.forEach((el) => {
-					if(el.id === myPokemons[index].id) {
-						populatedPartyList.push(el)
-					}
-				})
-			}
-		}
-	}
+	// function populatePokemonParty() {
+	// 	for (let index = 0; index < 6; index++) {
+	// 		if (myPokemons[index]) {
+	// 			pokemons.forEach((el) => {
+	// 				if(el.id === myPokemons[index].id) {
+	// 					populatedPartyList.push(el)
+	// 				}
+	// 			})
+	// 		}
+	// 	}
+	// }
 
 	function displayParty() {
 		setDisplaypokemons(!displaypokemons)
