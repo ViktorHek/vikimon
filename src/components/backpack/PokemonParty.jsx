@@ -27,7 +27,6 @@ const PokemonParty = () => {
 	}
 
 	let pokemonList = pokeParty.map((el, index) => {
-		console.log({el})
 		return <div key={index}>{el.name}</div>;
 	})
 

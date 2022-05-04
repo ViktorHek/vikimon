@@ -33,7 +33,7 @@ const Player = () => {
     if (availableKeys.hasOwnProperty(dir)) {
       checkKeys(dir)
     } else {
-      console.log('Not a valid Key', {dir})
+      console.log('Not a valid Key @Player.jsx - useKey()', {dir})
     }
   })
 
@@ -63,7 +63,7 @@ const Player = () => {
         dispatch({type: "BACK_KEY"})
         break;
       default:
-        console.log('is a valid key, but can not find the type')
+        console.log('is a valid key, but can not find the type @Player.jsx - identifyType()', {dir})
         break;
     }
   }
