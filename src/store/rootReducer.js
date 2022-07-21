@@ -14,7 +14,8 @@ const rootReducer = (state = initialState, action) => {
           map: {
             y: action.payload.map.y,
             x: action.payload.map.x
-          }
+          },
+          coordinatesEvents: action.payload.coordinatesEvents
         }
       }
     case 'OPEN_BACKPACK':

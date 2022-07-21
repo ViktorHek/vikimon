@@ -9,7 +9,6 @@ const OpenWorld = () => {
   const { playermovement } = useSelector((state) => state)
   const [mapPos, setMapPos] = useState(playermovement.map)
   let count = 0
-
   let mapImg = '/images/maps/Pallet_Town_Outside.jpg'
 
   useEffect(() => {

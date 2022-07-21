@@ -42,19 +42,19 @@ const Player = () => {
       if (Object.hasOwnProperty.call(availableKeys, key)) {
         const element = availableKeys[key];
         if (key === dir) {
-          identifyType(dir, element)
+          identifyTypeOffKey(dir, element)
         }
       }
     }
   }
 
-  function identifyType(dir, element) {
+  function identifyTypeOffKey(dir, element) {
     switch (dir) {
       case 'arrowdown':
       case 'arrowup':
       case 'arrowleft':
       case 'arrowright':
-        PlayerMove(dispatch, mapObj, element)        
+        PlayerMove(dispatch, mapObj, element)
         break;
       case 'i':
         dispatch({type: "OPEN_BACKPACK"})
@@ -63,7 +63,7 @@ const Player = () => {
         dispatch({type: "BACK_KEY"})
         break;
       default:
-        console.log('is a valid key, but can not find the type @Player.jsx - identifyType()', {dir})
+        console.log('is a valid key, but can not find the type @Player.jsx - identifyTypeOffKey()', {dir})
         break;
     }
   }
