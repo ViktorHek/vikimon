@@ -18,6 +18,7 @@ const Player = () => {
     populatePokemons()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
+  
   function populatePokemons() {
     dispatch({type: 'SET_MY_POKEMONS', payload: testUser.pokemons})
   }

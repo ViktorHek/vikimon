@@ -3,9 +3,6 @@ import React from 'react'
 
 const Fight = () => {
 
-  // useEffect(() => {
-  //   setMapPos(playermovement.map)
-  // },[playermovement])
   let battleBackgrond = '/images/backgronds/battle/battleInterface_grass1.jpg'
 
   return (
