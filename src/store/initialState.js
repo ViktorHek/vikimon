@@ -17,7 +17,8 @@ const initialState = {
       ] 
     }
   ],
-  backKey: false
+  backKey: false,
+  selectedAttackFronRedux: null
 }
 
 export default initialState

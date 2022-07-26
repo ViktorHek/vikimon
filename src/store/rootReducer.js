@@ -33,6 +33,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         backKey: !state.backKey
       }
+    case 'SET_SELECTED_ATTACK':
+      return {
+        ...state,
+        selectedAttackFronRedux: action.payload
+      }
     default:
       return state
   }
