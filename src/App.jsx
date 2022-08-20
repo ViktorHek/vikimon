@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-
 import OpenWorld from './views/OpenWorld'
 import Fight from './views/Fight'
-
 import './styles/css/styles.css'
 import './styles/scss/styles.css'
 

@@ -1,34 +1,42 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import pokemons from '../../database/pokemons'
+import { useSelector, useDispatch } from 'react-redux'
+import globals from '../../utils/globalVariables';
+import axios from 'axios';
 
 const PokemonParty = () => {
-	const { myPokemons } = useSelector((state) => state)
-	const [pokeParty, setPokeParty] = useState([])
+	const dispatch = useDispatch()
+	const { myPokemons } = useSelector((state) => state);
+	const [pokeParty, setPokeParty] = useState([]);
 
 	useEffect(() => {
-		populatePokemonParty()
+		getPokemonsToPopulateParty();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [myPokemons])
+	}, []);
+	useEffect(() => {
+		populatePokemonParty();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [myPokemons]);
 
-
+	async function getPokemonsToPopulateParty() {
+		await axios.get(globals.ApiUrl + 'myPokemons')
+			.then(res => {
+				dispatch({ type: 'POPULATE_POKEMON_PARTY', payload: res.data })
+				return res;
+			}).catch((err) => {
+				console.log('Error @components/backpack/PokemonParty - getPokemonsToPopulateParty()', err);
+			});
+	};
 	function populatePokemonParty() {
-		let populatedPartyList = []
-		for (let index = 0; index < 6; index++) {
-			if (myPokemons[index]) {
-				pokemons.forEach((el) => {
-					if (el.id === myPokemons[index].id) {
-						populatedPartyList.push(el)
-					}
-				})
-			}
-		}
-		setPokeParty(populatedPartyList)
-	}
+		let populatedPartyList = [];
+		myPokemons.forEach((el) => {
+			populatedPartyList.push(el);
+		})
+		setPokeParty(populatedPartyList);
+	};
 
-	let pokemonList = pokeParty.map((el, index) => {
-		return <div key={index}>{el.name}</div>;
-	})
+	let pokemonList = pokeParty.map((el) => {
+		return <div key={el.UID}>{el.name}</div>;
+	});
 
 	return (
 		<div className='main_pokemon_party_container'>
@@ -36,7 +44,7 @@ const PokemonParty = () => {
 				{pokemonList && pokemonList}
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default PokemonParty
+export default PokemonParty;

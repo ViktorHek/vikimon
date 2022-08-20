@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import PlayerMove from '../../funktionality/move/PlayerMove';
 import DisplayPlayerSprite from './DisplayPlayerSprite';
-import testUser from '../../test/testUser'
 
 const Player = () => {
   const dispatch = useDispatch()
@@ -13,15 +12,6 @@ const Player = () => {
   const { playermovement } = useSelector((state) => state)
 
   let mapObj = playermovement.map
-
-  useEffect(() => {
-    populatePokemons()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
-  
-  function populatePokemons() {
-    dispatch({type: 'SET_MY_POKEMONS', payload: testUser.pokemons})
-  }
 
   useEffect(() => {
     setMainPlayerDir(playermovement.sprite)

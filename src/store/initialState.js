@@ -5,18 +5,7 @@ const initialState = {
     coordinatesEvents: 'intro'
   },
   backpackOpen: false,
-  myPokemons: [
-    { 
-      ID: null, 
-      name: null, 
-      moves: [
-        { 
-          id: null, 
-          name: null 
-        }
-      ] 
-    }
-  ],
+  myPokemons: [],
   backKey: false,
   selectedAttackFronRedux: null
 }

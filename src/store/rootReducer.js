@@ -38,6 +38,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         selectedAttackFronRedux: action.payload
       }
+    case 'POPULATE_POKEMON_PARTY':
+      return {
+        ...state,
+        myPokemons: action.payload
+      }
     default:
       return state
   }
