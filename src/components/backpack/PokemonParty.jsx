@@ -28,6 +28,7 @@ const PokemonParty = () => {
 	};
 	function populatePokemonParty() {
 		let populatedPartyList = [];
+		if(myPokemons === []) {return};
 		myPokemons.forEach((el) => {
 			populatedPartyList.push(el);
 		})
