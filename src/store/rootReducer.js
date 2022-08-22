@@ -38,6 +38,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         myPokemons: action.payload
       }
+    case 'STORE_DATA_FROM_DB':
+      return {
+        ...state,
+        pokedexDB: action.payload
+      }
     default:
       return state
   }

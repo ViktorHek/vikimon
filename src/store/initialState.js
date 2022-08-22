@@ -7,7 +7,8 @@ const initialState = {
   backpackOpen: false,
   myPokemons: [],
   backKey: false,
-  selectedAttackFronRedux: null
+  selectedAttackFronRedux: null,
+  pokedexDB: []
 }
 
 export default initialState

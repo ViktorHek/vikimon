@@ -26,6 +26,19 @@ const PokemonParty = () => {
 				console.log('Error @components/backpack/PokemonParty - getPokemonsToPopulateParty()', err);
 			});
 	};
+
+    async function getPokemonDataFromId() {
+        console.log('@ getPokemonDataFromId(), ')
+        await axios.get(globals.ApiUrl + 'pokemonDB/pokemon/1')
+            .then(res => {
+                console.log('pokeomon with id 1', res.data)
+                return res;
+            }).catch((err) => {
+                console.log('Error @components/backpack/PokemonParty - getPokedexDatabase()', err);
+            });
+    };
+
+
 	function populatePokemonParty() {
 		let populatedPartyList = [];
 		if(myPokemons === []) {return};
@@ -36,7 +49,11 @@ const PokemonParty = () => {
 	};
 
 	let pokemonList = pokeParty.map((el) => {
-		return <div key={el.UID}>{el.name}</div>;
+		return (
+			<div key={el.UID} onClick={getPokemonDataFromId}>
+				{el.name}
+			</div>
+		)
 	});
 
 	return (

@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import PokemonParty from '../components/backpack/PokemonParty' 
+import OpenPokedex from '../components/backpack/OpenPokedex'
 
 const Backpack = () => {
 	const { backpackOpen, backKey } = useSelector((state) => state)
 	const [openBackpack, setOpenBackpack] = useState(backpackOpen)
 	const [displaypokemons, setDisplaypokemons] = useState(false)
+	const [displayPokedex, setDisplayPokedex] = useState(false)
 
 	useEffect(() => {
 		setOpenBackpack(!openBackpack)
@@ -17,8 +19,12 @@ const Backpack = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [backKey])
 
-	function displayParty() {
+	function handleDisplayParty() {
 		setDisplaypokemons(!displaypokemons)
+	}
+	function handleOpenPokedex() {
+		console.log('@ handleOpenPokedex() ', !displayPokedex)
+		setDisplayPokedex(!displayPokedex)
 	}
 
 	return (
@@ -26,11 +32,12 @@ const Backpack = () => {
 			<div style={{ display: (displaypokemons ? 'flex' : 'none') }}>
 				<PokemonParty />
 			</div>
+			{ displayPokedex ? <div style={{ display: 'flex' }}> <OpenPokedex /> </div> : null }
 			<div className="backpack_container">
-				<div className='backpack_option_container'>
+				<div className='backpack_option_container' onClick={handleOpenPokedex}>
 					<p className='backpack_text'>Pokedex</p>
 				</div>
-				<div className='backpack_option_container' onClick={displayParty}>
+				<div className='backpack_option_container' onClick={handleDisplayParty}>
 					<p className='backpack_text'>Pokemons</p>
 				</div>
 				<div className='backpack_option_container'>
