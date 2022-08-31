@@ -23,16 +23,15 @@ const Backpack = () => {
 		setDisplaypokemons(!displaypokemons)
 	}
 	function handleOpenPokedex() {
-		console.log('@ handleOpenPokedex() ', !displayPokedex)
 		setDisplayPokedex(!displayPokedex)
 	}
 
 	return (
 		<div style={{ display: (openBackpack ? 'none' : 'block') }} className="main_backpack_container">
-			<div style={{ display: (displaypokemons ? 'flex' : 'none') }}>
-				<PokemonParty />
-			</div>
-			{ displayPokedex ? <div style={{ display: 'flex' }}> <OpenPokedex /> </div> : null }
+
+			{ displaypokemons ? <PokemonParty /> : null}
+			{ displayPokedex ?  <OpenPokedex /> : null }
+
 			<div className="backpack_container">
 				<div className='backpack_option_container' onClick={handleOpenPokedex}>
 					<p className='backpack_text'>Pokedex</p>

@@ -9,6 +9,7 @@ const PokemonParty = () => {
 	const [pokeParty, setPokeParty] = useState([]);
 
 	useEffect(() => {
+		console.log("pokemonParty.jsx is rederaed")
 		getPokemonsToPopulateParty();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

@@ -1,11 +1,18 @@
 read me
 
-API calls 
+N = number
+L = letter
+C = char
+B = ether 0 or 1
+@ = blank
 
-get('/pokemonDB/all') = getAllPokemonsFormDB()
-get('/pokemonDB/pokemon/:id') = getPokemonWithId()
-get('/pokemonDB/pokemonstats/:id') = getPokemonAndStats()
-get('/pokemonDB/pokemonmoves/:id') = getPokemonAndMoves()
+### localStorage string 
+
+* 3N 3N 3N -- position on map -- first 3 numbers = what map, second 3 numbers = x cordinates, last 3 numbers = y cordinates
+* 10C -- player name -- can involve letters, numbers and blank
+* 6N -- money -- can involve numbers or blank
+* 8B -- badges -- if collected = 1, if not collected = 0
+* 
 
 [
   {
