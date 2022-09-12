@@ -3,31 +3,46 @@ import getNatures from './natures'
 function getLocalStorageObject(sigleReturnType) {
 
     if(sigleReturnType === 'pokemon') {
-        let lsPokemon = localStorage.getItem('myPokemonParty')
+        let pokemonPartyArr = []
+        let localStorageString = localStorage.getItem('myPokemonParty')
+        let localStorageStringsArray = localStorageString.split('.')
 
-        let pokemonObject = {
-            id: parseInt(lsPokemon.slice(0,3)),
-            name: lsPokemon.slice(3,13).replace(/@/g, ''),
-            abilitie: parseInt(lsPokemon.slice(13,14)),
-            nature: getNatures(lsPokemon.slice(14,15)),
-            iv: parseInt(lsPokemon.slice(15,16)),
-            ev: parseInt(lsPokemon.slice(16,18)),
-            moves: {
-                move1: parseInt(lsPokemon.slice(18,21)),
-                pp1: parseInt(lsPokemon.slice(21,23)),
-                move2: parseInt(lsPokemon.slice(23,26)),
-                pp2: parseInt(lsPokemon.slice(26,28)),
-                move3: parseInt(lsPokemon.slice(28,31)),
-                pp3: parseInt(lsPokemon.slice(31,33)),
-                move4: parseInt(lsPokemon.slice(33,36)),
-                pp4: parseInt(lsPokemon.slice(36,38))
-                
-            },
-            uid: lsPokemon
+        for (let index = 0; index < localStorageStringsArray.length; index++) {
+            const ls = localStorageStringsArray[index];
+            
+            let pokemonObject = {
+                id: parseInt(ls.slice(0,3)),
+                level: parseInt(ls.slice(3, 5)),
+                name: ls.slice(5,15).replace(/@/g, ''),
+                abilitie: parseInt(ls.slice(15,16)),
+                nature: getNatures(ls.slice(16,17)),
+                iv: parseInt(ls.slice(17,19)),
+                ev: parseInt(ls.slice(19,21)),
+                moves: {
+                    move1: parseInt(ls.slice(21,24)),
+                    pp1: parseInt(ls.slice(24,26)),
+                    move2: parseInt(ls.slice(26,29)),
+                    pp2: parseInt(ls.slice(29,31)),
+                    move3: parseInt(ls.slice(31,34)),
+                    pp3: parseInt(ls.slice(34,36)),
+                    move4: parseInt(ls.slice(36,39)),
+                    pp4: parseInt(ls.slice(39,41))
+                },
+                dbData: {},
+                inGameStats: {},
+                statChange: {},
+                uid: ls
+            }
+            pokemonPartyArr.push(pokemonObject)
         }
-        return pokemonObject
+
+        return pokemonPartyArr
     }
 }
+
+// function ps(localStorageVariable, sliceStart, sliceStop) {
+//     return parseInt(localStorageVariable.slica(sliceStart, sliceStop))
+// };
 
 function storeLocalStorageObject(pokemonObject) {
 

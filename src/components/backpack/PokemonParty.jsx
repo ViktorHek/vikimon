@@ -2,31 +2,27 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import globals from '../../utils/globalVariables';
 import axios from 'axios';
+import lsm from '../../database/localStorrageManager'
+import calculator from '../../funktionality/calculator';
 
 const PokemonParty = () => {
 	const dispatch = useDispatch()
-	const { myPokemons } = useSelector((state) => state);
+	const { myPokemons, staticPokemons } = useSelector((state) => state);
 	const [pokeParty, setPokeParty] = useState([]);
 
 	useEffect(() => {
-		console.log("pokemonParty.jsx is rederaed")
-		getPokemonsToPopulateParty();
+		let pokemonPartyArray = lsm.getLocalStorageObject('pokemon')
+
+		dispatch({
+		  type: "POPULATE_POKEMON_PARTY", 
+		  payload: pokemonPartyArray
+		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	  },[])
 	useEffect(() => {
 		populatePokemonParty();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [myPokemons]);
-
-	async function getPokemonsToPopulateParty() {
-		await axios.get(globals.ApiUrl + 'myPokemons')
-			.then(res => {
-				dispatch({ type: 'POPULATE_POKEMON_PARTY', payload: res.data })
-				return res;
-			}).catch((err) => {
-				console.log('Error @components/backpack/PokemonParty - getPokemonsToPopulateParty()', err);
-			});
-	};
 
     async function getPokemonDataFromId() {
         console.log('@ getPokemonDataFromId(), ')
@@ -40,18 +36,45 @@ const PokemonParty = () => {
     };
 
 
-	function populatePokemonParty() {
+	async function populatePokemonParty() {
+		console.log('@populate party')
 		let populatedPartyList = [];
-		if(myPokemons === []) {return};
-		myPokemons.forEach((el) => {
-			populatedPartyList.push(el);
+		if(myPokemons.length === 0) { return };
+		let myPokemonsIdsString = ''
+		for (let index = 0; index < myPokemons.length; index++) {
+			const element = myPokemons[index];
+			if(index === 0) {
+				myPokemonsIdsString = element.id
+			} else {
+				myPokemonsIdsString = myPokemonsIdsString + '&' + element.id
+			}
+		}
+		let pokemonArrayFromDB = await axios.get(
+			globals.ApiUrl + 'selectedPokemonList/' + myPokemonsIdsString
+		)
+		console.log('pokemonArrayFromDB',pokemonArrayFromDB.data)
+		dispatch({
+			type: 'STORE_POKEMON_OBJECTS_FROM_DB',
+			payload: pokemonArrayFromDB.data
 		})
+
+		console.log('staticPokemons',staticPokemons)
+		myPokemons.forEach((myMon) => {
+			pokemonArrayFromDB.data.forEach((monInDB) => {
+				if (myMon.id === monInDB.id) {
+					myMon.dbData = monInDB
+					myMon.inGameStats = calculator.statsCalculator(myMon)
+					populatedPartyList.push(myMon);
+				}
+			})
+		})
+		console.log('populatedPartyList',populatedPartyList)
 		setPokeParty(populatedPartyList);
 	};
 
 	let pokemonList = pokeParty.map((el) => {
 		return (
-			<div key={el.UID} onClick={getPokemonDataFromId}>
+			<div key={el.uid} onClick={getPokemonDataFromId}>
 				{el.name}
 			</div>
 		)

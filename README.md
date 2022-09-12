@@ -13,7 +13,6 @@
     - alternative 1: have a 324 char long list of 0 or 1. 1 = deffeated, 0 = undeffeated
     - alternative 2: group all trainers by area. aka when you exit 'mr moon' all trainers in 'mr moob' will be checked at deffeated. But if you deffeat one trainer and escape rope out, you will have to deffeat that same triner again.
 
-
 ## localStorage
 
 N = number
@@ -35,10 +34,11 @@ Total = 9 + 10 + 6 + 8 = 33
 
 ### Pokemons
 * 3N -- pokemon -- an Id corresponding to a pokemon in the DB <3>
+* 2N -- level -- represent the level of the pokemon where 00 = 100 <2>
 * 10C -- nickname -- a nickname to the pokemon provided by the user. if name = 'viktor', it would say 'viktor@@@@' <10>
 * 1B -- ability -- pokemons ability where 0 = first ability and 1 = second ability <1>
 * 1L -- nature -- one letter corresponding with an nature. there are 25 natures and 26 letters so maybe letter X can be an indicator for uniqe pokemons <1>
-* 1N -- IV -- the plan is to store IV between 1-5 where 1 = worst IV and 5 = perfect IV. The IV correspond with all stats <1>
+* 2N -- IV -- the plan is to store IV between 1-15 The IV correspond with all stats <2>
 * 2N -- EV -- the plan is to store EV as EV/100. Meaning a pokemon starts at EV 00 and can go up to 65. 65 = 65535 <2>
 * 3N 2N * 4 -- moves -- first 3 numbers are an Id corresponding to a move. secod 2 numbers correspond to the amount of PP. this is repeted for each move (4) <20>
 * . -- separator -- indicating new type of item <1>
