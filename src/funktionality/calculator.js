@@ -4,7 +4,7 @@ import calcTyping from '../database/typing'
 
 function statsCalculator(pokiObj) {
     let calculatedStats = {
-        hp: calculatingHp(pokiObj.dbData.stats.hp, pokiObj),
+        hp: calculatingHp(pokiObj),
         attack: calculatingNonHpStats(pokiObj.dbData.stats.attack, pokiObj),
         defense: calculatingNonHpStats(pokiObj.dbData.stats.defense, pokiObj),
         special: calculatingNonHpStats(pokiObj.dbData.stats.special, pokiObj),
@@ -13,15 +13,13 @@ function statsCalculator(pokiObj) {
     return calculatedStats
 }
 
-function calculatingHp(baseHp, pokiObj) {
+function calculatingHp(pokiObj) {
     const {iv, ev, level} = pokiObj
-    let baseHpAndIv = baseHp + iv
+    let baseHpAndIv = pokiObj.dbData.stats.hp + iv
     let realEv = ev * 100
     let rootEv = Math.sqrt(realEv) / 4
-    let firstHpCalc = (baseHpAndIv * 2) + rootEv
-    let secondHpCalc = firstHpCalc * level
-    let thirdHpCalc = (secondHpCalc / 100) + level + 10
-    return Math.floor(thirdHpCalc)
+    let mainCalc = ((((baseHpAndIv * 2) + rootEv) * level) / 100) + level + 10
+    return Math.floor(mainCalc)
 }
 
 function calculatingNonHpStats(baseStat, pokiObj) {
@@ -29,18 +27,15 @@ function calculatingNonHpStats(baseStat, pokiObj) {
     let baseStatAndIv = baseStat + iv
     let realEv = ev * 100
     let rootEv = Math.sqrt(realEv) / 4
-    let fistCalc = (baseStatAndIv * 2) + rootEv
-    let secondCalc = fistCalc * level
-    let thirdCalc = (secondCalc / 100) + 5
-    return Math.floor(thirdCalc)
+    let mainCalc = ((((baseStatAndIv * 2) + rootEv) * level) / 100) + 5
+    return Math.floor(mainCalc)
 }
 
 // damage = ((((2 * level * critical) / 5 + 2) * (power * (attack / deffence))) / 50 + 2) * stab * type1 * type2 * random
 
 function damageCalculation(attackingPokemon, defendingPokemon, move) {
-    let critRate = generateRandomNumber(0, 255)
     // is crit = 2, is not crit = 1
-    let isCrit = calculateIfCrit(attackingPokemon, critRate)
+    let isCrit = calculateIfCrit(attackingPokemon)
     let AD = getattackDefenceDifferance(attackingPokemon, defendingPokemon, isCrit, move)
     let STAB = getStab(attackingPokemon, move)
     let typingCalc = getTypingCalc(move, defendingPokemon)
@@ -72,7 +67,8 @@ function generateRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-function calculateIfCrit(pokemon, critRate) {
+function calculateIfCrit(pokemon) {
+    let critRate = generateRandomNumber(0, 255)
     if (pokemon.inGameStats.speed / 2 > critRate) {
         return 2
     } else {
@@ -112,4 +108,9 @@ function getattackDefenceDifferance(attackingPokemon, defendingPokemon, isCrit, 
     }
 }
 
-export default { statsCalculator }
+const calculator = {
+    statsCalculator,
+    damageCalculation
+}
+
+export default calculator

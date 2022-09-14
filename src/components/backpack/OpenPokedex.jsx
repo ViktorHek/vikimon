@@ -37,10 +37,8 @@ const OpenPokedex = () => {
     }, [pokedexDB]);
 
     async function getPokedexDatabase() {
-        console.log('@ getPokedexDatabase()')
         await axios.get(globals.ApiUrl + 'pokemonDB/all')
             .then(res => {
-                console.log(res.data)
                 dispatch({ type: 'STORE_DATA_FROM_DB', payload: res.data })
                 return res;
             }).catch((err) => {

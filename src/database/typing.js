@@ -1,19 +1,17 @@
 
 export default function calcTyping(moveType, targetType) {
-    let returnValue = 1;
     let moveTypeObj = types.forEach((el) => {
         if (el.name === moveType) {
             return el;
         };
     });
     if (moveTypeObj.superEffective.includes(targetType)) {
-        returnValue = 2;
+        return 2;
     } else if (moveTypeObj.notEffective.includes(targetType)) {
-        returnValue = 0.5;
+        return 0.5;
     } else {
-        returnValue = 1;
+        return 1;
     };
-    return returnValue;
 };
 
 const types = [

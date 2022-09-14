@@ -9,7 +9,8 @@ const initialState = {
   backKey: false,
   selectedAttackFronRedux: null,
   pokedexDB: [],
-  staticPokemons: []
+  staticPokemons: [],
+  staticMoves: []
 }
 
 export default initialState

@@ -37,7 +37,6 @@ function App() {
   }
 
   let displayMoveList = displayMoves.map((el) => {
-    console.log(el.meta)
     const template = `{
       id: ${el.id},
       name: '${el.name}',
