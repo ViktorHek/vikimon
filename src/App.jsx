@@ -6,14 +6,16 @@ import './styles/css/styles.css'
 import './styles/scss/styles.css'
 
 function App() {
-  const {playermovement } = useSelector((state) => state)
-  const [displayedView, setDisplayedView] = useState(false)
+  const {viewState} = useSelector((state) => state)
+  const [displayedView, setDisplayedView] = useState('world')
 
   useEffect(() => {
-    if(playermovement.coordinatesEvents === 'WildPokemonEncounter') {
+    if(viewState === 'WildPokemonEncounter') {
       setDisplayedView('FightView')
+    } else {
+      setDisplayedView('world')
     }
-  },[playermovement])
+  },[viewState])
 
   return (
     <div className="main_game_container">

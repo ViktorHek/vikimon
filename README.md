@@ -2,16 +2,20 @@
 
 ## Changes from original game
 * Exeggutor learns the move egg-bomb at leval 50 insted of only throught machine
-* MissingNo have a defence base stat of 1 insted of 0
-* the plan is to have an number between 1-5 that indicates a pokemons IV witch effects all the stats
+* MissingNo have a defence basestat of 1 insted of 0
+* the plan is to have an number between 1-15 that indicates a pokemons IV witch effects all the stats
 * the plan is to have an number between 1-65 that indicates a pokemons EV witch effects all the stats. when a pokemon is defeated, whatever pokemon, the pokemon you use will gain 10 EV / 100 = 0.1 EV. after gaining defeating 10 pokemon, the pokemon used will receave 1 EV point witsh is equal to 100 EV point in the original game. The EV piont will be saved but not the progress, meaning 1.9 EV point = 1 EV point. 
 * removing natures 'rash' and 'careful'. also adding nature 'ultimate' that increase all stats
+* mew is under the buss
+* new boss called 'the developer' with maxed out pokemons.
 
 ## Ides and plans 
 
 * there are 324 trainers in total. 
     - alternative 1: have a 324 char long list of 0 or 1. 1 = deffeated, 0 = undeffeated
     - alternative 2: group all trainers by area. aka when you exit 'mr moon' all trainers in 'mr moob' will be checked at deffeated. But if you deffeat one trainer and escape rope out, you will have to deffeat that same triner again.
+* use japanise sprites as default and the american version for shinys. 
+    - maybe use the shiny sprites to indicate perfect IV to reduce storage and also give the shinynes an function. 
 
 ## localStorage
 
@@ -41,10 +45,10 @@ Total = 9 + 10 + 6 + 8 = 33
 * 2N -- IV -- the plan is to store IV between 1-15 The IV correspond with all stats <2>
 * 2N -- EV -- the plan is to store EV as EV/100. Meaning a pokemon starts at EV 00 and can go up to 65. 65 = 65535 <2>
 * 3N 2N * 4 -- moves -- first 3 numbers are an Id corresponding to a move. secod 2 numbers correspond to the amount of PP. this is repeted for each move (4) <20>
-* . -- separator -- indicating new type of item <1>
-* x(1-6) -- multiplied by numbers of pokemons in party -- one pokemon total chars = 3+10+1+1+1+2+20+1 = 39. total chars = 39 x numbers of pokemons. <39-228>
+* & -- separator -- indicating new type of item <1>
+* x(1-6) -- multiplied by numbers of pokemons in party -- one pokemon total chars = 3+2+10+1+1+2+2+20+1 = 42. max amout of pokemons = 6. <41-252>
 
-Total max = 228
+Total max = 252
 
 ### Items
 * 2N 22B -- key items -- <19>

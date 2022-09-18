@@ -1,29 +1,53 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import api from '../database/api'
 
 const Fight = () => {
   const dispatch = useDispatch()
   const [selectedAttack, setSelectedAttack] = useState('')
-  const { selectedAttackFronRedux } = useSelector((state) => state)
+  const [pokiParty, setPokiParty] = useState([])
+  const [attacks, setAttacks] = useState([])
+  const { selectedAttackFronRedux, myPokemons } = useSelector((state) => state)
 
   let battleBackgrond = '/images/backgronds/battle/battleInterface_grass1.jpg'
   let fullPokemonStripte = '/images/pokemons/Game Boy GBC - Pokemon Red Blue - Pokemon Color Front.png'
   let posX = 65
   let posY = 29
 
-  let attacks = [
-    'tackle',
-    'spash',
-    'tail whip',
-    'mega punch'
-  ]
+  useEffect(() => {
+    populateParty()
+  }, [])
 
   useEffect(() => {
     setSelectedAttack(selectedAttackFronRedux)
   }, [selectedAttackFronRedux])
 
+  async function populateParty() {
+    let populatedPartyList = myPokemons;
+    if (!populatedPartyList.length) {
+      let localStorageString = localStorage.getItem('myPokemonParty')
+      let responce = await api.callPokiParty(localStorageString)
+      populatedPartyList = responce.data
+      dispatch({
+        type: 'POPULATE_POKEMON_PARTY',
+        payload: populatedPartyList
+      })
+    }
+    setPokiParty(populatedPartyList)
+    populateInitialMoves(populatedPartyList)
+  };
+
+  function populateInitialMoves(party) {
+    let initialMoves = party[0].moves
+    setAttacks(initialMoves)
+  }
+
   function selectAttack(attack) {
     dispatch({ type: 'SET_SELECTED_ATTACK', payload: attack })
+  }
+
+  function runAway() {
+    dispatch({ type: 'SET_VIEW', payload: 'world'})
   }
 
   return (
@@ -101,19 +125,27 @@ const Fight = () => {
         }}
       >
         <div className='AttacksOptionsContainer'>
-          <div onClick={() => selectAttack(attacks[0])} style={{ border: '1px solid black', cursor: 'pointer' }}>
-            {attacks[0]}
-          </div>
-          <div onClick={() => selectAttack(attacks[1])} style={{ border: '1px solid black', cursor: 'pointer' }}>
-            {attacks[1]}
-          </div>
-          <div onClick={() => selectAttack(attacks[2])} style={{ border: '1px solid black', cursor: 'pointer' }}>
-            {attacks[2]}
-          </div>
-          <div onClick={() => selectAttack(attacks[3])} style={{ border: '1px solid black', cursor: 'pointer' }}>
-            {attacks[3]}
-          </div>
+          {attacks.length ? (
+            <>
+              <div onClick={() => selectAttack(attacks[0].id)} style={{ border: '1px solid black', cursor: 'pointer' }}>
+                {attacks[0].name}
+              </div>
+              <div onClick={() => selectAttack(attacks[1].id)} style={{ border: '1px solid black', cursor: 'pointer' }}>
+                {attacks[1].name}
+              </div>
+              <div onClick={() => selectAttack(attacks[2].id)} style={{ border: '1px solid black', cursor: 'pointer' }}>
+                {attacks[2].name}
+              </div>
+              <div onClick={() => selectAttack(attacks[3].id)} style={{ border: '1px solid black', cursor: 'pointer' }}>
+                {attacks[3].name}
+              </div>
+            </>
+          )
+            :
+            null
+          }
         </div>
+        <button onClick={runAway} >run</button>
         <p>selected attack is: {selectedAttack}</p>
       </div>
     </div>

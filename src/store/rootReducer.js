@@ -7,17 +7,7 @@ const rootReducer = (state = initialState, action) => {
     case 'SET_PLAYER_MOVEMENT':
       return {
         ...state,
-        playermovement: {
-          sprite: {
-            x: action.payload.sprite.x,
-            y: action.payload.sprite.y
-          },
-          map: {
-            y: action.payload.map.y,
-            x: action.payload.map.x
-          },
-          coordinatesEvents: action.payload.coordinatesEvents
-        }
+        playermovement: action.payload
       }
     case 'OPEN_BACKPACK':
       return {
@@ -35,24 +25,15 @@ const rootReducer = (state = initialState, action) => {
         selectedAttackFronRedux: action.payload
       }
     case 'POPULATE_POKEMON_PARTY':
+      console.log('uppdating pokemon party in redux', action.payload)
       return {
         ...state,
         myPokemons: action.payload
       }
-    case 'STORE_DATA_FROM_DB':
+    case 'SET_VIEW':
       return {
         ...state,
-        pokedexDB: action.payload
-      }
-    case 'STORE_POKEMON_OBJECTS_FROM_DB':
-      return {
-        ...state,
-        staticPokemons: action.payload
-      }
-    case 'STORE_MOVES_OBJECTS_FROM_DB':
-      return {
-        ...state,
-        staticMoves: action.payload
+        viewState: action.payload
       }
     default:
       return state

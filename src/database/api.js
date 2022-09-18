@@ -2,7 +2,7 @@ import axios from 'axios';
 import globals from '../utils/globalVariables'
 
 const callPokiParty = async (idString) => {
-    return await axios.get(globals.ApiUrl + 'selectedPokemonList/' + idString)
+    return await axios.get(globals.ApiUrl + 'playerParty/' + idString)
 }
 
 const callMoveList = async (idString) => {

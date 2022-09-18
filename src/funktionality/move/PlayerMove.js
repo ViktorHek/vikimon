@@ -14,8 +14,7 @@ const PlayerMove = (dispatch, mapObj, direction) => {
         map: {
           x: mapObj.x,
           y: mapObj.y + 50
-        },
-        coordinatesEvents: 'noEvent'
+        }
       }
       break;
     case 1:
@@ -27,8 +26,7 @@ const PlayerMove = (dispatch, mapObj, direction) => {
         map: {
           x: mapObj.x,
           y: mapObj.y - 50
-        },
-        coordinatesEvents: 'noEvent'
+        }
       }
       break;
     case 2:
@@ -40,8 +38,7 @@ const PlayerMove = (dispatch, mapObj, direction) => {
         map: {
           x: mapObj.x - 50,
           y: mapObj.y
-        },
-        coordinatesEvents: 'noEvent'
+        }
       }
       break;
     case 3:
@@ -53,8 +50,7 @@ const PlayerMove = (dispatch, mapObj, direction) => {
         map: {
           x: mapObj.x + 50,
           y: mapObj.y
-        },
-        coordinatesEvents: 'noEvent'
+        }
       }
       break;
     default:
@@ -66,14 +62,13 @@ const PlayerMove = (dispatch, mapObj, direction) => {
         map: {
           x: mapObj.x,
           y: mapObj.y
-        },
-        coordinatesEvents: 'noEvent'
+        }
       }
       break;
   }
   coordinatesEvents.forEach((el) => {
     if(el.x === payload.map.x && el.y === payload.map.y) {
-      payload.coordinatesEvents = el.typeOfEvent
+      dispatch({type: "SET_VIEW",payload: el.typeOfEvent})
     }
   })
   dispatch({type: "SET_PLAYER_MOVEMENT",payload})
