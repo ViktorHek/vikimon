@@ -1,0 +1,54 @@
+.fight-main-container {
+    position: relative; 
+    top: 0px; 
+    left: 0px; 
+    height: 100%;   
+}
+.fight-background-img-container {
+    position: relative; 
+    top: 0px; 
+    left: 0px; 
+    height: 450px; 
+    width: 500px; 
+    overflow: hidden;
+}
+.fight-backgrond-img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    object-fit: fill;
+}
+.fight-users-mon-img-container {
+    position: absolute;
+    position: absolute;
+    height: 58px;
+    width: 58px;
+    top: 282px;
+    left: 100px;
+    z-index: 5;
+    overflow: hidden;
+}
+.fight-opponent-mon-img-container {
+    position: absolute;
+    height: 58px;
+    width: 58px;
+    top: 182px;
+    left: 332px;
+    z-index: 5;
+    overflow: hidden;
+}
+.fight-main-options-container {
+    position: absolute;
+    height: 108px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: green;
+    opacity: 0.5;
+}
+.fight-move-selecter {
+    border: 1px solid black;
+    cursor: pointer;
+}

@@ -5,6 +5,10 @@
   padding: 0;
 }
 
+body {
+  background-color: #0d1230;
+}
+
 .main_game_container {
   display: flex;
   justify-content: center;
@@ -16,3 +20,8 @@
 
 @import 'maps';
 @import 'backpack';
+@import 'fight';
+
+// measurement
+// pokemon_battle_backgrond  160 x 144
+// pokemon_sprites 1727 x 917
