@@ -32,12 +32,13 @@
 }
 .fight-opponent-mon-img-container {
     position: absolute;
-    height: 58px;
-    width: 58px;
-    top: 182px;
-    left: 332px;
+    height: 160px;
+    width: 160px;
+    top: 25px;
+    right: 25px;
     z-index: 5;
     overflow: hidden;
+    background-color: #f8e8f8;
 }
 .fight-main-options-container {
     position: absolute;
