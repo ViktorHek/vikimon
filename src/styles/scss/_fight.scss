@@ -76,9 +76,29 @@
     bottom: 0;
     left: 0;
 }
-.fight-move-selecter {
-    border: 1px solid black;
+%fight-move-selector-container {
+    position: absolute;
+    height: 25px;
+    width: 200px;
+    left: 127px;
+    background-color: #f8e8f8;
     cursor: pointer;
+}
+.fight-move-selecter-0 {
+    @extend %fight-move-selector-container;
+    bottom: 81px;
+}
+.fight-move-selecter-1 {
+    @extend %fight-move-selector-container;
+    bottom: 54px;
+}
+.fight-move-selecter-2 {
+    @extend %fight-move-selector-container;
+    bottom: 30px;
+}
+.fight-move-selecter-3 {
+    @extend %fight-move-selector-container;
+    bottom: 5px;
 }
 .fight-opponent-name-container {
     position: absolute;

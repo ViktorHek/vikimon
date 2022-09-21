@@ -9,8 +9,9 @@ import NavigateFight from '../funktionality/inFightNavigation/NavigateFight'
 
 const Fight = () => {
   const dispatch = useDispatch()
+  const selector = useSelector((state) => state)
   const [pokiParty, setPokiParty] = useState([])
-  const { myPokemons } = useSelector((state) => state)
+  const { myPokemons } = selector
 
   // let battleBackgrond = '/images/backgronds/battle/battleInterface_grass1.jpg'
   let battleBackgrond = '/images/backgronds/battle/pokemon_battle_backgrond.jpg'
@@ -48,7 +49,7 @@ const Fight = () => {
     for (const key in availableKeys) {
       if (Object.hasOwnProperty.call(availableKeys, key)) {
         if (key === dir) {
-          NavigateFight(dispatch, dir)
+          NavigateFight(dispatch, dir, selector)
         }
       }
     }

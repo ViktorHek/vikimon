@@ -4,10 +4,9 @@ import { useSelector } from 'react-redux'
 const Fight = ({ data }) => {
     const { selectedAttackFronRedux } = useSelector((state) => state)
     const [spriteUrl, setSpriteUrl] = useState("")
-    console.log('opponent data: ', data)
 
-    const fullPokemonStripte = '/images/pokemons/spr_green-supgb_001_transparent.png'
     const { level, id } = data;
+    const dbName = data.dbData.name
     const inFightStats = {
         attack: data.stats.attack,
         defence: data.stats.defence,
@@ -15,10 +14,10 @@ const Fight = ({ data }) => {
         speed: data.stats.speed,
         hp: data.stats.hp,
     }
-    const dbName = data.dbData.name
 
     useEffect(() => {
         populateData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {

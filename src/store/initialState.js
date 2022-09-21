@@ -11,7 +11,7 @@ const initialState = {
   viewState: '',
   selectInFight: false,
   pointerPositionFight: "",
-  fightView: false
+  fightView: "init"
 }
 
 export default initialState

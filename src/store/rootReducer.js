@@ -42,7 +42,7 @@ const rootReducer = (state = initialState, action) => {
     case 'SET_FIGHT_VIEW':
       return {
         ...state,
-        fightView: !state.fightView
+        fightView: action.payload
       }
     case 'SET_SELECT_POINTER_POSITION':
       return {

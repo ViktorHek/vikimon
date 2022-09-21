@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 // import api from '../database/api'
+import OptionsFight from './OptionsFight'
 
 const Fight = ({ data }) => {
   const dispatch = useDispatch()
@@ -10,10 +11,8 @@ const Fight = ({ data }) => {
   const [spriteUrl, setSpriteUrl] = useState("")
   const [view, setView] = useState("init")
 
-  let fullPokemonStripte = '/images/pokemons/b_green-supgb_151_back.png'
-  const selectingMovesBackgrondImg = '/images/backgronds/battle/pokemon_battle_selection_moves_backgrond.png'
   console.log('player fight pokemon', data)
-  const { id, level, name, moves } = data;
+  const { id, level, name } = data;
   const dbName = data.dbData.name
 
   const inFightStats = {
@@ -27,6 +26,7 @@ const Fight = ({ data }) => {
 
   useEffect(() => {
     populateData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -42,16 +42,14 @@ const Fight = ({ data }) => {
   }, [backKey])
 
   useEffect(() => {
-    if(view === "init") {
-      setView('pickMove')
-    } else {
-      setView('init')
-    }
+    setView(fightView)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fightView])
 
   useEffect(() => {
     setSelectedAttack(selectedAttackFronRedux)
     console.log({ selectedAttack })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttackFronRedux])
 
   function populateData() {
@@ -66,27 +64,9 @@ const Fight = ({ data }) => {
     setSpriteUrl(imgUrl)
   }
 
-  function selectAttack(attack) {
-    console.log('selacting attack ', attack)
-    // setAttacks(attack)
-    dispatch({ type: 'SET_SELECTED_ATTACK', payload: attack })
-  }
-
-  function runAway() {
-    dispatch({ type: 'SET_VIEW', payload: 'world' })
-  }
-
   function handleShowSelectMove() {
     setShowSelectMove(!showSelectMove)
   }
-
-  const attacklist = moves.map((move) => {
-    return (
-      <div onClick={() => selectAttack(move.id)} className="fight-move-selecter" key={move.id}>
-        {move.name}
-      </div>
-    )
-  })
 
   return (
     <div>
@@ -101,23 +81,9 @@ const Fight = ({ data }) => {
         <h3>{data.stats.hp}</h3>
       </div>
       <div className="fight-users-mon-img-container">
-        <img src={fullPokemonStripte} alt='pokemon' className='absolute-img' />
+        <img src={spriteUrl} alt='pokemon' className='absolute-img' />
       </div>
-      <div className="fight-main-options-container">
-        {
-          view === "pickMove"
-            ?
-            <div className='fight-select-moves-img-container'>
-              <img src={selectingMovesBackgrondImg} alt="ops" className='absolute-img' />
-            </div>
-            :
-            null
-        }
-        <div className="attacks-options-container">
-          {attacklist && attacklist}
-        </div>
-        <button style={{ zIndex: 4000 }} onClick={runAway} >run</button>
-      </div>
+      {view === "selectMoves" ? <OptionsFight data={data} /> : null}
     </div>
   )
 }

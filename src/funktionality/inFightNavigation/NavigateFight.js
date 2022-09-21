@@ -1,6 +1,13 @@
 
-const NavigateFight = (dispatch, direction) => {
+const NavigateFight = (dispatch, direction, state) => {
+  console.log('nav state ', state)
+  let fightView = "init"
   let pointer = ""
+  if (state.fightView === "init") {
+    fightView = "selectMoves"
+  } else {
+    fightView = "init"
+  }
   switch (direction) {
     // pionter start
     case 'arrowdown':
@@ -11,25 +18,23 @@ const NavigateFight = (dispatch, direction) => {
       pointer = 'move-poiner-left'
     case 'arrowright':
       pointer = 'move-poiner-right'
-    case 'arrowright':
-      pointer = 'move-poiner-right'
-      dispatch({type: "SET_SELECT_POINTER_POSITION", payload: pointer})
-      break;      
+      dispatch({ type: "SET_SELECT_POINTER_POSITION", payload: pointer })
+      break;
     // pointer stop
     case 'x':
-      dispatch({type: "SET_SELECT_IN_FIGHT"})
-      break;      
+      dispatch({ type: "SET_SELECT_IN_FIGHT" })
+      break;
     case 'i':
-      dispatch({type: "SET_FIGHT_VIEW"})
-      break;      
+      dispatch({ type: "SET_FIGHT_VIEW", payload: fightView })
+      break;
     case 'r':
-      dispatch({type: "SET_VIEW", payload: 'world'})
+      dispatch({ type: "SET_VIEW", payload: 'world' })
       break;
     case 'backspace':
-      dispatch({type: "BACK_KEY"})
+      dispatch({ type: "BACK_KEY" })
       break;
     default:
-      dispatch({type: "error_in_navigateFight", payload: "no val matching switch statment"})
+      dispatch({ type: "error_in_navigateFight", payload: "no val matching switch statment" })
       break;
   }
 };
