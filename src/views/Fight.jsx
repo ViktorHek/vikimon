@@ -6,12 +6,13 @@ import OpponentInFight from '../components/fight/OpponentInFight'
 import availableKeys from '../utils/availableKeys'
 import useKeys from '../hooks/use-keys'
 import NavigateFight from '../funktionality/inFightNavigation/NavigateFight'
+import calculator from '../funktionality/calculator'
 
 const Fight = () => {
   const dispatch = useDispatch()
   const selector = useSelector((state) => state)
   const [pokiParty, setPokiParty] = useState([])
-  const { myPokemons } = selector
+  const { myPokemons, selectedAttackFronRedux } = selector
 
   // let battleBackgrond = '/images/backgronds/battle/battleInterface_grass1.jpg'
   let battleBackgrond = '/images/backgronds/battle/pokemon_battle_backgrond.jpg'
@@ -19,6 +20,12 @@ const Fight = () => {
   useEffect(() => {
     populateParty()
   }, [])
+  useEffect(() => {
+    if(selectedAttackFronRedux) {
+      let damage = calculator.damageCalculation(pokiParty[0], pokiParty[1], selectedAttackFronRedux)
+      console.log({damage})
+    }
+  }, [selectedAttackFronRedux])
 
   async function populateParty() {
     let populatedPartyList = myPokemons;

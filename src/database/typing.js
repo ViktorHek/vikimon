@@ -1,10 +1,12 @@
 
 export default function calcTyping(moveType, targetType) {
-    let moveTypeObj = types.forEach((el) => {
+    let moveTypeObj = {}
+    types.forEach((el) => {
         if (el.name === moveType) {
-            return el;
+            moveTypeObj = el;
         };
     });
+    console.log({moveTypeObj})
     if (moveTypeObj.superEffective.includes(targetType)) {
         return 2;
     } else if (moveTypeObj.notEffective.includes(targetType)) {
@@ -21,7 +23,7 @@ const types = [
         notEffective: ['rock'], 
         noEffect: ['ghost']},
     {
-        name: 'fight', 
+        name: 'fighting', 
         superEffective: ['normal', 'rock', 'ice'], 
         notEffective: ['flying', 'poison', 'bug', 'psychic'], 
         noEffect: ['ghost']

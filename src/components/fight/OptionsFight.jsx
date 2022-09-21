@@ -8,8 +8,13 @@ const OptionsFight = ({ data }) => {
 
     function selectAttack(attack) {
         console.log('selacting attack ', attack)
+        data.moves.forEach((move) => {
+            if (move.id === attack) {
+                console.log('move obj, ', move)                
+                dispatch({ type: 'SET_SELECTED_ATTACK', payload: move })
+            }
+        })
         // setAttacks(attack)
-        dispatch({ type: 'SET_SELECTED_ATTACK', payload: attack })
     }
 
     const attacklist = moves.map((move, index) => {
