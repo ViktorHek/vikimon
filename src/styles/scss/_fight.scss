@@ -22,13 +22,42 @@
 }
 .fight-users-mon-img-container {
     position: absolute;
-    position: absolute;
-    height: 58px;
-    width: 58px;
-    top: 282px;
-    left: 100px;
+    height: 133px;
+    width: 184px;
+    bottom: 146px;
+    left: 21px;
     z-index: 5;
     overflow: hidden;
+    background-color: #f8e8f8;    
+}
+.fight-users-mon-name-container {
+    position: absolute;
+    height: 26px;
+    width: 221px;
+    bottom: 251px;
+    left: 247px;
+    z-index: 5;
+    background-color: #f8e8f8;
+}
+.fight-users-mon-level-container {
+    position: absolute;
+    height: 23px;
+    width: 45px;
+    bottom: 226px;
+    left: 374px;
+    z-index: 5;
+}
+.fight-users-mon-hp-container {
+    position: absolute;
+    height: 33px;
+    width: 166px;
+    bottom: 169px;
+    right: 58px;
+    z-index: 5;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
 }
 .fight-opponent-mon-img-container {
     position: absolute;
@@ -52,4 +81,31 @@
 .fight-move-selecter {
     border: 1px solid black;
     cursor: pointer;
+}
+.fight-opponent-name-container {
+    position: absolute;
+    top: 0;
+    left: 23px;
+    height: 25px;
+    width: 250px;
+    z-index: 5;
+    background-color: #f8e8f8;
+}
+.fight-opponent-level-container {
+    position: absolute;
+    top: 26px;
+    left: 125px;
+    height: 23px;
+    width: 25px;
+    z-index: 5;
+    background-color: #f8e8f8;
+}
+.fight-opponent-hp-container {
+    position: absolute;
+    top: 52px;
+    left: 99px;
+    height: 25px;
+    width: 37px;
+    z-index: 5;
+    background-color: #e49be4;
 }

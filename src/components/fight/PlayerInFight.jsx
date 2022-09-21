@@ -7,10 +7,22 @@ const Fight = ({ data }) => {
   const [selectedAttack, setSelectedAttack] = useState('')
   const { selectedAttackFronRedux } = useSelector((state) => state)
 
-  let fullPokemonStripte = '/images/pokemons/Game Boy GBC - Pokemon Red Blue - Pokemon Color Front.png'
-  let posX = 65
-  let posY = 29
-  const {moves} = data;
+  let fullPokemonStripte = '/images/pokemons/b_green-supgb_151_back.png'
+  let posX = 0
+  let posY = 0
+  // let posX = 65
+  // let posY = 29
+  console.log('player fight pokemon', data)
+  const { level, name, moves } = data;
+  const dbName = data.dbData.name
+
+  const inFightStats = {
+    attack: data.stats.attack,
+    defence: data.stats.defence,
+    special: data.stats.special,
+    speed: data.stats.speed,
+    hp: data.stats.hp,
+  }
 
   useEffect(() => {
     setSelectedAttack(selectedAttackFronRedux)
@@ -23,16 +35,33 @@ const Fight = ({ data }) => {
   }
 
   function runAway() {
-    dispatch({ type: 'SET_VIEW', payload: 'world'})
+    dispatch({ type: 'SET_VIEW', payload: 'world' })
   }
 
+  const attacklist = moves.map((move) => {
+    return (
+      <div onClick={() => selectAttack(move.id)} className="fight-move-selecter" key={move.id}>
+        {move.name}
+      </div>
+    )
+  })
+
   return (
-    // <div style={{ position: 'relative', top: '0px', left: '0px', height: '100%' }}>
     <div>
+      <div className='fight-users-mon-name-container'>
+        <h3 className='fight-users-mon-name'>{name ? name : dbName}</h3>
+      </div>
+      <div className='fight-users-mon-level-container'>
+        <h3 className='fight-users-mon-level'>{level}</h3>
+      </div>
+      <div className='fight-users-mon-hp-container'>
+        <h3>{inFightStats.hp}</h3>
+        <h3>{data.stats.hp}</h3>
+      </div>
       <div className="fight-users-mon-img-container">
         <img src={fullPokemonStripte} alt='pokemon' style={{
-          height: '917px',
-          width: '1727px',
+          height: '100%',
+          width: '100%',
           position: 'absolute',
           top: `-${posY}px`,
           left: `-${posX}px`
@@ -40,25 +69,7 @@ const Fight = ({ data }) => {
       </div>
       <div className="fight-main-options-container">
         <div className="AttacksOptionsContainer">
-          {moves.length ? (
-            <>
-              <div onClick={() => selectAttack(moves[0].id)} className="fight-move-selecter">
-                {moves[0].name}
-              </div>
-              <div onClick={() => selectAttack(moves[1].id)} className="fight-move-selecter">
-                {moves[1].name}
-              </div>
-              <div onClick={() => selectAttack(moves[2].id)} className="fight-move-selecter">
-                {moves[2].name}
-              </div>
-              <div onClick={() => selectAttack(moves[3].id)} className="fight-move-selecter">
-                {moves[3].name}
-              </div>
-            </>
-          )
-            :
-            null
-          }
+          {attacklist && attacklist}
         </div>
         <button onClick={runAway} >run</button>
         <p>selected attack is: {selectedAttack}</p>
