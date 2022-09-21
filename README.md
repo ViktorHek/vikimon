@@ -95,9 +95,12 @@ Total max = 19 + 200 + 16 = 235
 
 
 ## Data collection
+* pokemons are taken from https://pokeapi.com/ and then manualy modifyed when nessesary
+    - https://pokeapi.co/api/v2/pokemon/ditto
+    - https://pokeapi.co/api/v2/move/1
 * trainer list is from pokemon green witch is taken from https://gamefaqs.gamespot.com/gameboy/924467-pokemon-green/faqs/12776 
-* pokemons are taken from https://pokeapi.co/ and then manualy modifyed when nessesary
 * sprites https://www.spriters-resource.com/game_boy_gbc/pokemonredblue/
+* pokemon sprites https://www.pokencyclopedia.info/en/index.php?id=sprites/gen1
 
 ## Syntax 
 

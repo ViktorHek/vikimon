@@ -25,7 +25,6 @@ const rootReducer = (state = initialState, action) => {
         selectedAttackFronRedux: action.payload
       }
     case 'POPULATE_POKEMON_PARTY':
-      console.log('uppdating pokemon party in redux', action.payload)
       return {
         ...state,
         myPokemons: action.payload
@@ -35,6 +34,24 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         viewState: action.payload
       }
+    case 'SET_SELECT_IN_FIGHT':
+      return {
+        ...state,
+        selectInFight: !state.selectInFight
+      }
+    case 'SET_FIGHT_VIEW':
+      return {
+        ...state,
+        fightView: !state.fightView
+      }
+    case 'SET_SELECT_POINTER_POSITION':
+      return {
+        ...state,
+        pointerPositionFight: action.payload
+      }
+    case "error_in_navigateFight":
+      console.log(action.type)
+      break
     default:
       return state
   }

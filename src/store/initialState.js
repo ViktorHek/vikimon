@@ -8,7 +8,10 @@ const initialState = {
   backKey: false,
   selectedAttackFronRedux: null,
   pokedexDB: [],
-  viewState: ''
+  viewState: '',
+  selectInFight: false,
+  pointerPositionFight: "",
+  fightView: false
 }
 
 export default initialState

@@ -12,11 +12,6 @@ const PokemonParty = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[])
 
-	useEffect(() => {
-		console.log('myPokemons is uppdated in pokemonParty.jsx', myPokemons)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[myPokemons])
-
 	async function populatePokemonParty() {
 		let populatedPartyList = myPokemons;
 		if (!populatedPartyList.length) {

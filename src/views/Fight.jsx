@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import api from '../database/api'
 import PlayerInFight from '../components/fight/PlayerInFight'
 import OpponentInFight from '../components/fight/OpponentInFight'
+import availableKeys from '../utils/availableKeys'
+import useKeys from '../hooks/use-keys'
+import NavigateFight from '../funktionality/inFightNavigation/NavigateFight'
 
 const Fight = () => {
   const dispatch = useDispatch()
@@ -29,6 +32,27 @@ const Fight = () => {
     }
     setPokiParty(populatedPartyList)
   };
+
+  useKeys((event) => {
+    // event.code is better for keys like space and shift
+    const dir = event.key.toLowerCase()
+    event.preventDefault()
+    if (availableKeys.hasOwnProperty(dir)) {
+      checkKeys(dir)
+    } else {
+      console.log('Not a valid Key @Fight.jsx - useKey()', {dir})
+    }
+  })
+
+  function checkKeys(dir) {
+    for (const key in availableKeys) {
+      if (Object.hasOwnProperty.call(availableKeys, key)) {
+        if (key === dir) {
+          NavigateFight(dispatch, dir)
+        }
+      }
+    }
+  }
 
   return (
     <div className="fight-main-container">

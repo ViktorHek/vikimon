@@ -7,7 +7,9 @@ const WalkKeys = {
     // interaction
     i: 'openBag',
     space: 'dialog',
-    backspace: 'back'
+    backspace: 'back',
+    r: 'runFromBattle',
+    x: 'select'
 }
 
 export default WalkKeys

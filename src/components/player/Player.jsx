@@ -53,6 +53,9 @@ const Player = () => {
       case 'backspace':
         dispatch({type: "BACK_KEY"})
         break;
+      case 'r':
+        dispatch({type: "SET_VIEW", payload: 'world'})
+        break;
       default:
         console.log('is a valid key, but can not find the type @Player.jsx - identifyTypeOffKey()', {dir})
         break;
