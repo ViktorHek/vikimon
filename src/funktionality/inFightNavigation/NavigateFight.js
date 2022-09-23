@@ -12,10 +12,13 @@ const NavigateFight = (dispatch, direction, state) => {
     // pionter start
     case 'arrowdown':
       pointer = 'move-poiner-down'
+      /* falls through */
     case 'arrowup':
       pointer = 'move-poiner-up'
+      /* falls through */
     case 'arrowleft':
       pointer = 'move-poiner-left'
+      /* falls through */
     case 'arrowright':
       pointer = 'move-poiner-right'
       dispatch({ type: "SET_SELECT_POINTER_POSITION", payload: pointer })

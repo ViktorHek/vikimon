@@ -1,29 +1,18 @@
 .map_container {
   display: flex;
   flex-wrap: wrap;
-  height: 300px;
-  width: 500px;
+  height: 100%;
+  width: 100%;
+  // position: relative;
+  // top: -50px;
+  // left: 0;
+}
+
+.display-map-container {
   position: relative;
-  top: -50px;
-  left: 0;
-}
-
-%map_chunk {
-  height: 50px;
-  width: 50px;
-}
-
-.map_chunk-1 {
-  @extend %map_chunk;
-  background-color: green;
-}
-
-.map_chunk-2 {
-  @extend %map_chunk;
-  background-color: gray;
-}
-
-.map_chunk-3 {
-  @extend %map_chunk;
-  background-color: blue;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }

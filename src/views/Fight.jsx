@@ -19,12 +19,14 @@ const Fight = () => {
 
   useEffect(() => {
     populateParty()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
     if(selectedAttackFronRedux) {
       let damage = calculator.damageCalculation(pokiParty[0], pokiParty[1], selectedAttackFronRedux)
       console.log({damage})
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttackFronRedux])
 
   async function populateParty() {

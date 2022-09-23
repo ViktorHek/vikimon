@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 const Fight = ({ data }) => {
     const { selectedAttackFronRedux } = useSelector((state) => state)
     const [spriteUrl, setSpriteUrl] = useState("")
+    // const [health, setHealth] = useState(0)
 
     const { level, id } = data;
     const dbName = data.dbData.name
@@ -14,6 +15,8 @@ const Fight = ({ data }) => {
         speed: data.stats.speed,
         hp: data.stats.hp,
     }
+
+    const displayHealth = 5
 
     useEffect(() => {
         populateData()
@@ -36,19 +39,23 @@ const Fight = ({ data }) => {
         setSpriteUrl(imgUrl)
     }
 
+    // function changeHealth(damage) {
+    //     // max width = 48 px
+    //     data.dbData.stats.hp
+    //     setHealth()
+    // }
+
     return (
         <div className='fight-opponent-main-container'>
             <div className='fight-opponent-name-container'>
-                <h3>{dbName}</h3>
+                <p>{dbName}</p>
             </div>
             <div className='fight-opponent-level-container'>
-                <h3>{level}</h3>
+                <p>{level}</p>
             </div>
-            <div className='fight-opponent-hp-container'>
-                <h3>{inFightStats.hp}</h3>
-            </div>
+            <div className='fight-opponent-hp-container' style={{ width: `${displayHealth}px` }}></div>
             <div className='fight-opponent-mon-img-container'>
-                <img src={spriteUrl} alt='pokemon' className='absolute-img' />
+                <img src={spriteUrl} alt='pokemon' className='fight-opponent-mon-img' />
             </div>
 
         </div>

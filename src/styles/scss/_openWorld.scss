@@ -1,0 +1,9 @@
+.display-player-strite-container {
+    position: relative;
+    height: $mapTile;
+    width: $mapTile;
+    overflow: hidden;
+    top: 64px;
+    left: 64px;
+    z-index: 5;
+}

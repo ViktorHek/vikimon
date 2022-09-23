@@ -8,10 +8,8 @@ import DisplayPlayerSprite from './DisplayPlayerSprite';
 
 const Player = () => {
   const dispatch = useDispatch()
-  const [mainPlayerDir, setMainPlayerDir] = useState({ x: 2, y: 0 })
+  const [mainPlayerDir, setMainPlayerDir] = useState({ x: 17, y: 0 })
   const { playermovement } = useSelector((state) => state)
-
-  let mapObj = playermovement.map
 
   useEffect(() => {
     setMainPlayerDir(playermovement.sprite)
@@ -45,7 +43,7 @@ const Player = () => {
       case 'arrowup':
       case 'arrowleft':
       case 'arrowright':
-        PlayerMove(dispatch, mapObj, element)
+        PlayerMove(dispatch, playermovement, element)
         break;
       case 'i':
         dispatch({type: "OPEN_BACKPACK"})
@@ -55,6 +53,9 @@ const Player = () => {
         break;
       case 'r':
         dispatch({type: "SET_VIEW", payload: 'world'})
+        break;
+      case 'x':
+        dispatch({type: "SET_VIEW", payload: 'WildPokemonEncounter'})
         break;
       default:
         console.log('is a valid key, but can not find the type @Player.jsx - identifyTypeOffKey()', {dir})

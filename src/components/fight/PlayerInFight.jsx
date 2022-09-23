@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-// import api from '../database/api'
+import { useSelector } from 'react-redux'
 import OptionsFight from './OptionsFight'
 
 const Fight = ({ data }) => {
-  const dispatch = useDispatch()
   const { selectedAttackFronRedux, selectInFight, backKey, fightView, pointerPositionFight } = useSelector((state) => state)
   const [selectedAttack, setSelectedAttack] = useState('')
   const [showSelectMove, setShowSelectMove] = useState(false)
@@ -71,14 +69,14 @@ const Fight = ({ data }) => {
   return (
     <div>
       <div className='fight-users-mon-name-container' onClick={handleShowSelectMove}>
-        <h3 className='fight-users-mon-name'>{name ? name : dbName}</h3>
+        <span className='fight-users-mon-name'>{name ? name : dbName}</span>
       </div>
       <div className='fight-users-mon-level-container'>
-        <h3 className='fight-users-mon-level' style={{cursor: 'pointer'}}>{level}</h3>
+        <span>{level}</span>
       </div>
       <div className='fight-users-mon-hp-container'>
-        <h3>{inFightStats.hp}</h3>
-        <h3>{data.stats.hp}</h3>
+        <span>{inFightStats.hp}</span>
+        <span>{data.stats.hp}</span>
       </div>
       <div className="fight-users-mon-img-container">
         <img src={spriteUrl} alt='pokemon' className='absolute-img' />

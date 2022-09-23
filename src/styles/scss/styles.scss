@@ -26,9 +26,16 @@ body {
   // background-color: $primaryColor
 }
 
+.GameBox {
+  height: $GameHeight;
+  width: $GameWidth;
+  overflow: hidden;
+}
+
 @import 'maps';
 @import 'backpack';
 @import 'fight';
+@import 'openWorld'
 
 // measurement
 // pokemon_battle_backgrond  160 x 144

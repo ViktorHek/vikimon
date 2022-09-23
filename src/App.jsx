@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="main_game_container">
-      <div style={{height: '450px', width: '500px'}} >
+      <div className='GameBox'>
         {displayedView === 'FightView' ? <Fight/> : <OpenWorld />}
       </div>
     </div>

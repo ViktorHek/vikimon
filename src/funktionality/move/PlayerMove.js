@@ -1,77 +1,90 @@
 import ashSprite from '../../utils/spritePosition'
 import coordinatesEvents from '../../utils/coordinatesEvents'
+import globals from '../../utils/globalVariables' // one global mapTile = 16
 
-const PlayerMove = (dispatch, mapObj, direction) => {
-  let payload = {sprite: {}, map: {}}
-
+const PlayerMove = (dispatch, playermovement, direction) => {
+  let payload = { sprite: {}, map: {} }
+  const { map, sprite } = playermovement
+  console.log('main playermovement', playermovement)
   switch (direction) {
-    case 0:
+    case 0: // down
       payload = {
-        sprite: { 
-          x: ashSprite.front[0], 
-          y: ashSprite.bikeFish[0] 
+        sprite: {
+          // x: 0,
+          x: getAshSprite(ashSprite.front, sprite.x),
+          y: 0
         },
         map: {
-          x: mapObj.x,
-          y: mapObj.y + 50
+          x: map.x,
+          y: map.y - globals.mapTile
         }
       }
       break;
-    case 1:
+    case 1: // up
       payload = {
-        sprite: { 
-          x: ashSprite.back[0], 
-          y: ashSprite.bikeFish[0]
+        sprite: {
+          x: getAshSprite(ashSprite.back, sprite.x), 
+          y: 0
         },
         map: {
-          x: mapObj.x,
-          y: mapObj.y - 50
+          x: map.x,
+          y: map.y + globals.mapTile
         }
       }
       break;
-    case 2:
+    case 2: // left
       payload = {
-        sprite: { 
-          x: ashSprite.left[0], 
-          y: ashSprite.bikeFish[0]
+        sprite: {
+          x: getAshSprite(ashSprite.left, sprite.x),
+          y: 0
         },
         map: {
-          x: mapObj.x - 50,
-          y: mapObj.y
+          x: map.x + globals.mapTile,
+          y: map.y
         }
       }
       break;
-    case 3:
+    case 3: // right
       payload = {
-        sprite: { 
-          x: ashSprite.right[0], 
-          y: ashSprite.bikeFish[0]
+        sprite: {
+          x: getAshSprite(ashSprite.right, sprite.x),
+          y: 0
         },
         map: {
-          x: mapObj.x + 50,
-          y: mapObj.y
+          x: map.x - globals.mapTile,
+          y: map.y
         }
       }
       break;
     default:
       payload = {
-        sprite: { 
-          x: ashSprite.front[0], 
-          y: ashSprite.bikeFish[0]
+        sprite: {
+          x: 0,
+          y: 0
         },
         map: {
-          x: mapObj.x,
-          y: mapObj.y
+          x: map.x,
+          y: map.y
         }
       }
       break;
   }
   coordinatesEvents.forEach((el) => {
-    if(el.x === payload.map.x && el.y === payload.map.y) {
-      dispatch({type: "SET_VIEW",payload: el.typeOfEvent})
+    if (el.x === payload.map.x && el.y === payload.map.y) {
+      dispatch({ type: "SET_VIEW", payload: el.typeOfEvent })
     }
   })
-  dispatch({type: "SET_PLAYER_MOVEMENT",payload})
+  dispatch({ type: "SET_PLAYER_MOVEMENT", payload })
 };
+
+function getAshSprite(ashSprite, x) {
+  let currentIndex = ashSprite.indexOf(x)
+  console.log({currentIndex})
+  if (currentIndex === ashSprite.lenght - 1) {
+    return ashSprite[0]
+  } else {
+    return ashSprite[currentIndex + 1]
+  }
+}
 
 export default PlayerMove
