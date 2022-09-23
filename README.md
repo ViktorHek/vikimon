@@ -50,6 +50,23 @@ Total = 9 + 10 + 6 + 8 = 33
 
 Total max = 252
 
+### Big - Pokemons
+* 3N -- pokemon -- an Id corresponding to a pokemon in the DB <3>
+* 2N -- level -- represent the level of the pokemon where 00 = 100 <2>
+* 1B -- ability -- pokemons ability where 0 = first ability and 1 = second ability <1>
+* 1L -- nature -- one letter corresponding with an nature. there are 25 natures and 26 letters so maybe letter X can be an indicator for uniqe pokemons <1>
+* 3N -- HP -- number representing remaning hp <3>
+* 10C -- nickname -- a nickname to the pokemon provided by the user. if name = 'viktor', it would say 'viktor@@@@' <10>
+* . -- seperator
+* 2 * 5 = 10N -- IV -- two numbers representing IV for each stat. Max IV = 15. Order: HP, attack, defense, speed, special <10>
+* 5 * 5 = 25N -- EV -- 5 numbers representing EV for each stat. Max EV = 65535 Order: HP, attack, defense, speed, special <25>
+* . -- seperator
+* 3N 2N * 4 -- moves -- first 3 numbers are an Id corresponding to a move. secod 2 numbers correspond to the amount of PP. this is repeted for each move (4) <20>
+* & -- separator -- indicating new type of item <1>
+* x(1-6) -- multiplied by numbers of pokemons in party -- one pokemon total chars = 3+2+1+1+3+10+1+10+20+1+20+1 = 73, 72 without & seperator. max amout of pokemons = 6. <72-437>
+
+Total max = 437
+
 ### Items
 * 2N 22B -- key items -- <19>
   - first number indicate if user have the bike where 0 = no bike and no 'bike voucher', 1 = 'bike voucher', 2 = bike
