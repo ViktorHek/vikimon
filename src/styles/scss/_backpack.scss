@@ -1,11 +1,31 @@
 .main_backpack_container {
-	position: absolute;
+	position: relative;
 	top: 0px;
 	right: 0px;
 	background-color: green;
 	z-index: 9;
 	height: 90%;
 	width: 50%;
+}
+
+.main-backpack-container {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.backpack-img-container {
+	height: $GameHeight;
+	width: $GameWidth;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 600;
+
+	img {
+		height: 100%;
+		width: 100%;
+	}
 }
 
 .backpack_container {
@@ -26,8 +46,28 @@
 	height: 450px;
 	width: 500px;
 	background-color: #ff00009e;
-}    
+}
 
 .backpack_text {
 	font-size: 2.6rem;
+}
+
+.open-pokedex-box {
+	position: absolute;
+    top: 15px;
+    left: 95px;
+    height: 9px;
+    width: 57px;
+    z-index: 5000;
+	cursor: pointer;
+}
+
+.open-party-box {
+	position: absolute;
+    top: 31px;
+    left: 95px;
+    height: 9px;
+    width: 57px;
+    z-index: 5000;
+	cursor: pointer;
 }

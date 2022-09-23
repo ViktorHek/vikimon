@@ -64,7 +64,7 @@ const Player = () => {
   }
 
   return (
-    <div>
+    <div className='player-container'>
       <DisplayPlayerSprite data={mainPlayerDir} />
     </div>
   )

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import PokemonParty from '../components/backpack/PokemonParty' 
+import PokemonParty from '../components/backpack/PokemonParty'
 import OpenPokedex from '../components/backpack/OpenPokedex'
 
 const Backpack = () => {
@@ -27,34 +27,28 @@ const Backpack = () => {
 	}
 
 	return (
-		<div style={{ display: (openBackpack ? 'none' : 'block') }} className="main_backpack_container">
+		<div className="main-backpack-container">
+			{
+				openBackpack ? (
+					<div className='backpack-container-open'>
+						<div className='backpack-img-container'>
+							<img
+								src='images/items/backpack.png'
+								alt='Back Pack'
+							/>
+						</div>
 
-			{ displaypokemons ? <PokemonParty /> : null}
-			{ displayPokedex ?  <OpenPokedex /> : null }
+						{displaypokemons ? <PokemonParty /> : null}
+						{displayPokedex ? <OpenPokedex /> : null}
 
-			<div className="backpack_container">
-				<div className='backpack_option_container' onClick={handleOpenPokedex}>
-					<p className='backpack_text'>Pokedex</p>
-				</div>
-				<div className='backpack_option_container' onClick={handleDisplayParty}>
-					<p className='backpack_text'>Pokemons</p>
-				</div>
-				<div className='backpack_option_container'>
-					<p className='backpack_text'>Items</p>
-				</div>
-				<div className='backpack_option_container'>
-					<p className='backpack_text'>Bobby</p>
-				</div>
-				<div className='backpack_option_container'>
-					<p className='backpack_text'>Save</p>
-				</div>
-				<div className='backpack_option_container'>
-					<p className='backpack_text'>Options</p>
-				</div>
-				<div className='backpack_option_container'>
-					<p className='backpack_text'>Exit</p>
-				</div>
-			</div>
+						<div className="backpack-container">
+							<div className='open-pokedex-box' onClick={handleOpenPokedex}></div>
+							<div className='open-party-box' onClick={handleDisplayParty}></div>
+							
+						</div>
+					</div>
+				) : null
+			}
 		</div>
 	)
 }
