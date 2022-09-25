@@ -3,6 +3,7 @@ import initialState from './initialState'
 
 const rootReducer = (state = initialState, action) => {
 
+
   switch (action.type) {
     case 'SET_PLAYER_MOVEMENT':
       return {
@@ -48,6 +49,17 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pointerPositionFight: action.payload
+      }
+    case 'SET_DAMAGE_TO_OPPONENT':
+      return {
+        ...state,
+        damageOpponent: action.payload
+      }
+    case 'SET_POINTER_POSITION':
+      console.log('getting here')
+      return {
+        ...state,
+        pointerPosition: action.payload
       }
     case "error_in_navigateFight":
       console.log(action.type)

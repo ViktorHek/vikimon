@@ -22,17 +22,22 @@ const Fight = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
-    if(selectedAttackFronRedux) {
-      let damage = calculator.damageCalculation(pokiParty[0], pokiParty[1], selectedAttackFronRedux)
-      console.log({damage})
-    }
+    calcDamage(selectedAttackFronRedux)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttackFronRedux])
+
+  function calcDamage(attack) {
+    if (attack) {
+      let damage = calculator.damageCalculation(pokiParty[0], pokiParty[1], attack)
+      dispatch({ type: 'SET_DAMAGE_TO_OPPONENT', payload: Math.floor(damage) })
+      dispatch({ type: "SET_SELECTED_ATTACK", payload: null })
+    }
+  }
 
   async function populateParty() {
     let populatedPartyList = myPokemons;
     if (!populatedPartyList.length) {
-      let localStorageString = localStorage.getItem('myPokemonParty')
+      let localStorageString = localStorage.getItem('bossPokemonParty')
       let responce = await api.callPokiParty(localStorageString)
       populatedPartyList = responce.data
       dispatch({
@@ -42,7 +47,7 @@ const Fight = () => {
     }
     setPokiParty(populatedPartyList)
   };
-
+  
   useKeys((event) => {
     // event.code is better for keys like space and shift
     const dir = event.key.toLowerCase()
@@ -50,7 +55,7 @@ const Fight = () => {
     if (availableKeys.hasOwnProperty(dir)) {
       checkKeys(dir)
     } else {
-      console.log('Not a valid Key @Fight.jsx - useKey()', {dir})
+      console.log('Not a valid Key @Fight.jsx - useKey()', { dir })
     }
   })
 

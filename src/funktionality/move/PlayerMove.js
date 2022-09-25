@@ -5,7 +5,6 @@ import globals from '../../utils/globalVariables' // one global mapTile = 16
 const PlayerMove = (dispatch, playermovement, direction) => {
   let payload = { sprite: {}, map: {} }
   const { map, sprite } = playermovement
-  console.log('main playermovement', playermovement)
   switch (direction) {
     case 0: // down
       payload = {
@@ -79,7 +78,6 @@ const PlayerMove = (dispatch, playermovement, direction) => {
 
 function getAshSprite(ashSprite, x) {
   let currentIndex = ashSprite.indexOf(x)
-  console.log({currentIndex})
   if (currentIndex === ashSprite.lenght - 1) {
     return ashSprite[0]
   } else {

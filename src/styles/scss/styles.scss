@@ -32,6 +32,12 @@ body {
   overflow: hidden;
 }
 
+.absuluseP {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 @import 'maps';
 @import 'backpack';
 @import 'fight';

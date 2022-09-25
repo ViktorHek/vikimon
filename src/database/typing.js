@@ -6,7 +6,6 @@ export default function calcTyping(moveType, targetType) {
             moveTypeObj = el;
         };
     });
-    console.log({moveTypeObj})
     if (moveTypeObj.superEffective.includes(targetType)) {
         return 2;
     } else if (moveTypeObj.notEffective.includes(targetType)) {

@@ -43,9 +43,19 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	height: 450px;
-	width: 500px;
-	background-color: #ff00009e;
+	height: $GameHeight;
+	width: $GameWidth;z-index: 1000;
+}
+
+.pokemon-party-backgrond-container {
+	position: relative;
+	height: 100%;
+	width: 100%;
+
+	img {
+		height: 292px;
+		width: 324px;
+	}
 }
 
 .backpack_text {
@@ -70,4 +80,96 @@
     width: 57px;
     z-index: 5000;
 	cursor: pointer;
+}
+
+.pokemon-party-list-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding-left: 7px;
+}
+
+.mon-in-bag-container-0 {
+	position: relative;
+	height: 16px;
+    font-size: 4px;
+    width: 153px;
+}
+.mon-in-bag-container-1 {
+	position: relative;
+	height: 16px;
+    font-size: 4px;
+    width: 153px;
+}
+.mon-in-bag-container-2 {
+	position: relative;
+	height: 16px;
+    font-size: 4px;
+    width: 153px;
+}
+.mon-in-bag-container-3 {
+	position: relative;
+	height: 16px;
+    font-size: 4px;
+    width: 153px;
+}
+.mon-in-bag-container-4 {
+	position: relative;
+	height: 16px;
+    font-size: 4px;
+    width: 153px;
+}
+.mon-in-bag-container-5 {
+	position: relative;
+	height: 16px;
+    font-size: 4px;
+    width: 153px;
+}
+.mon-in-bag-container-6 {
+	position: relative;
+	height: 16px;
+    font-size: 4px;
+    width: 153px;
+}
+
+.mon-in-bag-name-container {
+	position: absolute;
+    top: 0;
+    left: 17px;
+    height: 8px;
+    width: 80px;
+	background-color: #f7f5f5;
+}
+
+.mon-in-bag-level-container {
+	position: absolute;
+	top: 0;
+	right: 32px;
+	height: 8px;
+	width: 25px;
+	background-color: #f7f5f5;
+}
+
+.mon-in-bag-character-container {
+	height: 16px;
+    width: 17px;
+    position: absolute;
+    top: 0;
+    left: 0px;
+	background-color: #f7f5f5;
+}
+
+.mon-in-bag-hp-container {
+	position: absolute;
+    bottom: 0px;
+    right: 0;
+    height: 8px;
+    width: 57px;
+	background-color: #f7f5f5;
+}
+
+.pokemon-party-poiner-container {
+    position: absolute;
+    height: 16px;
+    width: 16px;
 }

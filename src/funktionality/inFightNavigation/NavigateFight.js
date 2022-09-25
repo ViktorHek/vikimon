@@ -1,6 +1,5 @@
 
 const NavigateFight = (dispatch, direction, state) => {
-  console.log('nav state ', state)
   let fightView = "init"
   let pointer = ""
   if (state.fightView === "init") {

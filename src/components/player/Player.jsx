@@ -4,12 +4,13 @@ import availableKeys from '../../utils/availableKeys'
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import PlayerMove from '../../funktionality/move/PlayerMove';
+import MovePointer from '../../funktionality/move/MovePointer';
 import DisplayPlayerSprite from './DisplayPlayerSprite';
 
 const Player = () => {
   const dispatch = useDispatch()
   const [mainPlayerDir, setMainPlayerDir] = useState({ x: 17, y: 0 })
-  const { playermovement } = useSelector((state) => state)
+  const { playermovement, backpackOpen, pointerPosition } = useSelector((state) => state)
 
   useEffect(() => {
     setMainPlayerDir(playermovement.sprite)
@@ -43,7 +44,7 @@ const Player = () => {
       case 'arrowup':
       case 'arrowleft':
       case 'arrowright':
-        PlayerMove(dispatch, playermovement, element)
+        moveTarget(dispatch, element)
         break;
       case 'i':
         dispatch({type: "OPEN_BACKPACK"})
@@ -60,6 +61,14 @@ const Player = () => {
       default:
         console.log('is a valid key, but can not find the type @Player.jsx - identifyTypeOffKey()', {dir})
         break;
+    }
+  }
+
+  function moveTarget(dispatch, element) {
+    if(backpackOpen) {
+      MovePointer(dispatch, pointerPosition, element)
+    } else {
+      PlayerMove(dispatch, playermovement, element)
     }
   }
 

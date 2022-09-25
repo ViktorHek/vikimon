@@ -7,10 +7,8 @@ const OptionsFight = ({ data }) => {
     const { moves } = data
 
     function selectAttack(attack) {
-        console.log('selacting attack ', attack)
         data.moves.forEach((move) => {
             if (move.id === attack) {
-                console.log('move obj, ', move)                
                 dispatch({ type: 'SET_SELECTED_ATTACK', payload: move })
             }
         })

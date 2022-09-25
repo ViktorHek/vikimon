@@ -10,7 +10,6 @@ const OpenWorld = () => {
 
   useEffect(() => {
     setMapPos(playermovement.map)
-    console.log({mapPos})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playermovement])
 

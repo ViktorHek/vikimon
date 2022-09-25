@@ -3,13 +3,12 @@ import { useSelector } from 'react-redux'
 import OptionsFight from './OptionsFight'
 
 const Fight = ({ data }) => {
-  const { selectedAttackFronRedux, selectInFight, backKey, fightView, pointerPositionFight } = useSelector((state) => state)
-  const [selectedAttack, setSelectedAttack] = useState('')
+  const { selectedAttackFronRedux, fightView } = useSelector((state) => state)
+  // const [selectedAttack, setSelectedAttack] = useState('')
   const [showSelectMove, setShowSelectMove] = useState(false)
   const [spriteUrl, setSpriteUrl] = useState("")
   const [view, setView] = useState("init")
 
-  console.log('player fight pokemon', data)
   const { id, level, name } = data;
   const dbName = data.dbData.name
 
@@ -27,28 +26,27 @@ const Fight = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    console.log('selectInFight2', selectInFight)
-  }, [selectInFight])
+  // useEffect(() => {
+  //   console.log('selectInFight2', selectInFight)
+  // }, [selectInFight])
 
-  useEffect(() => {
-    console.log('pointerPositionFight2', pointerPositionFight)
-  }, [pointerPositionFight])
+  // useEffect(() => {
+  //   console.log('pointerPositionFight2', pointerPositionFight)
+  // }, [pointerPositionFight])
 
-  useEffect(() => {
-    console.log('backKey2', backKey)
-  }, [backKey])
+  // useEffect(() => {
+  //   console.log('backKey2', backKey)
+  // }, [backKey])
 
   useEffect(() => {
     setView(fightView)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fightView])
 
-  useEffect(() => {
-    setSelectedAttack(selectedAttackFronRedux)
-    console.log({ selectedAttack })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedAttackFronRedux])
+  // useEffect(() => {
+  //   setSelectedAttack(selectedAttackFronRedux)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [selectedAttackFronRedux])
 
   function populateData() {
     setPokemonImgUrl(id)

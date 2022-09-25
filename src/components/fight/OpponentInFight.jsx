@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 const Fight = ({ data }) => {
-    const { selectedAttackFronRedux } = useSelector((state) => state)
+    const dispatch = useDispatch()
+    const { damageOpponent } = useSelector((state) => state)
     const [spriteUrl, setSpriteUrl] = useState("")
-    // const [health, setHealth] = useState(0)
+    const [displayHealth, setDisplayHealth] = useState(100)
+    const maxHealth = data.stats.hp
+    const [health, setHealth] = useState(maxHealth)
 
     const { level, id } = data;
     const dbName = data.dbData.name
-    const inFightStats = {
-        attack: data.stats.attack,
-        defence: data.stats.defence,
-        special: data.stats.special,
-        speed: data.stats.speed,
-        hp: data.stats.hp,
-    }
-
-    const displayHealth = 5
+    // const baseStats = {
+    //     attack: data.stats.attack,
+    //     defence: data.stats.defence,
+    //     special: data.stats.special,
+    //     speed: data.stats.speed,
+    //     hp: data.stats.hp,
+    // }
 
     useEffect(() => {
         populateData()
@@ -24,8 +25,30 @@ const Fight = ({ data }) => {
     }, [])
 
     useEffect(() => {
-        console.log('update in opponentInFigt', selectedAttackFronRedux)
-    }, [selectedAttackFronRedux])
+        applyAttack(damageOpponent)
+    }, [damageOpponent])
+
+    function applyAttack(damageOpponent) {
+        if (!damageOpponent) return 
+        let healthAfterDamage = health - damageOpponent
+
+        setHealth(healthAfterDamage)
+
+        let healthPercent = healthAfterDamage / maxHealth
+        let healthPercentToPixel = healthPercent * 100
+
+        if (healthPercentToPixel < 1) {
+            healthPercentToPixel = 0
+            opponentPokemonFaint()
+        }
+
+        setDisplayHealth(healthPercentToPixel)
+    }
+
+    function opponentPokemonFaint() {
+        console.log('YOU WIN!!')
+        dispatch({type: "SET_VIEW", payload: 'openWorld'})
+    }
 
     function populateData() {
         setPokemonImgUrl(id)
@@ -53,7 +76,9 @@ const Fight = ({ data }) => {
             <div className='fight-opponent-level-container'>
                 <p>{level}</p>
             </div>
-            <div className='fight-opponent-hp-container' style={{ width: `${displayHealth}px` }}></div>
+            <div className='fight-opponent-hp-container'>
+                <span className='fight-opponent-hp' style={{ width: `${displayHealth}%` }}></span>
+            </div>
             <div className='fight-opponent-mon-img-container'>
                 <img src={spriteUrl} alt='pokemon' className='fight-opponent-mon-img' />
             </div>

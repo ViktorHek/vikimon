@@ -160,14 +160,21 @@
 }
 
 .fight-opponent-hp-container {
-    display: none;
     position: absolute;
-    top: 52px;
-    left: 99px;
-    height: 25px;
-    width: 37px;
+    top: 19px;
+    left: 32px;
+    height: 2px;
+    width: 48px;
     z-index: 5;
-    background-color: #e49be4;
+    background-color: #f8e8f8;
+}
+
+.fight-opponent-hp {
+    position: absolute;
+    height: 100%;
+    background-color: #6a8a71;
+    top: 0;
+    left: 0;
 }
 
 .fight-select-moves-img-container {

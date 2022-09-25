@@ -24,7 +24,6 @@ function getRandomDamage() {
 }
 
 function getTypingCalc(move, defendingPokemon) {
-    console.log({defendingPokemon})
     let firstTyping = calcTyping(move.type, defendingPokemon.dbData.types[0])
     let secondTyping = 1
     if(defendingPokemon.dbData.types[1]) {
