@@ -248,6 +248,89 @@ body {
   width: 16px;
 }
 
+.selected-pokemon-stats-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.selected-pokemon-img-container {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  height: 56px;
+  width: 56px;
+  background-color: #f6f9f8;
+}
+
+.selected-pokemon-img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.selected-pokemon-name-container {
+  position: absolute;
+  top: 8px;
+  left: 72px;
+  height: 8px;
+  width: 80px;
+  font-size: 8px;
+  background-color: #f6f9f8;
+}
+
+.selected-pokemon-level-container {
+  position: absolute;
+  top: 16px;
+  left: 120px;
+  height: 8px;
+  width: 24px;
+  font-size: 8px;
+  background-color: #f6f9f8;
+}
+
+.selected-pokemon-attack-container {
+  position: absolute;
+  top: 80px;
+  left: 48px;
+  background-color: #f6f9f8;
+  height: 8px;
+  width: 24px;
+  font-size: 8px;
+}
+
+.selected-pokemon-defense-container {
+  position: absolute;
+  top: 96px;
+  left: 48px;
+  background-color: #f6f9f8;
+  height: 8px;
+  width: 24px;
+  font-size: 8px;
+}
+
+.selected-pokemon-speed-container {
+  position: absolute;
+  top: 112px;
+  left: 48px;
+  background-color: #f6f9f8;
+  height: 8px;
+  width: 24px;
+  font-size: 8px;
+}
+
+.selected-pokemon-special-container {
+  position: absolute;
+  top: 128px;
+  left: 48px;
+  background-color: #f6f9f8;
+  height: 8px;
+  width: 24px;
+  font-size: 8px;
+}
+
 .fight-main-container {
   position: relative;
   top: 0px;
@@ -486,7 +569,7 @@ body {
   height: 16px;
   width: 16px;
   overflow: hidden;
-  top: 64px;
+  top: 58px;
   left: 64px;
   z-index: 5;
 }

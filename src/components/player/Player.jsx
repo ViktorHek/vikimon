@@ -57,6 +57,8 @@ const Player = () => {
         break;
       case 'x':
         dispatch({type: "SET_VIEW", payload: 'WildPokemonEncounter'})
+      case 'w':
+        dispatch({type: "SET_BACKPACK_VIEW", payload: 'displaySelectedPokemonStats'})
         break;
       default:
         console.log('is a valid key, but can not find the type @Player.jsx - identifyTypeOffKey()', {dir})

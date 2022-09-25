@@ -1,3 +1,5 @@
+import globals from "../../utils/globalVariables";
+
 const MovePointer = (dispatch, poinerPos, direction) => {
     let payload = { top: 1, left: 1 }
     const { top, left } = poinerPos
@@ -5,20 +7,41 @@ const MovePointer = (dispatch, poinerPos, direction) => {
     if (canGoDown(top, direction)) {
         console.log('down')
         payload = {
-            top: top - 16,
+            top: getTop(top),
+            // top: top - 16,
             left: left
         }
+        dispatch({ type: "SET_POINTER_POSITION", payload })
     }
     if (canGoUp(top, direction)) {
         console.log('up')
         payload = {
-            top: top + 16,
+            top: getDown(top),
             left: left
         }
+        dispatch({ type: "SET_POINTER_POSITION", payload })
     }
-
-    dispatch({ type: "SET_POINTER_POSITION", payload })
 };
+
+const payloadArr = globals.posiblePointerPositionInPokemonParty // [1, 17, 33, 49, 65, 81]
+
+function getDown(top) {
+    let index = payloadArr.indexOf(top)
+    if (index === payloadArr.length -1) {
+        return payloadArr[index]
+    } else {
+        return payloadArr[index + 1]
+    }
+}
+
+function getTop(top) {
+    let index = payloadArr.indexOf(top)
+    if (index === 0) {
+        return payloadArr[index]
+    } else {
+        return payloadArr[index - 1]
+    }
+}
 
 function canGoDown(top, direction) {
     if (direction !== 0 && top !== 1) {

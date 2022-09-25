@@ -13,7 +13,8 @@ const initialState = {
   pointerPositionFight: "",
   fightView: "init",
   damageOpponent: 0,
-  pointerPosition: { top: 1, left: 1 }
+  pointerPosition: { top: 1, left: 1 },
+  backPackView: 'init'
 }
 
 export default initialState

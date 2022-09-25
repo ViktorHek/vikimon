@@ -56,10 +56,14 @@ const rootReducer = (state = initialState, action) => {
         damageOpponent: action.payload
       }
     case 'SET_POINTER_POSITION':
-      console.log('getting here')
       return {
         ...state,
         pointerPosition: action.payload
+      }
+    case 'SET_BACKPACK_VIEW':
+      return {
+        ...state,
+        backPackView: action.payload
       }
     case "error_in_navigateFight":
       console.log(action.type)
