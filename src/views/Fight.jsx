@@ -37,7 +37,7 @@ const Fight = () => {
   async function populateParty() {
     let populatedPartyList = myPokemons;
     if (!populatedPartyList.length) {
-      let localStorageString = localStorage.getItem('bossPokemonParty')
+      let localStorageString = localStorage.getItem('myPokemonParty')
       let responce = await api.callPokiParty(localStorageString)
       populatedPartyList = responce.data
       dispatch({

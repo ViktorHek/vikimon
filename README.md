@@ -37,6 +37,10 @@ Total chars if maxed out = 33 + 252 + 119 + 324 + 390 + 4452 + 235 = 1353 + 4452
 Total = 9 + 10 + 6 + 8 = 33
 
 ### Pokemons
+
+ - example: 
+151 40 viktor@@@@ 0 s 01 01 02605 09405 00305 00405
+
 * 3N -- pokemon -- an Id corresponding to a pokemon in the DB <3>
 * 2N -- level -- represent the level of the pokemon where 00 = 100 <2>
 * 10C -- nickname -- a nickname to the pokemon provided by the user. if name = 'viktor', it would say 'viktor@@@@' <10>
