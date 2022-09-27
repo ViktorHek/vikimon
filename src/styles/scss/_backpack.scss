@@ -1,17 +1,15 @@
-.main_backpack_container {
-	position: relative;
-	top: 0px;
-	right: 0px;
-	background-color: green;
-	z-index: 9;
-	height: 90%;
-	width: 50%;
-}
-
 .main-backpack-container {
 	position: relative;
 	top: 0;
 	left: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.backpack-container-open {
+	position: relative;
+	height: 100%;
+	width: 100%;
 }
 
 .backpack-img-container {
@@ -259,4 +257,120 @@
 	height: 8px;
 	width: 24px;
 	font-size: 8px;
+}
+
+.menu-backgrond-container {
+	position: absolute;
+    top: 0;
+    right: 0;
+    height: 128px;
+    width: 50%;
+    z-index: 800;
+	background-color: whitesmoke;
+
+	.top-left-corner {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		height: 8px;
+		width: 8px;
+
+		svg {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+
+	.top-right-corner {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		height: 8px;
+		width: 8px;
+
+		svg {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+
+	.bottom-left-corner {
+		position: absolute;
+		top: 120px;
+		left: 0px;
+		height: 8px;
+		width: 8px;
+
+		svg {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+
+	.bottom-right-corner {
+		position: absolute;
+		top: 120px;
+		right: 0px;
+		height: 8px;
+		width: 8px;
+
+		svg {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+
+	.top-border {
+		position: absolute;
+		top: 0;
+		left: 8px;
+		height: 8px;
+		width: 64px;
+		svg {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+	}
+	.left-border {
+		position: absolute;
+		top: 8px;
+		left: 0px;
+		height: 112px;
+		width: 8px;
+		svg {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+	.right-border {
+		position: absolute;
+		top: 8px;
+		right: 0px;
+		height: 112px;
+		width: 8px;
+		svg {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+	.bottom-border {
+		position: absolute;
+		top: 120px;
+		left: 8px;
+		height: 8px;
+		width: 64px;
+		svg {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
 }

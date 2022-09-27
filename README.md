@@ -122,6 +122,7 @@ Total max = 19 + 200 + 16 = 235
 * trainer list is from pokemon green witch is taken from https://gamefaqs.gamespot.com/gameboy/924467-pokemon-green/faqs/12776 
 * sprites https://www.spriters-resource.com/game_boy_gbc/pokemonredblue/
 * pokemon sprites https://www.pokencyclopedia.info/en/index.php?id=sprites/gen1
+* inspiration https://github.com/pret/pokered 
 
 ## Syntax 
 

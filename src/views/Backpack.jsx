@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-
 import PokemonParty from '../components/backpack/PokemonParty'
 import OpenPokedex from '../components/backpack/OpenPokedex'
+import MenuBackgrond from '../animatios/backgronds/MenuBackgrond'
 
 const Backpack = () => {
   const { backpackOpen, backKey } = useSelector((state) => state)
@@ -31,13 +31,13 @@ const Backpack = () => {
       {
         openBackpack ? (
           <div className='backpack-container-open'>
+            {/* <MenuBackgrond /> */}
             <div className='backpack-img-container'>
               <img
                 src='images/items/backpack.png'
                 alt='Back Pack'
               />
             </div>
-
             {displaypokemons ? <PokemonParty /> : null}
             {displayPokedex ? <OpenPokedex /> : null}
 

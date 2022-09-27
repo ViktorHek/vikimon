@@ -33,6 +33,7 @@ body {
   height: 144px;
   width: 160px;
   overflow: hidden;
+  position: relative;
 }
 
 .absuluseP {
@@ -60,20 +61,18 @@ body {
   overflow: hidden;
 }
 
-.main_backpack_container {
-  position: relative;
-  top: 0px;
-  right: 0px;
-  background-color: green;
-  z-index: 9;
-  height: 90%;
-  width: 50%;
-}
-
 .main-backpack-container {
   position: relative;
   top: 0;
   left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.backpack-container-open {
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .backpack-img-container {
@@ -329,6 +328,128 @@ body {
   height: 8px;
   width: 24px;
   font-size: 8px;
+}
+
+.menu-backgrond-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 128px;
+  width: 50%;
+  z-index: 800;
+  background-color: whitesmoke;
+}
+
+.menu-backgrond-container .top-left-corner {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 8px;
+  width: 8px;
+}
+
+.menu-backgrond-container .top-left-corner svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.menu-backgrond-container .top-right-corner {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 8px;
+  width: 8px;
+}
+
+.menu-backgrond-container .top-right-corner svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.menu-backgrond-container .bottom-left-corner {
+  position: absolute;
+  top: 120px;
+  left: 0px;
+  height: 8px;
+  width: 8px;
+}
+
+.menu-backgrond-container .bottom-left-corner svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.menu-backgrond-container .bottom-right-corner {
+  position: absolute;
+  top: 120px;
+  right: 0px;
+  height: 8px;
+  width: 8px;
+}
+
+.menu-backgrond-container .bottom-right-corner svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.menu-backgrond-container .top-border {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  height: 8px;
+  width: 64px;
+}
+
+.menu-backgrond-container .top-border svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.menu-backgrond-container .left-border {
+  position: absolute;
+  top: 8px;
+  left: 0px;
+  height: 112px;
+  width: 8px;
+}
+
+.menu-backgrond-container .left-border svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.menu-backgrond-container .right-border {
+  position: absolute;
+  top: 8px;
+  right: 0px;
+  height: 112px;
+  width: 8px;
+}
+
+.menu-backgrond-container .right-border svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.menu-backgrond-container .bottom-border {
+  position: absolute;
+  top: 120px;
+  left: 8px;
+  height: 8px;
+  width: 64px;
+}
+
+.menu-backgrond-container .bottom-border svg {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .fight-main-container {
