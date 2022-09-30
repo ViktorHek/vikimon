@@ -7,23 +7,52 @@ import availableKeys from '../utils/availableKeys'
 import useKeys from '../hooks/use-keys'
 import NavigateFight from '../funktionality/inFightNavigation/NavigateFight'
 import calculator from '../funktionality/calculator'
+// import Font from '../animatios/font/Font'
+import Pointer from '../animatios/Pointer'
+import FightBackgrond from '../animatios/backgronds/FightBackgrond'
 
 const Fight = () => {
   const dispatch = useDispatch()
   const selector = useSelector((state) => state)
   const [pokiParty, setPokiParty] = useState([])
+  const [pointerPosition, setPointerPosition] = useState({})
   const { myPokemons, selectedAttackFronRedux } = selector
 
-  // let battleBackgrond = '/images/backgronds/battle/battleInterface_grass1.jpg'
-  let battleBackgrond = '/images/backgronds/battle/pokemon_battle_backgrond.jpg'
+  const PosiblePointerPositions = {
+    fight: {
+      top: 112,
+      left: 72,
+      posibleDirections: ['right', 'down']
+    },
+    item: {
+      top: 128,
+      left: 72,
+      posibleDirections: ['right', 'up']
+    },
+    pokemons: {
+      top: 112,
+      left: 120,
+      posibleDirections: ['left', 'down']
+    },
+    run: {
+      top: 128,
+      left: 120,
+      posibleDirections: ['left', 'up']
+    }
+  }
 
   useEffect(() => {
     populateParty()
+  }, [])
+  useEffect(() => {
+    setPointerPosition({
+      top: `${PosiblePointerPositions.fight.top}px`, 
+      left: `${PosiblePointerPositions.fight.left}px`
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
     calcDamage(selectedAttackFronRedux)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttackFronRedux])
 
   function calcDamage(attack) {
@@ -47,7 +76,7 @@ const Fight = () => {
     }
     setPokiParty(populatedPartyList)
   };
-  
+
   useKeys((event) => {
     // event.code is better for keys like space and shift
     const dir = event.key.toLowerCase()
@@ -71,13 +100,13 @@ const Fight = () => {
 
   return (
     <div className="fight-main-container">
-      <div className='fight-background-img-container'>
-        <img
-          src={battleBackgrond}
-          alt="error"
-          className='fight-backgrond-img'
-        />
+      <div className='fight-init-pointer-container' style={pointerPosition}>
+        <Pointer />
       </div>
+      <div className='fight-backgrond-container-in-fight'>
+        <FightBackgrond />
+      </div>
+
       {pokiParty.length ? <OpponentInFight data={pokiParty[1]} /> : null}
       {pokiParty.length ? <PlayerInFight data={pokiParty[0]} /> : null}
     </div>

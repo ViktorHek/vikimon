@@ -3,12 +3,15 @@ import { useSelector } from 'react-redux'
 import PokemonParty from '../components/backpack/PokemonParty'
 import OpenPokedex from '../components/backpack/OpenPokedex'
 import MenuBackgrond from '../animatios/backgronds/MenuBackgrond'
+import Font from '../animatios/font/Font'
 
 const Backpack = () => {
   const { backpackOpen, backKey } = useSelector((state) => state)
   const [openBackpack, setOpenBackpack] = useState(backpackOpen)
   const [displaypokemons, setDisplaypokemons] = useState(false)
   const [displayPokedex, setDisplayPokedex] = useState(false)
+
+  const backgrondPosition = { top: 0, left: 0, right: 72, bottom: 120 }
 
   useEffect(() => {
     setOpenBackpack(backpackOpen)
@@ -25,25 +28,55 @@ const Backpack = () => {
   function handleOpenPokedex() {
     setDisplayPokedex(!displayPokedex)
   }
+  function handleOpenItems() {
+    console.log('open items')
+  }
+  function handleDisplayUser() {
+    console.log('open user')
+  }
+  function handleSaveGame() {
+    console.log('handle save game')
+  }
+  function handleOpenOptions() {
+    console.log('open options')
+  }
+  function exitBackpack() {
+    console.log('exit backback')
+  }
 
   return (
     <div className="main-backpack-container">
       {
         openBackpack ? (
           <div className='backpack-container-open'>
-            {/* <MenuBackgrond /> */}
-            <div className='backpack-img-container'>
-              <img
-                src='images/items/backpack.png'
-                alt='Back Pack'
-              />
+            <div className='backpack-menu-backpack-container'>
+              <MenuBackgrond position={backgrondPosition} />
             </div>
             {displaypokemons ? <PokemonParty /> : null}
             {displayPokedex ? <OpenPokedex /> : null}
 
             <div className="backpack-container">
-              <div className='open-pokedex-box' onClick={handleOpenPokedex}></div>
-              <div className='open-party-box' onClick={handleDisplayParty}></div>
+              <div className='open-pokedex-box' onClick={handleOpenPokedex}>
+                <Font text="POKEDEX" />
+              </div>
+              <div className='open-party-box' onClick={handleDisplayParty}>
+                <Font text="POKEMON" />
+              </div>
+              <div className='open-items-box' onClick={handleOpenItems}>
+                <Font text="ITEM" />
+              </div>
+              <div className='open-name-box' onClick={handleDisplayUser}>
+                <Font text="VIKTOR" />
+              </div>
+              <div className='open-save-box' onClick={handleSaveGame}>
+                <Font text="SAVE" />
+              </div>
+              <div className='open-options-box' onClick={handleOpenOptions}>
+                <Font text="OPTION" />
+              </div>
+              <div className='exit-backback-box' onClick={exitBackpack}>
+                <Font text="EXIT" />
+              </div>
 
             </div>
           </div>

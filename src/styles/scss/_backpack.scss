@@ -61,20 +61,55 @@
 	font-size: 2.6rem;
 }
 
-.open-pokedex-box {
+.open-pokedex-box,
+.open-party-box,
+.open-items-box,
+.open-name-box,
+.open-save-box,
+.open-options-box,
+.exit-backback-box {
 	position: absolute;
-	top: 15px;
-	left: 95px;
-	height: 9px;
+	left: 96px;
+	height: 8px;
 	width: 57px;
 	z-index: 5000;
 	cursor: pointer;
 }
 
+.open-pokedex-box {
+	top: 16px;
+}
+
+.open-party-box {
+	top: 32;
+}
+
+.open-items-box {
+	top: 48px;
+}
+
+.open-name-box {
+	top: 64px;
+}
+
+.open-save-box {
+	top: 80px;
+}
+
+.open-options-box {
+	top: 96px;
+}
+
+.exit-backback-box {
+	top: 112px;
+}
+
+
+
 .open-party-box {
 	position: absolute;
-	top: 31px;
-	left: 95px;
+	top: 32px;
+	left: 96px;
 	height: 9px;
 	width: 57px;
 	z-index: 5000;
@@ -211,13 +246,14 @@
 	font-size: 8px;
 	background-color: #f6f9f8;
 }
+
 .selected-pokemon-level-container {
-    position: absolute;
-    top: 16px;
-    left: 120px;
-    height: 8px;
-    width: 24px;
-    font-size: 8px;
+	position: absolute;
+	top: 16px;
+	left: 120px;
+	height: 8px;
+	width: 24px;
+	font-size: 8px;
 	background-color: #f6f9f8;
 }
 
@@ -225,11 +261,12 @@
 	position: absolute;
 	top: 80px;
 	left: 48px;
-	background-color: #f6f9f8;	
+	background-color: #f6f9f8;
 	height: 8px;
 	width: 24px;
 	font-size: 8px;
 }
+
 .selected-pokemon-defense-container {
 	position: absolute;
 	top: 96px;
@@ -239,6 +276,7 @@
 	width: 24px;
 	font-size: 8px;
 }
+
 .selected-pokemon-speed-container {
 	position: absolute;
 	top: 112px;
@@ -252,26 +290,32 @@
 .selected-pokemon-special-container {
 	position: absolute;
 	top: 128px;
-    left: 48px;	
+	left: 48px;
 	background-color: #f6f9f8;
 	height: 8px;
 	width: 24px;
 	font-size: 8px;
 }
 
+.backpack-menu-backpack-container {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 50%;
+	height: 128px;
+}
+
 .menu-backgrond-container {
 	position: absolute;
-    top: 0;
-    right: 0;
-    height: 128px;
-    width: 50%;
-    z-index: 800;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 800;
 	background-color: whitesmoke;
 
 	.top-left-corner {
 		position: absolute;
-		top: 0px;
-		left: 0px;
 		height: 8px;
 		width: 8px;
 
@@ -284,8 +328,6 @@
 
 	.top-right-corner {
 		position: absolute;
-		top: 0px;
-		right: 0px;
 		height: 8px;
 		width: 8px;
 
@@ -298,8 +340,6 @@
 
 	.bottom-left-corner {
 		position: absolute;
-		top: 120px;
-		left: 0px;
 		height: 8px;
 		width: 8px;
 
@@ -312,8 +352,6 @@
 
 	.bottom-right-corner {
 		position: absolute;
-		top: 120px;
-		right: 0px;
 		height: 8px;
 		width: 8px;
 
@@ -326,10 +364,8 @@
 
 	.top-border {
 		position: absolute;
-		top: 0;
-		left: 8px;
 		height: 8px;
-		width: 64px;
+
 		svg {
 			position: absolute;
 			top: 0;
@@ -337,36 +373,33 @@
 		}
 
 	}
+
 	.left-border {
 		position: absolute;
-		top: 8px;
-		left: 0px;
-		height: 112px;
 		width: 8px;
+
 		svg {
 			position: absolute;
 			top: 0;
 			left: 0;
 		}
 	}
+
 	.right-border {
 		position: absolute;
-		top: 8px;
-		right: 0px;
-		height: 112px;
 		width: 8px;
+
 		svg {
 			position: absolute;
 			top: 0;
 			left: 0;
 		}
 	}
+
 	.bottom-border {
 		position: absolute;
-		top: 120px;
-		left: 8px;
 		height: 8px;
-		width: 64px;
+
 		svg {
 			position: absolute;
 			top: 0;

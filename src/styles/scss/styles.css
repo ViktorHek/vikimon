@@ -129,20 +129,53 @@ body {
   font-size: 2.6rem;
 }
 
-.open-pokedex-box {
+.open-pokedex-box,
+.open-party-box,
+.open-items-box,
+.open-name-box,
+.open-save-box,
+.open-options-box,
+.exit-backback-box {
   position: absolute;
-  top: 15px;
-  left: 95px;
-  height: 9px;
+  left: 96px;
+  height: 8px;
   width: 57px;
   z-index: 5000;
   cursor: pointer;
 }
 
+.open-pokedex-box {
+  top: 16px;
+}
+
+.open-party-box {
+  top: 32;
+}
+
+.open-items-box {
+  top: 48px;
+}
+
+.open-name-box {
+  top: 64px;
+}
+
+.open-save-box {
+  top: 80px;
+}
+
+.open-options-box {
+  top: 96px;
+}
+
+.exit-backback-box {
+  top: 112px;
+}
+
 .open-party-box {
   position: absolute;
-  top: 31px;
-  left: 95px;
+  top: 32px;
+  left: 96px;
   height: 9px;
   width: 57px;
   z-index: 5000;
@@ -330,20 +363,26 @@ body {
   font-size: 8px;
 }
 
+.backpack-menu-backpack-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 128px;
+}
+
 .menu-backgrond-container {
   position: absolute;
   top: 0;
   right: 0;
-  height: 128px;
-  width: 50%;
+  height: 100%;
+  width: 100%;
   z-index: 800;
   background-color: whitesmoke;
 }
 
 .menu-backgrond-container .top-left-corner {
   position: absolute;
-  top: 0px;
-  left: 0px;
   height: 8px;
   width: 8px;
 }
@@ -356,8 +395,6 @@ body {
 
 .menu-backgrond-container .top-right-corner {
   position: absolute;
-  top: 0px;
-  right: 0px;
   height: 8px;
   width: 8px;
 }
@@ -370,8 +407,6 @@ body {
 
 .menu-backgrond-container .bottom-left-corner {
   position: absolute;
-  top: 120px;
-  left: 0px;
   height: 8px;
   width: 8px;
 }
@@ -384,8 +419,6 @@ body {
 
 .menu-backgrond-container .bottom-right-corner {
   position: absolute;
-  top: 120px;
-  right: 0px;
   height: 8px;
   width: 8px;
 }
@@ -398,10 +431,7 @@ body {
 
 .menu-backgrond-container .top-border {
   position: absolute;
-  top: 0;
-  left: 8px;
   height: 8px;
-  width: 64px;
 }
 
 .menu-backgrond-container .top-border svg {
@@ -412,9 +442,6 @@ body {
 
 .menu-backgrond-container .left-border {
   position: absolute;
-  top: 8px;
-  left: 0px;
-  height: 112px;
   width: 8px;
 }
 
@@ -426,9 +453,6 @@ body {
 
 .menu-backgrond-container .right-border {
   position: absolute;
-  top: 8px;
-  right: 0px;
-  height: 112px;
   width: 8px;
 }
 
@@ -440,10 +464,7 @@ body {
 
 .menu-backgrond-container .bottom-border {
   position: absolute;
-  top: 120px;
-  left: 8px;
   height: 8px;
-  width: 64px;
 }
 
 .menu-backgrond-container .bottom-border svg {
@@ -457,6 +478,7 @@ body {
   top: 0px;
   left: 0px;
   height: 100%;
+  background-color: #f8e8f8;
 }
 
 .fight-background-img-container {
@@ -562,6 +584,12 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.fight-backgrond-container-in-fight {
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .fight-main-options-container {
@@ -685,6 +713,54 @@ body {
   cursor: pointer;
 }
 
+.fight-menu-backgrond-container {
+  position: absolute;
+  top: 96px;
+  left: 0;
+  height: 48px;
+  width: 100%;
+}
+
+.fight-init-options-menu-container {
+  position: absolute;
+  top: 96px;
+  left: 64px;
+  height: 48px;
+  width: 96px;
+}
+
+.fight-init-select-fight-text {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 8000;
+}
+
+.fight-init-select-item-text {
+  position: absolute;
+  top: 32px;
+  left: 16px;
+  z-index: 8000;
+}
+
+.fight-init-select-pokemon-text {
+  position: absolute;
+  top: 16px;
+  left: 64px;
+  z-index: 8000;
+}
+
+.fight-init-select-run-text {
+  position: absolute;
+  top: 32px;
+  left: 64px;
+  z-index: 8000;
+}
+
+.fight-init-pointer-container {
+  position: absolute;
+}
+
 .display-player-strite-container {
   position: relative;
   height: 16px;
@@ -704,6 +780,62 @@ body {
 }
 
 .player-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.main-font-container {
+  height: 8px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.font-word-container {
+  height: 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 1px;
+}
+
+.font-char-container {
+  height: 8px;
+  width: 8px;
+}
+
+.main-font-chars-container {
+  height: 8px;
+  width: 8px;
+  position: relative;
+}
+
+.main-font-chars-container svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.main-pointer-container {
+  height: 8px;
+  width: 8px;
+  z-index: 99999999;
+  position: relative;
+}
+
+.main-pointer-container svg {
   position: absolute;
   top: 0;
   left: 0;

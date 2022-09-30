@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import api from '../../database/api'
-import Pointer from '../svg/pointer';
+import Pointer from '../../animatios/Pointer';
 import globals from '../../utils/globalVariables'
 
 const PokemonParty = () => {

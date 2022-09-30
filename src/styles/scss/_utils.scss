@@ -1,0 +1,12 @@
+.main-pointer-container {
+    height: 8px;
+    width: 8px;
+    z-index: 99999999;
+    position: relative;
+
+    svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
