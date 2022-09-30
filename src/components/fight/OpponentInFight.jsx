@@ -25,11 +25,12 @@ const Fight = ({ data }) => {
     }, [])
 
     useEffect(() => {
-        applyAttack(damageOpponent)
+        applyAttack()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [damageOpponent])
 
-    function applyAttack(damageOpponent) {
-        if (!damageOpponent) return 
+    function applyAttack() {
+        if (!damageOpponent) return
         let healthAfterDamage = health - damageOpponent
 
         setHealth(healthAfterDamage)
@@ -47,7 +48,7 @@ const Fight = ({ data }) => {
 
     function opponentPokemonFaint() {
         console.log('YOU WIN!!')
-        dispatch({type: "SET_VIEW", payload: 'openWorld'})
+        dispatch({ type: "SET_VIEW", payload: 'openWorld' })
     }
 
     function populateData() {

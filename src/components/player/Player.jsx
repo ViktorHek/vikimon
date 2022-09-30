@@ -57,6 +57,7 @@ const Player = () => {
         break;
       case 'x':
         dispatch({type: "SET_VIEW", payload: 'WildPokemonEncounter'})
+        break;
       case 'w':
         dispatch({type: "SET_BACKPACK_VIEW", payload: 'displaySelectedPokemonStats'})
         break;

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import OptionsFight from './OptionsFight'
 
 const Fight = ({ data }) => {
-  const { selectedAttackFronRedux, fightView } = useSelector((state) => state)
+  const { fightView } = useSelector((state) => state)
   // const [selectedAttack, setSelectedAttack] = useState('')
   const [showSelectMove, setShowSelectMove] = useState(false)
   const [spriteUrl, setSpriteUrl] = useState("")

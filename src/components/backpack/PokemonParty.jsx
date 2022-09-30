@@ -26,11 +26,12 @@ const PokemonParty = () => {
 
 	useEffect(() => {
 		hansleBackKey()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [backKey])
 
 	function hansleBackKey() {
 		if (backPackView === 'displaySelectedPokemonStats') {
-			dispatch({type: "SET_BACKPACK_VIEW", payload: 'init'})
+			dispatch({ type: "SET_BACKPACK_VIEW", payload: 'init' })
 		}
 	}
 
@@ -80,9 +81,9 @@ const PokemonParty = () => {
 			setSelectedPokemon(index)
 			setBackgrondImgStyle({ position: 'absolute', bottom: '-1px', left: '-1px' })
 		} else {
-			setBackgrondImgStyle({ position: 'absolute', top: '-1px', left: '-1px' })			
+			setBackgrondImgStyle({ position: 'absolute', top: '-1px', left: '-1px' })
 		}
-		console.log({selectedPokemon})
+		console.log({ selectedPokemon })
 	}
 
 	function callSetSpriteUrl(index) {

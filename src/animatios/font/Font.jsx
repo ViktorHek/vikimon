@@ -8,8 +8,9 @@ const Font = ({ text }) => {
   function displayWord(word) {
     let charArr = word.split("")
     let chars = charArr.map((char) => {
+      let random = Math.random()
       return (
-        <div className='font-char-container'>
+        <div className='font-char-container' key={random}>
           <FontChars char={char} />
         </div>
       )
@@ -18,8 +19,9 @@ const Font = ({ text }) => {
   }
 
   const displayText = wordArr.map((word) => {
+    let random = Math.random()
     return (
-      <div className='font-word-container'>
+      <div className='font-word-container' key={random}>
         {displayWord(word)}
       </div>
     )

@@ -1,7 +1,6 @@
 
 const NavigateFight = (dispatch, direction, state) => {
   let fightView = "init"
-  let pointer = ""
   if (state.fightView === "init") {
     fightView = "selectMoves"
   } else {
@@ -10,17 +9,16 @@ const NavigateFight = (dispatch, direction, state) => {
   switch (direction) {
     // pionter start
     case 'arrowdown':
-      pointer = 'move-poiner-down'
-      /* falls through */
+      dispatch({ type: "SET_SELECT_POINTER_POSITION", payload: 'down' })
+      break;
     case 'arrowup':
-      pointer = 'move-poiner-up'
-      /* falls through */
+      dispatch({ type: "SET_SELECT_POINTER_POSITION", payload: 'up' })
+      break;
     case 'arrowleft':
-      pointer = 'move-poiner-left'
-      /* falls through */
+      dispatch({ type: "SET_SELECT_POINTER_POSITION", payload: 'left' })
+      break;
     case 'arrowright':
-      pointer = 'move-poiner-right'
-      dispatch({ type: "SET_SELECT_POINTER_POSITION", payload: pointer })
+      dispatch({ type: "SET_SELECT_POINTER_POSITION", payload: 'right' })
       break;
     // pointer stop
     case 'x':

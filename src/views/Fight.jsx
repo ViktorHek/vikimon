@@ -15,45 +15,65 @@ const Fight = () => {
   const dispatch = useDispatch()
   const selector = useSelector((state) => state)
   const [pokiParty, setPokiParty] = useState([])
-  const [pointerPosition, setPointerPosition] = useState({})
-  const { myPokemons, selectedAttackFronRedux } = selector
+  const [pointerPositionIndex, setPointerPositionIndex] = useState(0)
+  const { myPokemons, selectedAttackFronRedux, pointerPositionFight } = selector
 
-  const PosiblePointerPositions = {
-    fight: {
-      top: 112,
+  const PosiblePointerPositions = [
+    { 
+      top: 112, // fight
       left: 72,
-      posibleDirections: ['right', 'down']
     },
-    item: {
-      top: 128,
+    {
+      top: 112, // pokemon
+      left: 120,
+    },
+    {
+      top: 128, // item
       left: 72,
-      posibleDirections: ['right', 'up']
     },
-    pokemons: {
-      top: 112,
+    {
+      top: 128, // run
       left: 120,
-      posibleDirections: ['left', 'down']
-    },
-    run: {
-      top: 128,
-      left: 120,
-      posibleDirections: ['left', 'up']
     }
-  }
+  ]
+
 
   useEffect(() => {
     populateParty()
-  }, [])
-  useEffect(() => {
-    setPointerPosition({
-      top: `${PosiblePointerPositions.fight.top}px`, 
-      left: `${PosiblePointerPositions.fight.left}px`
-    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
+    changePointerPosition()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pointerPositionFight])
+  useEffect(() => {
     calcDamage(selectedAttackFronRedux)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttackFronRedux])
+
+  function changePointerPosition() {
+    switch (pointerPositionFight) {
+      case 'up':
+        if(pointerPositionIndex === 2) { setPointerPositionIndex(0) };
+        if(pointerPositionIndex === 3) { setPointerPositionIndex(1) };
+        break;
+      case 'down':
+        if(pointerPositionIndex === 0) { setPointerPositionIndex(2) };
+        if(pointerPositionIndex === 1) { setPointerPositionIndex(3) };
+        break;
+      case 'right':
+        if(pointerPositionIndex === 0) { setPointerPositionIndex(1) };
+        if(pointerPositionIndex === 2) { setPointerPositionIndex(3) };
+        break;
+      case 'left':
+        if(pointerPositionIndex === 1) { setPointerPositionIndex(0) };
+        if(pointerPositionIndex === 3) { setPointerPositionIndex(2) };
+        break;
+      default:
+        console.log('problem in changePointerPosition()');
+        break;
+      }
+  }
 
   function calcDamage(attack) {
     if (attack) {
@@ -100,7 +120,13 @@ const Fight = () => {
 
   return (
     <div className="fight-main-container">
-      <div className='fight-init-pointer-container' style={pointerPosition}>
+      <div 
+        className='fight-init-pointer-container' 
+        style={{
+          top: `${PosiblePointerPositions[pointerPositionIndex].top}px`, 
+          left: `${PosiblePointerPositions[pointerPositionIndex].left}px`
+        }}
+      >
         <Pointer />
       </div>
       <div className='fight-backgrond-container-in-fight'>
