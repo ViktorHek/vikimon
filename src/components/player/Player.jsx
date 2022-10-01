@@ -18,7 +18,7 @@ const Player = () => {
 
   useKeys((event) => {
     // event.code is better for keys like space and shift
-    const dir = event.key.toLowerCase()
+    const dir = event.code.toLowerCase()
     event.preventDefault()
     if (availableKeys.hasOwnProperty(dir)) {
       checkKeys(dir)
@@ -46,19 +46,19 @@ const Player = () => {
       case 'arrowright':
         moveTarget(dispatch, element)
         break;
-      case 'i':
+      case 'keyi':
         dispatch({type: "OPEN_BACKPACK"})
         break;
       case 'backspace':
         dispatch({type: "BACK_KEY"})
         break;
-      case 'r':
+      case 'keyr':
         dispatch({type: "SET_VIEW", payload: 'world'})
         break;
-      case 'x':
+      case 'keyx':
         dispatch({type: "SET_VIEW", payload: 'WildPokemonEncounter'})
         break;
-      case 'w':
+      case 'keyw':
         dispatch({type: "SET_BACKPACK_VIEW", payload: 'displaySelectedPokemonStats'})
         break;
       default:

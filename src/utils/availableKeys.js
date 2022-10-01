@@ -6,12 +6,15 @@ const WalkKeys = {
     arrowright: 3,
 
     // interaction
-    i: 'openBag',
-    space: 'dialog',
+    keyi: 'openBag',
+    space: 'enter',
+    enter: 'enter',
     backspace: 'back',
-    r: 'runFromBattle',
-    x: 'select',
-    w: 'view'
+    keyr: 'runFromBattle',
+    keyx: 'select',
+    keyw: 'view'
 }
+
+// digit1
 
 export default WalkKeys

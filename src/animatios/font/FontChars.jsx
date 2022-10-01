@@ -771,10 +771,29 @@ const FontChars = ({ char }) => {
         </svg>
       )
       break;
+    case "/":
+      svg = (
+        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+          <rect y="7" width="1" height="1" fill="black" />
+          <rect x="1" y="6" width="1" height="1" fill="black" />
+          <rect x="2" y="5" width="1" height="1" fill="black" />
+          <rect x="3" y="4" width="1" height="1" fill="black" />
+          <rect x="4" y="3" width="1" height="1" fill="black" />
+          <rect x="5" y="2" width="1" height="1" fill="black" />
+          <rect x="6" y="1" width="1" height="1" fill="black" />
+        </svg>
+      )
+      break;
+    case "-":
+      svg = (
+        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+          <rect x="1" y="4" width="6" height="1" fill="black" />
+        </svg>
+      )
+      break;
     default:
-      <div className='main-font-chars-container'>
-        <h1>ghghghghgh</h1>
-      </div>
+      console.log('no svg for character')
+      svg = char
       break;
   }
   return (

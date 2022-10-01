@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import OptionsFight from './OptionsFight'
+import Font from '../../animatios/font/Font'
 
-const Fight = ({ data }) => {
+const PlayerInFight = ({ data }) => {
   const { fightView } = useSelector((state) => state)
   // const [selectedAttack, setSelectedAttack] = useState('')
   const [showSelectMove, setShowSelectMove] = useState(false)
@@ -67,14 +68,14 @@ const Fight = ({ data }) => {
   return (
     <div>
       <div className='fight-users-mon-name-container' onClick={handleShowSelectMove}>
-        <span className='fight-users-mon-name'>{name ? name : dbName}</span>
+        <Font text={name ? name : dbName.toUpperCase()} />
       </div>
       <div className='fight-users-mon-level-container'>
-        <span>{level}</span>
+        <Font text={JSON.stringify(level)} />
       </div>
       <div className='fight-users-mon-hp-container'>
-        <span>{inFightStats.hp}</span>
-        <span>{data.stats.hp}</span>
+        <Font text={JSON.stringify(inFightStats.hp)} />
+        <Font text={JSON.stringify(data.stats.hp)} />
       </div>
       <div className="fight-users-mon-img-container">
         <img src={spriteUrl} alt='pokemon' className='absolute-img' />
@@ -84,4 +85,4 @@ const Fight = ({ data }) => {
   )
 }
 
-export default Fight
+export default PlayerInFight

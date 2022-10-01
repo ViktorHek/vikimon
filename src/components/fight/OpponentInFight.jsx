@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import Font from '../../animatios/font/Font'
 
 const Fight = ({ data }) => {
     const dispatch = useDispatch()
@@ -72,10 +73,10 @@ const Fight = ({ data }) => {
     return (
         <div className='fight-opponent-main-container'>
             <div className='fight-opponent-name-container'>
-                <p>{dbName}</p>
+                <Font text={dbName.toUpperCase()} />
             </div>
             <div className='fight-opponent-level-container'>
-                <p>{level}</p>
+                <Font text={JSON.stringify(level)} />
             </div>
             <div className='fight-opponent-hp-container'>
                 <span className='fight-opponent-hp' style={{ width: `${displayHealth}%` }}></span>

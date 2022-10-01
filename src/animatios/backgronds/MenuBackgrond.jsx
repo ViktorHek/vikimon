@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MenuBackgrond = ({ position }) => {
-
+ 
     const size = 8
     const {top, left, right, bottom} = position
 
@@ -122,8 +122,8 @@ const MenuBackgrond = ({ position }) => {
 
             <div className='left-border' style={leftBorder}>
                 <svg width={size} height="100%" viewBox="0 0 100% 100%" fill="none">
-                    <rect x="2" width="1" height="100%" fill="black" />
-                    <rect x="4" width="1" height="100%" fill="black" />
+                    <rect x="3" width="1" height="100%" fill="black" />
+                    <rect x="5" width="1" height="100%" fill="black" />
                 </svg>
             </div>
             <div className='right-border' style={rightBorder}>

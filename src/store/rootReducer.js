@@ -2,7 +2,7 @@ import initialState from './initialState'
 // import localStorrageManager from '../database/localStorrageManager'
 
 const rootReducer = (state = initialState, action) => {
-
+  console.log('@ reducer', action)
 
   switch (action.type) {
     case 'SET_PLAYER_MOVEMENT':
@@ -65,9 +65,6 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         backPackView: action.payload
       }
-    case "error_in_navigateFight":
-      console.log(action.type)
-      break
     default:
       return state
   }
