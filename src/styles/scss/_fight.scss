@@ -3,7 +3,7 @@
     top: 0px;
     left: 0px;
     height: 100%;
-    background-color: #f8e8f8;
+    background-color: $whiteColor;
 }
 
 .fight-background-img-container {
@@ -32,7 +32,7 @@
     left: 7px;
     // z-index: 5;
     overflow: hidden;
-    background-color: #f8e8f8;
+    background-color: $whiteColor;
 }
 
 .fight-users-mon-name-container {
@@ -43,7 +43,7 @@
     bottom: 80px;
     left: 79px;
     // z-index: 5;
-    background-color: #f8e8f8;
+    background-color: $whiteColor;
 
     span {
         font-size: 8px;
@@ -90,7 +90,7 @@
     right: 15px;
     // z-index: 5;
     overflow: hidden;
-    background-color: #f8e8f8;
+    background-color: $whiteColor;
 }
 
 .fight-opponent-mon-img {
@@ -120,7 +120,7 @@
     height: 8px;
     width: 104px;
     bottom: 25px;
-    background-color: #f8e8f8;
+    background-color: $whiteColor;
 }
 
 .fight-move-selecter-1 {
@@ -151,7 +151,7 @@
     height: 8px;
     width: 82px;
     // z-index: 5;
-    background-color: #f8e8f8;
+    background-color: $whiteColor;
 
     p {
         font-size: 8px;
@@ -165,7 +165,7 @@
     height: 8px;
     width: 12px;
     // z-index: 5;
-    background-color: #f8e8f8;
+    background-color: $whiteColor;
 
     p {
         font-size: 8px;
@@ -179,7 +179,7 @@
     height: 2px;
     width: 48px;
     // z-index: 5;
-    background-color: #f8e8f8;
+    background-color: $whiteColor;
 }
 
 .fight-opponent-hp {

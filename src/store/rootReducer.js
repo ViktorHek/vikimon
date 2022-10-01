@@ -35,15 +35,15 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         viewState: action.payload
       }
-    case 'SET_SELECT_IN_FIGHT':
-      return {
-        ...state,
-        selectInFight: !state.selectInFight
-      }
     case 'SET_FIGHT_VIEW':
       return {
         ...state,
         fightView: action.payload
+      }
+    case 'SET_SELECT_IN_FIGHT':
+      return {
+        ...state,
+        selectInFight: !state.selectInFight
       }
     case 'SET_SELECT_POINTER_POSITION':
       return {

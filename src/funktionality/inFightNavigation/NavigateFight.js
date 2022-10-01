@@ -1,30 +1,3 @@
-// function changePointerPosition() {
-//   console.log('pointerPositionIndex',pointerPositionIndex)
-//   switch (pointerPositionFight) {
-//     case 'up':
-//       if (pointerPositionIndex === 2) { setPointerPositionIndex(0) };
-//       if (pointerPositionIndex === 3) { setPointerPositionIndex(1) };
-//       if (pointerPositionIndex > 3) { setPointerPositionIndex(pointerPositionIndex - 1) };
-//       break;
-//     case 'down':
-//       if (pointerPositionIndex === 0) { setPointerPositionIndex(2) };
-//       if (pointerPositionIndex === 1) { setPointerPositionIndex(3) };
-//       if (pointerPositionIndex < 7) {setPointerPositionIndex(pointerPositionIndex + 1)}
-//       break;
-//     case 'right':
-//       if (pointerPositionIndex === 0) { setPointerPositionIndex(1) };
-//       if (pointerPositionIndex === 2) { setPointerPositionIndex(3) };
-//       break;
-//     case 'left':
-//       if (pointerPositionIndex === 1) { setPointerPositionIndex(0) };
-//       if (pointerPositionIndex === 3) { setPointerPositionIndex(2) };
-//       break;
-//     default:
-//       console.log('problem in changePointerPosition()');
-//       break;
-//   }
-// }
-
 const NavigateFight = (dispatch ,direction, index) => {
 
   switch (direction) {
@@ -49,11 +22,11 @@ const NavigateFight = (dispatch ,direction, index) => {
       return index
     // pointer stop
     case 'enter':
-      dispatch({ type: "SET_SELECT_IN_FIGHT" })
+      dispatch({ type: "SET_SELECT_IN_FIGHT", payload: true })
       return index
     case 'backspace':
       dispatch({ type: "BACK_KEY" })
-      return index
+      return 0
     case 'keyi':
       console.log('nav fight press i')
       // dispatch({ type: "SET_FIGHT_VIEW", payload: fightView })

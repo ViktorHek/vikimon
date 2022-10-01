@@ -33,17 +33,13 @@ const Fight = ({ data }) => {
     function applyAttack() {
         if (!damageOpponent) return
         let healthAfterDamage = health - damageOpponent
-
-        setHealth(healthAfterDamage)
-
         let healthPercent = healthAfterDamage / maxHealth
         let healthPercentToPixel = healthPercent * 100
-
+        setHealth(healthAfterDamage)        
         if (healthPercentToPixel < 1) {
             healthPercentToPixel = 0
             opponentPokemonFaint()
         }
-
         setDisplayHealth(healthPercentToPixel)
     }
 

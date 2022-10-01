@@ -15,10 +15,9 @@ const Fight = () => {
   const selector = useSelector((state) => state)
   const [pokiParty, setPokiParty] = useState([])
   const [pointerPositionIndex, setPointerPositionIndex] = useState(0)
-  const { myPokemons, selectedAttackFronRedux, pointerPositionFight, selectInFight, fightView } = selector
-  // remove pointerPositionFight from redux
+  const { myPokemons, selectedAttackFronRedux, selectInFight, fightView } = selector
 
-  const PosiblePointerPositions = [
+  const posiblePointerPositions = [
     {
       top: 112, // fight
       left: 72,
@@ -59,9 +58,15 @@ const Fight = () => {
   }, [])
 
   // useEffect(() => {
-  //   changePointerPosition()
+  //   console.log('fightView',fightView)
+  //   if (fightView === "init") {
+  //     setPointerPositionIndex(0)
+  //   }
+  //   if (fightView === "selectMoves") {
+  //     setPointerPositionIndex(4)
+  //   }
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [pointerPositionFight])
+  // }, [backKey])
 
   useEffect(() => {
     calcDamage(selectedAttackFronRedux)
@@ -69,7 +74,6 @@ const Fight = () => {
   }, [selectedAttackFronRedux])
 
   useEffect(() => {
-    console.log('selectInFight', selectInFight)
     handleSelect()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectInFight])
@@ -98,7 +102,7 @@ const Fight = () => {
   useKeys((event) => {
     // event.code is better for keys like space and shift
     const dir = event.code.toLowerCase();
-    console.log('dir',dir)
+    console.log('dir', dir)
     event.preventDefault()
     if (availableKeys.hasOwnProperty(dir)) {
       checkKeys(dir)
@@ -113,7 +117,7 @@ const Fight = () => {
         if (key === dir) {
           let newIndex = NavigateFight(dispatch, dir, pointerPositionIndex)
           setPointerPositionIndex(newIndex)
-          console.log('pointerPositionIndex',pointerPositionIndex)
+          console.log('pointerPositionIndex', pointerPositionIndex)
         }
       }
     }
@@ -121,6 +125,34 @@ const Fight = () => {
 
   function handleSelect() {
     if (!selectInFight) return
+    switch (pointerPositionIndex) {
+      case 0:
+        dispatch({ type: "SET_FIGHT_VIEW", payload: "selectMoves" })
+        break;
+      case 1:
+        console.log('selecting pokemon')
+        break;
+      case 2:
+        console.log('selecting items')
+        break;
+      case 3:
+        dispatch({ type: "SET_VIEW", payload: 'openWorld' })
+        break;
+      case 4:
+        dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[0] })
+        break;
+      case 5:
+        dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[1] })
+        break;
+      case 6:
+        dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[2] })
+        break;
+      case 7:
+        dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[3] })
+        break;
+      default:
+        break;
+    }
     if (fightView === "init") {
       if (pointerPositionIndex === 0) {
         dispatch({ type: "SET_FIGHT_VIEW", payload: "selectMoves" })
@@ -133,35 +165,11 @@ const Fight = () => {
       }
       if (pointerPositionIndex === 3) {
         console.log('selecting run')
+        dispatch({ type: "SET_VIEW", payload: 'openWorld' })
       }
-    }
-  }
 
-  function changePointerPosition(pointerPositionIndex) {
-    console.log('pointerPositionIndex',pointerPositionIndex)
-    switch (pointerPositionFight) {
-      case 'up':
-        if (pointerPositionIndex === 2) { setPointerPositionIndex(0) };
-        if (pointerPositionIndex === 3) { setPointerPositionIndex(1) };
-        if (pointerPositionIndex > 3) { setPointerPositionIndex(pointerPositionIndex - 1) };
-        break;
-      case 'down':
-        if (pointerPositionIndex === 0) { setPointerPositionIndex(2) };
-        if (pointerPositionIndex === 1) { setPointerPositionIndex(3) };
-        if (pointerPositionIndex < 7) {setPointerPositionIndex(pointerPositionIndex + 1)}
-        break;
-      case 'right':
-        if (pointerPositionIndex === 0) { setPointerPositionIndex(1) };
-        if (pointerPositionIndex === 2) { setPointerPositionIndex(3) };
-        break;
-      case 'left':
-        if (pointerPositionIndex === 1) { setPointerPositionIndex(0) };
-        if (pointerPositionIndex === 3) { setPointerPositionIndex(2) };
-        break;
-      default:
-        console.log('problem in changePointerPosition()');
-        break;
     }
+    dispatch({ type: "SET_SELECT_IN_FIGHT", payload: false })
   }
 
   function calcDamage(attack) {
@@ -177,8 +185,8 @@ const Fight = () => {
       <div
         className='fight-init-pointer-container'
         style={{
-          top: `${PosiblePointerPositions[pointerPositionIndex].top}px`,
-          left: `${PosiblePointerPositions[pointerPositionIndex].left}px`
+          top: `${posiblePointerPositions[pointerPositionIndex].top}px`,
+          left: `${posiblePointerPositions[pointerPositionIndex].left}px`
         }}
       >
         <Pointer />

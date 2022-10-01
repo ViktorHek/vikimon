@@ -377,7 +377,8 @@ body {
   right: 0;
   height: 100%;
   width: 100%;
-  background-color: whitesmoke;
+  background-color: #f8e8f8;
+  z-index: 1;
 }
 
 .menu-backgrond-container .top-left-corner {

@@ -312,7 +312,8 @@
 	height: 100%;
 	width: 100%;
 	// z-index: 800;
-	background-color: whitesmoke;
+	background-color: $whiteColor;
+	z-index: 1;
 
 	.top-left-corner {
 		position: absolute;
