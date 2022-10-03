@@ -46,13 +46,13 @@ const Player = () => {
         moveTarget(dispatch, element)
         break;
       case 'keyi':
-        // if (backpackOpen) {
-        //   dispatch({type: "OPEN_BACKPACK"})
-        // } else {
-        //   dispatch({type: "SET_POINTER_POSITION", payload: {index: 1, view: 'backpackInit', pointing_to: 'openPokedex'}})
-        //   dispatch({type: "OPEN_BACKPACK"})
-        // }
-        dispatch({type: "OPEN_BACKPACK"})
+        if (backpackOpen) {
+          dispatch({type: "OPEN_BACKPACK"})
+        } else {
+          dispatch({type: "SET_POINTER_POSITION", payload: {index: 1, view: 'backpackInit', pointing_to: 'openPokedex'}})
+          dispatch({type: "OPEN_BACKPACK"})
+        }
+        // dispatch({type: "OPEN_BACKPACK"})
         break;
       case 'backspace':
         dispatch({type: "SET_BACK_KEY"})

@@ -13,7 +13,7 @@ const initialState = {
   pointerPositionFight: "",
   fightView: "init",
   damageOpponent: 0,
-  pointerPosition: { top: 1, left: 1 },
+  pointerPosition: { index: 1, view: 'backpackInit', pointing_to: 'openPokedex' },
   backPackView: 'init'
 }
 

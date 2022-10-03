@@ -30,7 +30,7 @@ const payloadArr = globals.posiblePointerPositionInPokemonParty // [1, 17, 33, 4
 
 function getDown(top) {
     let index = payloadArr.indexOf(top)
-    if (index === payloadArr.length -1) {
+    if (index === payloadArr.length - 1) {
         return payloadArr[index]
     } else {
         return payloadArr[index + 1]

@@ -9,6 +9,7 @@ import NavigateFight from '../funktionality/move/NavigateFight'
 import calculator from '../funktionality/calculator'
 import Pointer from '../animatios/Pointer'
 import FightBackgrond from '../animatios/backgronds/FightBackgrond'
+import pointerPositions from '../utils/pointerPositions'
 
 const Fight = () => {
   const dispatch = useDispatch()
@@ -16,7 +17,7 @@ const Fight = () => {
   const [pokiParty, setPokiParty] = useState([])
   const [pointerPositionIndex, setPointerPositionIndex] = useState(0)
   const { myPokemons, selectedAttackFronRedux, selectInFight, fightView } = selector
-
+  const { battleInit, selectMoves } = pointerPositions
   const posiblePointerPositions = [
     {
       top: 112, // fight
@@ -79,9 +80,7 @@ const Fight = () => {
   }, [selectInFight])
 
   useEffect(() => {
-    if (fightView === "selectMoves") {
-      setPointerPositionIndex(4)
-    }
+    setPointerPositionIndex(0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fightView])
 
@@ -169,10 +168,18 @@ const Fight = () => {
     <div className="fight-main-container">
       <div
         className='fight-init-pointer-container'
-        style={{
-          top: `${posiblePointerPositions[pointerPositionIndex].top}px`,
-          left: `${posiblePointerPositions[pointerPositionIndex].left}px`
-        }}
+        style={
+          fightView === "init" ?
+            {
+              top: `${battleInit[pointerPositionIndex].top}px`,
+              left: `${battleInit[pointerPositionIndex].left}px`
+            }
+            :
+            {
+              top: `${selectMoves[pointerPositionIndex].top}px`,
+              left: `${selectMoves[pointerPositionIndex].left}px`
+            }
+        }
       >
         <Pointer />
       </div>
