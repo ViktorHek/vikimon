@@ -39,6 +39,12 @@ body {
   left: 0;
 }
 
+.relativeP {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
 @import 'maps';
 @import 'backpack';
 @import 'fight';

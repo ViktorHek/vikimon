@@ -1,11 +1,14 @@
 import globals from "../../utils/globalVariables";
 
-const MovePointer = (dispatch, poinerPos, direction) => {
-    let payload = { top: 1, left: 1 }
+const MovePointer = (dispatch, poinerPos, direction, backPackView) => {
+    console.log('move pointer', poinerPos, direction, backPackView)
+    let payload = { top: 0, left: 0 }
     const { top, left } = poinerPos
-
+    if (backPackView === "init") {
+        payload = { top: 0, left: 0 }
+    }
     if (canGoDown(top, direction)) {
-        console.log('down')
+        console.log('up')
         payload = {
             top: getTop(top),
             // top: top - 16,
@@ -14,7 +17,7 @@ const MovePointer = (dispatch, poinerPos, direction) => {
         dispatch({ type: "SET_POINTER_POSITION", payload })
     }
     if (canGoUp(top, direction)) {
-        console.log('up')
+        console.log('down')
         payload = {
             top: getDown(top),
             left: left

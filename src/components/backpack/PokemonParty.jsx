@@ -8,7 +8,7 @@ const PokemonParty = () => {
 	const dispatch = useDispatch()
 	const { myPokemons, pointerPosition, backPackView, backKey } = useSelector((state) => state);
 	const [pokeParty, setPokeParty] = useState([]);
-	const [pointerStyle, setPointerStyle] = useState({ top: 1, left: 1 })
+	const [pointerStyle, setPointerStyle] = useState({ top: 8, left: 0 })
 	const [backgrondImgStyle, setBackgrondImgStyle] = useState({ position: 'absolute', top: '-1px', left: '-1px' })
 	const [selectedPokemon, setSelectedPokemon] = useState({})
 	const [spriteUrl, setSpriteUrl] = useState("")

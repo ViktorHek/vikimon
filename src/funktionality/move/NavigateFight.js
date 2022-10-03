@@ -22,10 +22,11 @@ const NavigateFight = (dispatch ,direction, index) => {
       return index
     // pointer stop
     case 'enter':
+      console.log("SET_SELECT_IN_FIGHT")
       dispatch({ type: "SET_SELECT_IN_FIGHT", payload: true })
       return index
     case 'backspace':
-      dispatch({ type: "BACK_KEY" })
+      dispatch({ type: "SET_BACK_KEY" })
       return 0
     case 'keyi':
       console.log('nav fight press i')

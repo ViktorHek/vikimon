@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import OptionsFight from './OptionsFight'
 import Font from '../../animatios/font/Font'
 
 const PlayerInFight = ({ data }) => {
-  const { fightView } = useSelector((state) => state)
+  const dispatch = useDispatch()
+  const { fightView, backKey } = useSelector((state) => state)
   // const [selectedAttack, setSelectedAttack] = useState('')
   const [showSelectMove, setShowSelectMove] = useState(false)
   const [spriteUrl, setSpriteUrl] = useState("")
@@ -35,11 +36,20 @@ const PlayerInFight = ({ data }) => {
   //   console.log('pointerPositionFight2', pointerPositionFight)
   // }, [pointerPositionFight])
 
-  // useEffect(() => {
-  //   console.log('backKey2', backKey)
-  // }, [backKey])
+  useEffect(() => {
+    handleBackKey()
+  }, [backKey])
+
+  function handleBackKey() {
+    if (!backKey) return;
+    let payload = "init"
+    setView(payload)
+    dispatch({ type: "SET_FIGHT_VIEW", payload: payload })
+    dispatch({ type: "SET_BACK_KEY", payload: false })
+  }
 
   useEffect(() => {
+    console.log({ fightView })
     setView(fightView)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fightView])

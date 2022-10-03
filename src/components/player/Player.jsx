@@ -10,14 +10,13 @@ import DisplayPlayerSprite from './DisplayPlayerSprite';
 const Player = () => {
   const dispatch = useDispatch()
   const [mainPlayerDir, setMainPlayerDir] = useState({ x: 17, y: 0 })
-  const { playermovement, backpackOpen, pointerPosition } = useSelector((state) => state)
+  const { playermovement, backpackOpen, pointerPosition, backPackView } = useSelector((state) => state)
 
   useEffect(() => {
     setMainPlayerDir(playermovement.sprite)
   }, [playermovement, mainPlayerDir])
 
   useKeys((event) => {
-    // event.code is better for keys like space and shift
     const dir = event.code.toLowerCase()
     event.preventDefault()
     if (availableKeys.hasOwnProperty(dir)) {
@@ -47,10 +46,16 @@ const Player = () => {
         moveTarget(dispatch, element)
         break;
       case 'keyi':
+        // if (backpackOpen) {
+        //   dispatch({type: "OPEN_BACKPACK"})
+        // } else {
+        //   dispatch({type: "SET_POINTER_POSITION", payload: {index: 1, view: 'backpackInit', pointing_to: 'openPokedex'}})
+        //   dispatch({type: "OPEN_BACKPACK"})
+        // }
         dispatch({type: "OPEN_BACKPACK"})
         break;
       case 'backspace':
-        dispatch({type: "BACK_KEY"})
+        dispatch({type: "SET_BACK_KEY"})
         break;
       case 'keyr':
         dispatch({type: "SET_VIEW", payload: 'world'})
@@ -69,7 +74,7 @@ const Player = () => {
 
   function moveTarget(dispatch, element) {
     if(backpackOpen) {
-      MovePointer(dispatch, pointerPosition, element)
+      MovePointer(dispatch, pointerPosition, element, backPackView)
     } else {
       PlayerMove(dispatch, playermovement, element)
     }

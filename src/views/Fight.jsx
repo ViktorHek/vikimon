@@ -5,7 +5,7 @@ import PlayerInFight from '../components/fight/PlayerInFight'
 import OpponentInFight from '../components/fight/OpponentInFight'
 import availableKeys from '../utils/availableKeys'
 import useKeys from '../hooks/use-keys'
-import NavigateFight from '../funktionality/inFightNavigation/NavigateFight'
+import NavigateFight from '../funktionality/move/NavigateFight'
 import calculator from '../funktionality/calculator'
 import Pointer from '../animatios/Pointer'
 import FightBackgrond from '../animatios/backgronds/FightBackgrond'
@@ -124,6 +124,7 @@ const Fight = () => {
   }
 
   function handleSelect() {
+    console.log('handleSelect()', pointerPositionIndex, selectInFight)
     if (!selectInFight) return
     switch (pointerPositionIndex) {
       case 0:
@@ -152,22 +153,6 @@ const Fight = () => {
         break;
       default:
         break;
-    }
-    if (fightView === "init") {
-      if (pointerPositionIndex === 0) {
-        dispatch({ type: "SET_FIGHT_VIEW", payload: "selectMoves" })
-      }
-      if (pointerPositionIndex === 1) {
-        console.log('selecting pokemon')
-      }
-      if (pointerPositionIndex === 2) {
-        console.log('selecting items')
-      }
-      if (pointerPositionIndex === 3) {
-        console.log('selecting run')
-        dispatch({ type: "SET_VIEW", payload: 'openWorld' })
-      }
-
     }
     dispatch({ type: "SET_SELECT_IN_FIGHT", payload: false })
   }

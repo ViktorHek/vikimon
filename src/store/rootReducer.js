@@ -15,7 +15,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         backpackOpen: !state.backpackOpen
       }
-    case 'BACK_KEY':
+    case 'SET_BACK_KEY':
       return {
         ...state,
         backKey: !state.backKey
