@@ -12,37 +12,6 @@
 	width: 80%;
 }
 
-.backpack-container-open {
-	position: relative;
-	height: 100%;
-	width: 100%;
-}
-
-.backpack-img-container {
-	height: $GameHeight;
-	width: $GameWidth;
-	position: absolute;
-	top: 0;
-	right: 0;
-	z-index: 600;
-
-	img {
-		height: 100%;
-		width: 100%;
-	}
-}
-
-.backpack_container {
-	display: flex;
-	flex-direction: column;
-	margin-top: 13%;
-}
-
-.backpack_option_container {
-	margin-left: 50px;
-	cursor: pointer;
-}
-
 .main_pokemon_party_container {
 	position: absolute;
 	top: 0;
@@ -61,10 +30,6 @@
 		height: 292px;
 		width: 324px;
 	}
-}
-
-.backpack_text {
-	font-size: 2.6rem;
 }
 
 .open-pokedex-box,
@@ -305,99 +270,26 @@
 	right: 0;
 	height: 100%;
 	width: 100%;
-	// z-index: 800;
 	background-color: $whiteColor;
 
-	.top-left-corner {
-		position: absolute;
-		height: 8px;
-		width: 8px;
-
-		svg {
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
-	}
-
-	.top-right-corner {
-		position: absolute;
-		height: 8px;
-		width: 8px;
-
-		svg {
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
-	}
-
-	.bottom-left-corner {
-		position: absolute;
-		height: 8px;
-		width: 8px;
-
-		svg {
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
-	}
-
+	.top-left-corner,
+	.top-right-corner,
+	.bottom-left-corner, 
 	.bottom-right-corner {
 		position: absolute;
 		height: 8px;
 		width: 8px;
-
-		svg {
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
 	}
 
+	.bottom-border,
 	.top-border {
 		position: absolute;
 		height: 8px;
-
-		svg {
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
-
 	}
 
-	.left-border {
-		position: absolute;
-		width: 8px;
-
-		svg {
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
-	}
-
+	.left-border, 
 	.right-border {
 		position: absolute;
 		width: 8px;
-
-		svg {
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
-	}
-
-	.bottom-border {
-		position: absolute;
-		height: 8px;
-
-		svg {
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
 	}
 }

@@ -116,7 +116,7 @@ const PokemonParty = () => {
 	});
 
 	return (
-		<div className='main_pokemon_party_container'>
+		<div className='absolute-full-size'>
 			<div className='pokemon-party-backgrond-container'>
 				<img src='images/items/pokemonInBag_red.jpg' alt='Poki Party' style={backgrondImgStyle} />
 			</div>

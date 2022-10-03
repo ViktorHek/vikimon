@@ -9,12 +9,12 @@ body {
   background-color: #0d1230;
 }
 
-.absolute-img {
-  height: 100%;
-  width: 100%;
+.absolute-size-100 {
   position: absolute;
   top: 0;
   left: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .main_game_container {
@@ -33,7 +33,7 @@ body {
   position: relative;
 }
 
-.absuluseP {
+.absoluteP {
   position: absolute;
   top: 0;
   left: 0;
@@ -43,6 +43,14 @@ body {
   position: relative;
   height: 100%;
   width: 100%;
+}
+
+.absolute-full-size {
+  position: absolute;
+	top: 0;
+	right: 0;
+	height: $GameHeight;
+	width: $GameWidth;
 }
 
 @import 'maps';

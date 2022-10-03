@@ -84,7 +84,7 @@ const PlayerInFight = ({ data }) => {
         <Font text={JSON.stringify(data.stats.hp)} />
       </div>
       <div className="fight-users-mon-img-container">
-        <img src={spriteUrl} alt='pokemon' className='absolute-img' />
+        <img src={spriteUrl} alt='pokemon' className='absolute-size-100' />
       </div>
       {view === "selectMoves" ? <OptionsFight data={data} /> : null}
     </div>
