@@ -13,8 +13,9 @@ const initialState = {
   pointerPositionFight: "",
   fightView: "init",
   damageOpponent: 0,
-  pointerPosition: { index: 1, view: 'backpackInit', pointing_to: 'openPokedex' },
-  backPackView: 'init'
+  pointerPosition: { index: 0, view: 'backpackInit' },
+  backPackView: 'backpackInit',
+  selectInWorld: false
 }
 
 export default initialState

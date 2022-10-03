@@ -65,6 +65,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         backPackView: action.payload
       }
+    case 'SET_SELECT_IN_WORLD':
+      return {
+        ...state,
+        selectInWorld: action.payload
+      }
     default:
       return state
   }

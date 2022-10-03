@@ -129,7 +129,7 @@ const PokemonParty = () => {
 			>
 				<Pointer />
 			</div>
-			{backPackView === 'init' ? (
+			{backPackView === 'backpackInit' ? (
 				<div className='pokemon-party-list-container'>
 					{pokemonList && pokemonList}
 				</div>
