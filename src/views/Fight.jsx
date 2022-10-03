@@ -16,58 +16,21 @@ const Fight = () => {
   const selector = useSelector((state) => state)
   const [pokiParty, setPokiParty] = useState([])
   const [pointerPositionIndex, setPointerPositionIndex] = useState(0)
-  const { myPokemons, selectedAttackFronRedux, selectInFight, fightView } = selector
+  const { myPokemons, selectedAttackFronRedux, selectInFight, fightView, pointerPosition } = selector
   const { battleInit, selectMoves } = pointerPositions
-  const posiblePointerPositions = [
-    {
-      top: 112, // fight
-      left: 72,
-    },
-    {
-      top: 112, // pokemon
-      left: 120,
-    },
-    {
-      top: 128, // item
-      left: 72,
-    },
-    {
-      top: 128, // run
-      left: 120,
-    },
-    {
-      top: 104, // move 1
-      left: 40
-    },
-    {
-      top: 112, // move 2
-      left: 40
-    },
-    {
-      top: 120, // move 3
-      left: 40
-    },
-    {
-      top: 128, // move 4
-      left: 40
-    }
-  ]
 
   useEffect(() => {
     populateParty()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  useEffect(() => {
+    handlePointer()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pointerPosition])
 
-  // useEffect(() => {
-  //   console.log('fightView',fightView)
-  //   if (fightView === "init") {
-  //     setPointerPositionIndex(0)
-  //   }
-  //   if (fightView === "selectMoves") {
-  //     setPointerPositionIndex(4)
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [backKey])
+  function handlePointer() {
+
+  }
 
   useEffect(() => {
     calcDamage(selectedAttackFronRedux)
@@ -114,9 +77,9 @@ const Fight = () => {
     for (const key in availableKeys) {
       if (Object.hasOwnProperty.call(availableKeys, key)) {
         if (key === dir) {
-          let newIndex = NavigateFight(dispatch, dir, pointerPositionIndex)
+          let newIndex = NavigateFight(dispatch, dir, pointerPositionIndex, fightView)
+          console.log('newIndex',newIndex)
           setPointerPositionIndex(newIndex)
-          console.log('pointerPositionIndex', pointerPositionIndex)
         }
       }
     }
@@ -125,33 +88,40 @@ const Fight = () => {
   function handleSelect() {
     console.log('handleSelect()', pointerPositionIndex, selectInFight)
     if (!selectInFight) return
-    switch (pointerPositionIndex) {
-      case 0:
-        dispatch({ type: "SET_FIGHT_VIEW", payload: "selectMoves" })
-        break;
-      case 1:
-        console.log('selecting pokemon')
-        break;
-      case 2:
-        console.log('selecting items')
-        break;
-      case 3:
-        dispatch({ type: "SET_VIEW", payload: 'openWorld' })
-        break;
-      case 4:
-        dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[0] })
-        break;
-      case 5:
-        dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[1] })
-        break;
-      case 6:
-        dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[2] })
-        break;
-      case 7:
-        dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[3] })
-        break;
-      default:
-        break;
+    if( fightView === "battleInit" ) {
+      switch (pointerPositionIndex) {
+        case 0:
+          dispatch({ type: "SET_FIGHT_VIEW", payload: "selectMoves" })
+          break;
+        case 1:
+          console.log('selecting pokemon')
+          break;
+        case 2:
+          console.log('selecting items')
+          break;
+        case 3:
+          dispatch({ type: "SET_VIEW", payload: 'openWorld' })
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (pointerPositionIndex) {
+        case 0:
+          dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[0] })
+          break;
+        case 1:
+          dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[1] })
+          break;
+        case 2:
+          dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[2] })
+          break;
+        case 3:
+          dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[3] })
+          break;
+        default:
+          break;
+      }
     }
     dispatch({ type: "SET_SELECT_IN_FIGHT", payload: false })
   }
@@ -169,7 +139,7 @@ const Fight = () => {
       <div
         className='fight-init-pointer-container'
         style={
-          fightView === "init" ?
+          fightView === "battleInit" ?
             {
               top: `${battleInit[pointerPositionIndex].top}px`,
               left: `${battleInit[pointerPositionIndex].left}px`

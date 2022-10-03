@@ -9,7 +9,7 @@ const PlayerInFight = ({ data }) => {
   // const [selectedAttack, setSelectedAttack] = useState('')
   const [showSelectMove, setShowSelectMove] = useState(false)
   const [spriteUrl, setSpriteUrl] = useState("")
-  const [view, setView] = useState("init")
+  const [view, setView] = useState("battleInit")
 
   const { id, level, name } = data;
   const dbName = data.dbData.name
@@ -32,17 +32,13 @@ const PlayerInFight = ({ data }) => {
   //   console.log('selectInFight2', selectInFight)
   // }, [selectInFight])
 
-  // useEffect(() => {
-  //   console.log('pointerPositionFight2', pointerPositionFight)
-  // }, [pointerPositionFight])
-
   useEffect(() => {
     handleBackKey()
   }, [backKey])
 
   function handleBackKey() {
     if (!backKey) return;
-    let payload = "init"
+    let payload = "battleInit"
     setView(payload)
     dispatch({ type: "SET_FIGHT_VIEW", payload: payload })
     dispatch({ type: "SET_BACK_KEY", payload: false })

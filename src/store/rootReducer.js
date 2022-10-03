@@ -45,11 +45,6 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         selectInFight: !state.selectInFight
       }
-    case 'SET_SELECT_POINTER_POSITION':
-      return {
-        ...state,
-        pointerPositionFight: action.payload
-      }
     case 'SET_DAMAGE_TO_OPPONENT':
       return {
         ...state,
