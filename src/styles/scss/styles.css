@@ -84,21 +84,6 @@ body {
   width: 50%;
 }
 
-.backpack-container {
-  position: relative;
-  height: 112px;
-  width: 80%;
-}
-
-.main_pokemon_party_container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 144px;
-  width: 160px;
-  z-index: 1000;
-}
-
 .pokemon-party-backgrond-container {
   position: relative;
   height: 100%;
@@ -121,7 +106,6 @@ body {
   left: 16px;
   height: 8px;
   width: 57px;
-  z-index: 5000;
   cursor: pointer;
 }
 
@@ -153,60 +137,16 @@ body {
   top: 112px;
 }
 
-.pokemon-party-list-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding-left: 7px;
-}
-
-.mon-in-bag-container-0 {
-  position: relative;
-  height: 16px;
-  font-size: 4px;
-  width: 153px;
-}
-
-.mon-in-bag-container-1 {
-  position: relative;
-  height: 16px;
-  font-size: 4px;
-  width: 153px;
-}
-
-.mon-in-bag-container-2 {
-  position: relative;
-  height: 16px;
-  font-size: 4px;
-  width: 153px;
-}
-
-.mon-in-bag-container-3 {
-  position: relative;
-  height: 16px;
-  font-size: 4px;
-  width: 153px;
-}
-
-.mon-in-bag-container-4 {
-  position: relative;
-  height: 16px;
-  font-size: 4px;
-  width: 153px;
-}
-
+.mon-in-bag-container-0,
+.mon-in-bag-container-1,
+.mon-in-bag-container-2,
+.mon-in-bag-container-3,
+.mon-in-bag-container-4,
 .mon-in-bag-container-5 {
   position: relative;
   height: 16px;
   font-size: 4px;
-  width: 153px;
-}
-
-.mon-in-bag-container-6 {
-  position: relative;
-  height: 16px;
-  font-size: 4px;
-  width: 153px;
+  width: 154px;
 }
 
 .mon-in-bag-name-container {
@@ -334,14 +274,6 @@ body {
   font-size: 8px;
 }
 
-.backpack-menu-backpack-container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-}
-
 .menu-backgrond-container {
   position: absolute;
   top: 0;
@@ -380,25 +312,6 @@ body {
   background-color: #f8e8f8;
 }
 
-.fight-background-img-container {
-  position: relative;
-  top: 0px;
-  left: 0px;
-  height: 144px;
-  width: 160px;
-  overflow: hidden;
-}
-
-.fight-backgrond-img {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  -o-object-fit: fill;
-     object-fit: fill;
-}
-
 .fight-users-mon-img-container {
   position: absolute;
   height: 58px;
@@ -419,10 +332,8 @@ body {
   bottom: 80px;
   left: 79px;
   background-color: #f8e8f8;
-}
-
-.fight-users-mon-name-container span {
   font-size: 8px;
+  font-weight: bold;
 }
 
 .fight-users-mon-level-container {
@@ -434,9 +345,6 @@ body {
   width: 16px;
   bottom: 72px;
   left: 120px;
-}
-
-.fight-users-mon-level-container span {
   font-size: 8px;
   font-weight: bold;
 }
@@ -457,10 +365,8 @@ body {
       -ms-flex-align: center;
           align-items: center;
   gap: 8px;
-}
-
-.fight-users-mon-hp-container span {
   font-size: 10px;
+  font-weight: bold;
 }
 
 .fight-opponent-mon-img-container {
@@ -471,14 +377,6 @@ body {
   right: 15px;
   overflow: hidden;
   background-color: #f8e8f8;
-}
-
-.fight-opponent-mon-img {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 .fight-backgrond-container-in-fight {
@@ -495,40 +393,30 @@ body {
   left: 0;
 }
 
-.fight-move-selecter-0 {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 8px;
-  width: 104px;
-  bottom: 25px;
-  background-color: #f8e8f8;
-}
-
-.fight-move-selecter-1 {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 8px;
-  width: 104px;
-  bottom: 54px;
-}
-
-.fight-move-selecter-2 {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 8px;
-  width: 104px;
-  bottom: 30px;
-}
-
+.fight-move-selecter-0,
+.fight-move-selecter-1,
+.fight-move-selecter-2,
 .fight-move-selecter-3 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 8px;
   width: 104px;
+}
+
+.fight-move-selecter-0 {
+  bottom: 25px;
+}
+
+.fight-move-selecter-1 {
+  bottom: 54px;
+}
+
+.fight-move-selecter-2 {
+  bottom: 30px;
+}
+
+.fight-move-selecter-3 {
   bottom: 8px;
 }
 
@@ -539,9 +427,6 @@ body {
   height: 8px;
   width: 82px;
   background-color: #f8e8f8;
-}
-
-.fight-opponent-name-container p {
   font-size: 8px;
 }
 
@@ -552,9 +437,6 @@ body {
   height: 8px;
   width: 12px;
   background-color: #f8e8f8;
-}
-
-.fight-opponent-level-container p {
   font-size: 8px;
 }
 
@@ -583,14 +465,6 @@ body {
   left: 32px;
 }
 
-.fight-select-moves-img-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0px;
-  left: 0px;
-}
-
 .fight-select-moves-img-container-2 {
   position: absolute;
   height: 40px;
@@ -612,11 +486,6 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-}
-
-.fight-move-text {
-  font-size: 8px;
-  cursor: pointer;
 }
 
 .fight-menu-backgrond-container {
@@ -657,10 +526,6 @@ body {
   position: absolute;
   top: 32px;
   left: 64px;
-}
-
-.fight-init-pointer-container {
-  position: absolute;
 }
 
 .display-player-strite-container {

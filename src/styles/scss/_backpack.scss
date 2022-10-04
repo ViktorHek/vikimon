@@ -6,21 +6,6 @@
 	width: 50%;
 }
 
-.backpack-container {
-	position: relative;
-	height: 112px;
-	width: 80%;
-}
-
-.main_pokemon_party_container {
-	position: absolute;
-	top: 0;
-	right: 0;
-	height: $GameHeight;
-	width: $GameWidth;
-	z-index: 1000;
-}
-
 .pokemon-party-backgrond-container {
 	position: relative;
 	height: 100%;
@@ -43,92 +28,26 @@
 	left: 16px;
 	height: 8px;
 	width: 57px;
-	z-index: 5000;
 	cursor: pointer;
 }
+.open-pokedex-box { top: 16px; }
+.open-party-box { top: 32px; }
+.open-items-box { top: 48px; }
+.open-name-box { top: 64px; }
+.open-save-box { top: 80px; }
+.open-options-box { top: 96px; }
+.exit-backback-box { top: 112px; }
 
-.open-pokedex-box {
-	top: 16px;
-}
-
-.open-party-box {
-	top: 32px;
-}
-
-.open-items-box {
-	top: 48px;
-}
-
-.open-name-box {
-	top: 64px;
-}
-
-.open-save-box {
-	top: 80px;
-}
-
-.open-options-box {
-	top: 96px;
-}
-
-.exit-backback-box {
-	top: 112px;
-}
-
-.pokemon-party-list-container {
-	position: absolute;
-	top: 0;
-	left: 0;
-	padding-left: 7px;
-}
-
-.mon-in-bag-container-0 {
-	position: relative;
-	height: 16px;
-	font-size: 4px;
-	width: 153px;
-}
-
-.mon-in-bag-container-1 {
-	position: relative;
-	height: 16px;
-	font-size: 4px;
-	width: 153px;
-}
-
-.mon-in-bag-container-2 {
-	position: relative;
-	height: 16px;
-	font-size: 4px;
-	width: 153px;
-}
-
-.mon-in-bag-container-3 {
-	position: relative;
-	height: 16px;
-	font-size: 4px;
-	width: 153px;
-}
-
-.mon-in-bag-container-4 {
-	position: relative;
-	height: 16px;
-	font-size: 4px;
-	width: 153px;
-}
-
+.mon-in-bag-container-0,
+.mon-in-bag-container-1,
+.mon-in-bag-container-2,
+.mon-in-bag-container-3,
+.mon-in-bag-container-4,
 .mon-in-bag-container-5 {
 	position: relative;
 	height: 16px;
 	font-size: 4px;
-	width: 153px;
-}
-
-.mon-in-bag-container-6 {
-	position: relative;
-	height: 16px;
-	font-size: 4px;
-	width: 153px;
+	width: 154px;
 }
 
 .mon-in-bag-name-container {
@@ -137,7 +56,7 @@
 	left: 17px;
 	height: 8px;
 	width: 80px;
-	background-color: #f7f5f5;
+	background-color: $thirdWhite;
 }
 
 .mon-in-bag-level-container {
@@ -146,7 +65,7 @@
 	right: 32px;
 	height: 8px;
 	width: 25px;
-	background-color: #f7f5f5;
+	background-color: $thirdWhite;
 }
 
 .mon-in-bag-character-container {
@@ -155,7 +74,7 @@
 	position: absolute;
 	top: 0;
 	left: 0px;
-	background-color: #f7f5f5;
+	background-color: $thirdWhite;
 }
 
 .mon-in-bag-hp-container {
@@ -164,7 +83,7 @@
 	right: 0;
 	height: 8px;
 	width: 57px;
-	background-color: #f7f5f5;
+	background-color: $thirdWhite;
 }
 
 .pokemon-party-poiner-container {
@@ -185,7 +104,7 @@
 	left: 8px;
 	height: 56px;
 	width: 56px;
-	background-color: #f6f9f8;
+	background-color: $whiteSecondary;
 
 	img {
 		position: absolute;
@@ -203,7 +122,7 @@
 	height: 8px;
 	width: 80px;
 	font-size: 8px;
-	background-color: #f6f9f8;
+	background-color: $whiteSecondary;
 }
 
 .selected-pokemon-level-container {
@@ -213,14 +132,14 @@
 	height: 8px;
 	width: 24px;
 	font-size: 8px;
-	background-color: #f6f9f8;
+	background-color: $whiteSecondary;
 }
 
 .selected-pokemon-attack-container {
 	position: absolute;
 	top: 80px;
 	left: 48px;
-	background-color: #f6f9f8;
+	background-color: $whiteSecondary;
 	height: 8px;
 	width: 24px;
 	font-size: 8px;
@@ -230,7 +149,7 @@
 	position: absolute;
 	top: 96px;
 	left: 48px;
-	background-color: #f6f9f8;
+	background-color: $whiteSecondary;
 	height: 8px;
 	width: 24px;
 	font-size: 8px;
@@ -240,7 +159,7 @@
 	position: absolute;
 	top: 112px;
 	left: 48px;
-	background-color: #f6f9f8;
+	background-color: $whiteSecondary;
 	height: 8px;
 	width: 24px;
 	font-size: 8px;
@@ -250,18 +169,10 @@
 	position: absolute;
 	top: 128px;
 	left: 48px;
-	background-color: #f6f9f8;
+	background-color: $whiteSecondary;
 	height: 8px;
 	width: 24px;
 	font-size: 8px;
-}
-
-.backpack-menu-backpack-container {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 100%;
-	height: 100%;
 }
 
 .menu-backgrond-container {

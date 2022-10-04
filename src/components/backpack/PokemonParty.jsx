@@ -130,7 +130,7 @@ const PokemonParty = () => {
 				<Pointer />
 			</div>
 			{backPackView === 'backpackInit' ? (
-				<div className='pokemon-party-list-container'>
+				<div className='absoluteP' style={{paddingLeft: '6px'}}>
 					{pokemonList && pokemonList}
 				</div>
 			) : null}

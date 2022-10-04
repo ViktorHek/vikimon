@@ -6,8 +6,6 @@ import Font from '../../animatios/font/Font'
 const PlayerInFight = ({ data }) => {
   const dispatch = useDispatch()
   const { fightView, backKey } = useSelector((state) => state)
-  // const [selectedAttack, setSelectedAttack] = useState('')
-  const [showSelectMove, setShowSelectMove] = useState(false)
   const [spriteUrl, setSpriteUrl] = useState("")
   const [view, setView] = useState("battleInit")
 
@@ -28,9 +26,17 @@ const PlayerInFight = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // useEffect(() => {
-  //   console.log('selectInFight2', selectInFight)
-  // }, [selectInFight])
+  function populateData() {
+    setPokemonImgUrl(id)
+  }
+
+  function setPokemonImgUrl(id) {
+    let imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/back/${id}.png`
+    if (!id) {
+      imgUrl = '/images/pokemons/b_green-supgb_151_back.png'
+    }
+    setSpriteUrl(imgUrl)
+  }
 
   useEffect(() => {
     handleBackKey()
@@ -45,35 +51,13 @@ const PlayerInFight = ({ data }) => {
   }
 
   useEffect(() => {
-    console.log({ fightView })
     setView(fightView)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fightView])
 
-  // useEffect(() => {
-  //   setSelectedAttack(selectedAttackFronRedux)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [selectedAttackFronRedux])
-
-  function populateData() {
-    setPokemonImgUrl(id)
-  }
-
-  function setPokemonImgUrl(id) {
-    let imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/back/${id}.png`
-    if (!id) {
-      imgUrl = '/images/pokemons/b_green-supgb_151_back.png'
-    }
-    setSpriteUrl(imgUrl)
-  }
-
-  function handleShowSelectMove() {
-    setShowSelectMove(!showSelectMove)
-  }
-
   return (
     <div>
-      <div className='fight-users-mon-name-container' onClick={handleShowSelectMove}>
+      <div className='fight-users-mon-name-container'>
         <Font text={name ? name : dbName.toUpperCase()} />
       </div>
       <div className='fight-users-mon-level-container'>

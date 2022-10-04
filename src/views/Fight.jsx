@@ -137,15 +137,16 @@ const Fight = () => {
   return (
     <div className="fight-main-container">
       <div
-        className='fight-init-pointer-container'
         style={
           fightView === "battleInit" ?
             {
+              position: 'absolute',
               top: `${battleInit[pointerPositionIndex].top}px`,
               left: `${battleInit[pointerPositionIndex].left}px`
             }
             :
             {
+              position: 'absolute',
               top: `${selectMoves[pointerPositionIndex].top}px`,
               left: `${selectMoves[pointerPositionIndex].left}px`
             }
@@ -153,7 +154,7 @@ const Fight = () => {
       >
         <Pointer />
       </div>
-      <div className='fight-backgrond-container-in-fight'>
+      <div className='relativeP'>
         <FightBackgrond />
       </div>
 

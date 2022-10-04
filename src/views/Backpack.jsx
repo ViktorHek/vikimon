@@ -49,13 +49,13 @@ const Backpack = () => {
       {
         openBackpack ? (
           <div className='relativeP'>
-            <div className='backpack-menu-backpack-container'>
+            <div className='absolute-size-100'>
               <MenuBackgrond position={backgrondPosition} />
             </div>
             {displayContent === 'pokemon' ? <PokemonParty /> : null}
             {displayContent === 'pokedex' ? <OpenPokedex /> : null}
 
-            <div className="backpack-container">
+            <div className="relativeP">
               <div style={{ position: 'absolute', top: `${pointerPositionIndex}px`, left: '8px' }}>
                 <Pointer />
               </div>
