@@ -1,10 +1,13 @@
 import React from 'react'
+import globals from '../../utils/globalVariables'
 
 const Pointer = () => {
 
+    const { fontSize } = globals
+
     return (
         <div className='main-pointer-container'>
-            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width={fontSize} height={fontSize} viewBox="0 0 8 8" fill="none">
                 <rect x="1" y="1" width="2" height="7" fill="black" />
                 <rect x="3" y="2" width="1" height="5" fill="black" />
                 <rect x="4" y="3" width="1" height="3" fill="black" />
