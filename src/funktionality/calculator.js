@@ -9,12 +9,13 @@ function damageCalculation(attackingPokemon, defendingPokemon, move) {
     let STAB = getStab(attackingPokemon, move)
     let typingCalc = getTypingCalc(move, defendingPokemon)
     let random = getRandomDamage()
-    // calculation brackdonw
+
     let firstCalc = 2 * attackingPokemon.level * isCrit
     let secondCalc = (firstCalc / 5) + 2
     let thirdCalc = secondCalc * move.power * AD
     let fourthCalc = thirdCalc / 50 + 2
     let fifthCalc = fourthCalc * STAB * typingCalc * random
+    console.log('damage crit and random: ', isCrit, random)
     return fifthCalc
 }
 
@@ -55,28 +56,37 @@ function getStab(attackingPokemon, move) {
 
 function getattackDefenceDifferance(attackingPokemon, defendingPokemon, isCrit, move) {
 
-    if(isCrit === 2) {
-        if (move.meta.damage_class === 'physical') {
-            return attackingPokemon.stats.attack / defendingPokemon.stats.defense
-        } else if (move.meta.damage_class === 'special') {
-            return attackingPokemon.stats.special / defendingPokemon.stats.special
-        } else {
-            return 0
-        }
+    if (move.meta.damage_class === 'physical') {
+        return attackingPokemon.stats.attack / defendingPokemon.stats.defense
+    } else if (move.meta.damage_class === 'special') {
+        return attackingPokemon.stats.special / defendingPokemon.stats.special
     } else {
-        if(attackingPokemon.statChange === {} && defendingPokemon.statChange === {}) {
-            if (move.meta.damage_class === 'physical') {
-                return attackingPokemon.stats.attack / defendingPokemon.stats.defense
-            } else if (move.meta.damage_class === 'special') {
-                return attackingPokemon.stats.special / defendingPokemon.stats.special
-            } else {
-                return 0
-            }
-        } else {
-            console.log('attack is not critikal and stats are changed')
-            return attackingPokemon.stats.attack / defendingPokemon.stats.defense // change
-        }
+        return 0
     }
+
+
+    // if(isCrit === 2) {
+    //     if (move.meta.damage_class === 'physical') {
+    //         return attackingPokemon.stats.attack / defendingPokemon.stats.defense
+    //     } else if (move.meta.damage_class === 'special') {
+    //         return attackingPokemon.stats.special / defendingPokemon.stats.special
+    //     } else {
+    //         return 0
+    //     }
+    // } else {
+    //     if(attackingPokemon.statChange === {} && defendingPokemon.statChange === {}) {
+    //         if (move.meta.damage_class === 'physical') {
+    //             return attackingPokemon.stats.attack / defendingPokemon.stats.defense
+    //         } else if (move.meta.damage_class === 'special') {
+    //             return attackingPokemon.stats.special / defendingPokemon.stats.special
+    //         } else {
+    //             return 0
+    //         }
+    //     } else {
+    //         console.log('attack is not critikal and stats are changed')
+    //         return attackingPokemon.stats.attack / defendingPokemon.stats.defense // change
+    //     }
+    // }
 }
 
 const calculator = {

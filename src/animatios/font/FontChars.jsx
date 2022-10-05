@@ -795,7 +795,7 @@ const FontChars = ({ char }) => {
       )
       break;
     default:
-      console.log('no svg for character')
+      console.log('no svg for character', char)
       svg = (
         <div style={{width: fontSize, height: fontSize, position: 'absolute', top: '0px', left: '0px'}}>
           {char}

@@ -64,12 +64,11 @@ const Fight = () => {
   useKeys((event) => {
     // event.code is better for keys like space and shift
     const dir = event.code.toLowerCase();
-    console.log('dir', dir)
     event.preventDefault()
     if (availableKeys.hasOwnProperty(dir)) {
       checkKeys(dir)
     } else {
-      console.log('Not a valid Key @Fight.jsx - useKey()', { dir })
+      console.log('Not a valid Key @Fight.jsx - useKey()', dir)
     }
   })
 
@@ -78,7 +77,6 @@ const Fight = () => {
       if (Object.hasOwnProperty.call(availableKeys, key)) {
         if (key === dir) {
           let newIndex = NavigateFight(dispatch, dir, pointerPositionIndex, fightView)
-          console.log('newIndex',newIndex)
           setPointerPositionIndex(newIndex)
         }
       }
@@ -86,7 +84,6 @@ const Fight = () => {
   }
 
   function handleSelect() {
-    console.log('handleSelect()', pointerPositionIndex, selectInFight)
     if (!selectInFight) return
     if( fightView === "battleInit" ) {
       switch (pointerPositionIndex) {

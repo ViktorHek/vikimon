@@ -67,7 +67,6 @@ const Player = () => {
         dispatch({type: "SET_BACKPACK_VIEW", payload: 'displaySelectedPokemonStats'})
         break;
       case 'enter':
-        console.log("SET_SELECT_IN_WORLD")
         dispatch({ type: "SET_SELECT_IN_WORLD", payload: true })
       default:
         console.log('is a valid key, but can not find the type @Player.jsx - identifyTypeOffKey()', {dir})

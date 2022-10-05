@@ -2,7 +2,6 @@ import initialState from './initialState'
 // import localStorrageManager from '../database/localStorrageManager'
 
 const rootReducer = (state = initialState, action) => {
-  console.log('@ reducer', action)
 
   switch (action.type) {
     case 'SET_PLAYER_MOVEMENT':

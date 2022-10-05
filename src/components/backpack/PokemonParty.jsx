@@ -38,7 +38,6 @@ const PokemonParty = () => {
 	useEffect(() => {
 		setPointerStyle(pointerPosition)
 		callSetSelectedPokemon(pointerPosition)
-		console.log('pointerStyle', pointerStyle)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [pointerPosition])
 
@@ -57,18 +56,6 @@ const PokemonParty = () => {
 		setPokeParty(populatedPartyList)
 	};
 
-	function getPokemonDataFromId(id) {
-		if (myPokemons.length) {
-			myPokemons.forEach((el) => {
-				if (el.id === parseInt(id)) {
-					console.log({ el })
-				}
-			})
-		} else {
-			console.log('no pokemons in myPokemons')
-		}
-	}
-
 	function callSetSelectedPokemon(pointerPosition) {
 		let index = pointerPositionArray.indexOf(pointerPosition.top)
 		setSelectedPokemon(index)
@@ -83,7 +70,6 @@ const PokemonParty = () => {
 		} else {
 			setBackgrondImgStyle({ position: 'absolute', top: '-1px', left: '-1px' })
 		}
-		console.log({ selectedPokemon })
 	}
 
 	function callSetSpriteUrl(index) {
@@ -98,7 +84,7 @@ const PokemonParty = () => {
 	let pokemonList = pokeParty.map((el, index) => {
 		let className = `mon-in-bag-container-${index}`
 		return (
-			<div key={el.uid} onClick={() => getPokemonDataFromId(el.id)} className={className}>
+			<div key={el.uid} className={className}>
 				<div className='mon-in-bag-name-container'>
 					<span>{el.name}</span>
 				</div>
