@@ -41,16 +41,11 @@
 
 .fight-users-mon-hp-container {
     position: absolute;
-    right: 16px;
+    right: 8px;
     bottom: 56px;
     height: 8px;
-    width: 58px;
+    width: 64px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    font-size: 10px;
-    font-weight: bold;
 }
 
 .fight-opponent-mon-img-container {

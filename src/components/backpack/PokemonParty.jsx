@@ -5,6 +5,7 @@ import Pointer from '../../animatios/Pointer';
 import globals from '../../utils/globalVariables'
 import HealthBar from '../../animatios/HealthBar'
 import Font from '../../animatios/font/Font'
+import MenuBackgrond from '../../animatios/backgronds/MenuBackgrond'
 
 const PokemonParty = () => {
 	const dispatch = useDispatch()
@@ -15,6 +16,8 @@ const PokemonParty = () => {
 	const [selectedPokemon, setSelectedPokemon] = useState({})
 	const [spriteUrl, setSpriteUrl] = useState("")
 	const pointerPositionArray = globals.posiblePointerPositionInPokemonParty
+
+	const menuBackgrondInitPos = { top: 0, left: 0, right: 152, bottom: 40 }
 
 	useEffect(() => {
 		populatePokemonParty();
@@ -88,16 +91,23 @@ const PokemonParty = () => {
 		return (
 			<div key={el.uid} className={className}>
 				<div className='mon-in-bag-name-container'>
-					<Font text={el.name} />
+					<Font text={el.name.toUpperCase()} />
 				</div>
 				<div className='mon-in-bag-level-container'>
-					<Font text={`LV ${el.level}`} />
+					<svg width={8} height={8} viewBox="0 0 8 8" fill="none" className='absoluteP'>
+						<rect x="1" y="3" width="1" height="1" fill="black" />
+						<rect x="1" y="5" width="1" height="1" fill="black" />
+						<rect x="3" y="2" width="2" height="5" fill="black" />
+						<rect x="5" y="6" width="2" height="1" fill="black" />
+					</svg>
+					<Font text={JSON.stringify(el.level)} style={{marginLeft: '8px'}}/>
 				</div>
 				<div className='mon-in-bag-character-container'>
+					<img src='images/players/pokemon-icons-for-party.png' alt=''/>
 					<span></span>
 				</div>
 				<div className='mon-in-bag-hp-bar-container'>
-					<HealthBar data={{ maxHealth: 100, curretnHelath: 50 }} />
+					<HealthBar data={{ maxHealth: 100, curretnHelath: 100 }} />
 				</div>
 				<div className='mon-in-bag-hp-container'>
 					<Font text={`${el.stats.hp}/${el.stats.hp}`} />
@@ -128,6 +138,13 @@ const PokemonParty = () => {
 			{backPackView === 'backpackInit' ? (
 				<div className='absoluteP' style={{ paddingLeft: '6px' }}>
 					{pokemonList && pokemonList}
+					<div style={{ position: 'absolute', left: 0, top: 96, height: '48px', width: '100%' }}>
+						<MenuBackgrond position={menuBackgrondInitPos} />
+						<span style={{ position: 'absolute', left: 8, top: 16, height: '32px', width: '144px' }}>
+							<Font text="Choose a POKEMON" />
+						</span>
+					</div>
+
 				</div>
 			) : null}
 			{backPackView === 'displaySelectedPokemonStats' ? (

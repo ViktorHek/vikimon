@@ -65,12 +65,13 @@
 }
 
 .mon-in-bag-level-container {
-	position: absolute;
-	top: 0;
-	right: 32px;
-	height: 8px;
-	width: 24px;
-	background-color: $thirdWhite;
+    position: absolute;
+    top: 0;
+    right: 24px;
+    height: 8px;
+    width: 24px;
+    background-color: #f7f5f5;
+    padding-left: 8px;
 }
 
 .mon-in-bag-character-container {
@@ -80,6 +81,15 @@
 	top: 0;
 	left: 0px;
 	background-color: $thirdWhite;
+	overflow: hidden;
+
+	img {
+		height: 171px;
+		width: 35px;
+		position: absolute;
+		top: -1px;
+		left: -1px;
+	}
 }
 
 .mon-in-bag-hp-container {
@@ -94,7 +104,7 @@
 .mon-in-bag-hp-bar-container {
 	position: absolute;
 	top: 8px;
-	left: 24px;
+	left: 16px;
 	height: 8px;
 	width: 80px;
 	background-color: $thirdWhite;
