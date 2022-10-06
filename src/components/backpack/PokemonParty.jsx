@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import api from '../../database/api'
 import Pointer from '../../animatios/Pointer';
 import globals from '../../utils/globalVariables'
+import HealthBar from '../../animatios/HealthBar'
+import Font from '../../animatios/font/Font'
 
 const PokemonParty = () => {
 	const dispatch = useDispatch()
@@ -86,26 +88,34 @@ const PokemonParty = () => {
 		return (
 			<div key={el.uid} className={className}>
 				<div className='mon-in-bag-name-container'>
-					<span>{el.name}</span>
+					<Font text={el.name} />
 				</div>
 				<div className='mon-in-bag-level-container'>
-					<span>{el.level}</span>
+					<Font text={`LV ${el.level}`} />
 				</div>
 				<div className='mon-in-bag-character-container'>
 					<span></span>
 				</div>
+				<div className='mon-in-bag-hp-bar-container'>
+					<HealthBar data={{ maxHealth: 100, curretnHelath: 50 }} />
+				</div>
 				<div className='mon-in-bag-hp-container'>
-					<span>{el.hp}</span>
+					<Font text={`${el.stats.hp}/${el.stats.hp}`} />
 				</div>
 			</div>
 		)
 	});
 
 	return (
-		<div className='absolute-full-size'>
-			<div className='pokemon-party-backgrond-container'>
+		<div className='absolute-full-size main-pokemon-party-container'>
+			{/* <div className='pokemon-party-backgrond-container'>
 				<img src='images/items/pokemonInBag_red.jpg' alt='Poki Party' style={backgrondImgStyle} />
-			</div>
+			</div> */}
+			{/* <div style={{
+				height: '8px', width: '80px', position: 'absolute', top: 8, left: 24, zIndex: 999
+			}}>
+				<HealthBar data={{ maxHealth: 100, curretnHelath: 50 }} />
+			</div> */}
 			<div
 				className='pokemon-party-poiner-container'
 				style={{
@@ -116,7 +126,7 @@ const PokemonParty = () => {
 				<Pointer />
 			</div>
 			{backPackView === 'backpackInit' ? (
-				<div className='absoluteP' style={{paddingLeft: '6px'}}>
+				<div className='absoluteP' style={{ paddingLeft: '6px' }}>
 					{pokemonList && pokemonList}
 				</div>
 			) : null}

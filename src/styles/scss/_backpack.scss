@@ -6,6 +6,11 @@
 	width: 50%;
 }
 
+.main-pokemon-party-container {
+	background-color: $thirdWhite;
+	z-index: 10;
+}
+
 .pokemon-party-backgrond-container {
 	position: relative;
 	height: 100%;
@@ -53,7 +58,7 @@
 .mon-in-bag-name-container {
 	position: absolute;
 	top: 0;
-	left: 17px;
+	left: 16px;
 	height: 8px;
 	width: 80px;
 	background-color: $thirdWhite;
@@ -64,13 +69,13 @@
 	top: 0;
 	right: 32px;
 	height: 8px;
-	width: 25px;
+	width: 24px;
 	background-color: $thirdWhite;
 }
 
 .mon-in-bag-character-container {
 	height: 16px;
-	width: 17px;
+	width: 16px;
 	position: absolute;
 	top: 0;
 	left: 0px;
@@ -82,7 +87,16 @@
 	bottom: 0px;
 	right: 0;
 	height: 8px;
-	width: 57px;
+	width: 56px;
+	background-color: $thirdWhite;
+}
+
+.mon-in-bag-hp-bar-container {
+	position: absolute;
+	top: 8px;
+	left: 24px;
+	height: 8px;
+	width: 80px;
 	background-color: $thirdWhite;
 }
 
