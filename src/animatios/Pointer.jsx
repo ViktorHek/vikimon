@@ -1,5 +1,5 @@
 import React from 'react'
-import globals from '../../utils/globalVariables'
+import globals from '../utils/globalVariables'
 
 const Pointer = () => {
 
