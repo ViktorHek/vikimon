@@ -24,7 +24,7 @@ const MenuBackgrond = ({ position }) => {
     }
     const leftBorder = { 
         top: `${top + 8}px`, 
-        left: `${left}px`, 
+        left: `${left - 1}px`, 
         height: `${bottom - 8}px` 
     }
     const bottomBorder = { 
