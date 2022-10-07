@@ -85,7 +85,7 @@ body {
 }
 
 .main-pokemon-party-container {
-  background-color: #f7f5f5;
+  background-color: #f8e8f8;
   z-index: 10;
 }
 
@@ -160,7 +160,7 @@ body {
   left: 16px;
   height: 8px;
   width: 80px;
-  background-color: #f7f5f5;
+  background-color: #f8e8f8;
 }
 
 .mon-in-bag-level-container {
@@ -179,7 +179,7 @@ body {
   position: absolute;
   top: 0;
   left: 0px;
-  background-color: #f7f5f5;
+  background-color: #f8e8f8;
   overflow: hidden;
 }
 
@@ -197,7 +197,7 @@ body {
   right: 0;
   height: 8px;
   width: 56px;
-  background-color: #f7f5f5;
+  background-color: #f8e8f8;
 }
 
 .mon-in-bag-hp-bar-container {
@@ -206,7 +206,7 @@ body {
   left: 16px;
   height: 8px;
   width: 80px;
-  background-color: #f7f5f5;
+  background-color: #f8e8f8;
 }
 
 .pokemon-party-poiner-container {
@@ -229,7 +229,7 @@ body {
   left: 8px;
   height: 56px;
   width: 56px;
-  background-color: #f6f9f8;
+  background-color: #f8e8f8;
 }
 
 .selected-pokemon-img-container img {
@@ -247,7 +247,7 @@ body {
   height: 8px;
   width: 80px;
   font-size: 8px;
-  background-color: #f6f9f8;
+  background-color: #f8e8f8;
 }
 
 .selected-pokemon-level-container {
@@ -257,14 +257,14 @@ body {
   height: 8px;
   width: 24px;
   font-size: 8px;
-  background-color: #f6f9f8;
+  background-color: #f8e8f8;
 }
 
 .selected-pokemon-attack-container {
   position: absolute;
   top: 80px;
   left: 48px;
-  background-color: #f6f9f8;
+  background-color: #f8e8f8;
   height: 8px;
   width: 24px;
   font-size: 8px;
@@ -274,7 +274,7 @@ body {
   position: absolute;
   top: 96px;
   left: 48px;
-  background-color: #f6f9f8;
+  background-color: #f8e8f8;
   height: 8px;
   width: 24px;
   font-size: 8px;
@@ -284,7 +284,7 @@ body {
   position: absolute;
   top: 112px;
   left: 48px;
-  background-color: #f6f9f8;
+  background-color: #f8e8f8;
   height: 8px;
   width: 24px;
   font-size: 8px;
@@ -294,7 +294,7 @@ body {
   position: absolute;
   top: 128px;
   left: 48px;
-  background-color: #f6f9f8;
+  background-color: #f8e8f8;
   height: 8px;
   width: 24px;
   font-size: 8px;
