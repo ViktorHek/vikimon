@@ -9,8 +9,8 @@ import DisplayPlayerSprite from './DisplayPlayerSprite';
 
 const Player = () => {
   const dispatch = useDispatch()
-  const [mainPlayerDir, setMainPlayerDir] = useState({ x: 17, y: 0 })
   const { playermovement, backpackOpen, pointerPosition, backPackView } = useSelector((state) => state)
+  const [mainPlayerDir, setMainPlayerDir] = useState({ x: 17, y: 0 })
 
   useEffect(() => {
     setMainPlayerDir(playermovement.sprite)
@@ -22,7 +22,7 @@ const Player = () => {
     if (availableKeys.hasOwnProperty(dir)) {
       checkKeys(dir)
     } else {
-      console.log('Not a valid Key @Player.jsx - useKey()', {dir})
+      console.log('Not a valid Key @Player.jsx - useKey()', { dir })
     }
   })
 
@@ -47,35 +47,33 @@ const Player = () => {
         break;
       case 'keyi':
         if (backpackOpen) {
-          dispatch({type: "OPEN_BACKPACK"})
+          dispatch({ type: "OPEN_BACKPACK" })
         } else {
-          dispatch({type: "SET_POINTER_POSITION", payload: {index: 1, view: 'backpackInit', pointing_to: 'openPokedex'}})
-          dispatch({type: "OPEN_BACKPACK"})
+          dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: 'backpackInit' } })
+          dispatch({ type: "OPEN_BACKPACK" })
         }
         // dispatch({type: "OPEN_BACKPACK"})
         break;
       case 'backspace':
-        dispatch({type: "SET_BACK_KEY"})
-        break;
-      case 'keyr':
-        dispatch({type: "SET_VIEW", payload: 'world'})
+        dispatch({ type: "SET_BACK_KEY" })
         break;
       case 'keyx':
-        dispatch({type: "SET_VIEW", payload: 'WildPokemonEncounter'})
+        dispatch({ type: "SET_VIEW", payload: 'WildPokemonEncounter' })
         break;
       case 'keyw':
-        dispatch({type: "SET_BACKPACK_VIEW", payload: 'displaySelectedPokemonStats'})
+        dispatch({ type: "SET_BACKPACK_VIEW", payload: 'displaySelectedPokemonStats' })
         break;
       case 'enter':
         dispatch({ type: "SET_SELECT_IN_WORLD", payload: true })
+        break;
       default:
-        console.log('is a valid key, but can not find the type @Player.jsx - identifyTypeOffKey()', {dir})
+        console.log('is a valid key, but can not find the type @Player.jsx - identifyTypeOffKey()', { dir })
         break;
     }
   }
 
   function moveTarget(dispatch, element) {
-    if(backpackOpen) {
+    if (backpackOpen) {
       MovePointer(dispatch, pointerPosition, element, backPackView)
     } else {
       PlayerMove(dispatch, playermovement, element)

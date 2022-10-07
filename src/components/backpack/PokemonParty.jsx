@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import api from '../../database/api'
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import api from '../../database/api';
 import Pointer from '../../animatios/Pointer';
-import globals from '../../utils/globalVariables'
-import HealthBar from '../../animatios/HealthBar'
-import Font from '../../animatios/font/Font'
-import MenuBackgrond from '../../animatios/backgronds/MenuBackgrond'
+import HealthBar from '../../animatios/HealthBar';
+import Font from '../../animatios/font/Font';
+import MenuBackgrond from '../../animatios/backgronds/MenuBackgrond';
+import pointerPositions from '../../utils/pointerPositions';
+import DisplayPartyMember from './DisplayPartyMember';
 
 const PokemonParty = () => {
 	const dispatch = useDispatch()
-	const { myPokemons, pointerPosition, backPackView, backKey } = useSelector((state) => state);
+	const { myPokemons, pointerPosition, backPackView, backKey, selectInWorld } = useSelector((state) => state);
 	const [pokeParty, setPokeParty] = useState([]);
 	const [pointerStyle, setPointerStyle] = useState({ top: 8, left: 0 })
 	const [backgrondImgStyle, setBackgrondImgStyle] = useState({ position: 'absolute', top: '-1px', left: '-1px' })
-	const [selectedPokemon, setSelectedPokemon] = useState({})
+	const [selectedPokemon, setSelectedPokemon] = useState(null)
 	const [spriteUrl, setSpriteUrl] = useState("")
-	const pointerPositionArray = globals.posiblePointerPositionInPokemonParty
+	const pointerPositionArr = pointerPositions.pokemonParty
 
 	const menuBackgrondInitPos = { top: 0, left: 0, right: 152, bottom: 40 }
 
 	useEffect(() => {
 		populatePokemonParty();
+		setTick()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -28,6 +30,26 @@ const PokemonParty = () => {
 		handleBackPackView(backPackView)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [backPackView])
+
+	useEffect(() => {
+		console.log('selectedPokemon', selectedPokemon)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedPokemon])
+
+	useEffect(() => {
+		console.log('getting here', selectInWorld, backPackView)
+		if (selectInWorld && backPackView === 'pokeParty') {
+			console.log('selecting')
+			handleSelect()
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectInWorld])
+
+	function handleSelect() {
+		console.log('selecting: ', pokeParty[pointerPosition.index])
+		setSelectedPokemon(pointerPosition.index)
+		dispatch({ type: "SET_SELECT_IN_WORLD", payload: false })
+	}
 
 	useEffect(() => {
 		hansleBackKey()
@@ -41,17 +63,22 @@ const PokemonParty = () => {
 	}
 
 	useEffect(() => {
-		setPointerStyle(pointerPosition)
-		callSetSelectedPokemon(pointerPosition)
+		setPointerStyle({
+			top: pointerPositionArr[pointerPosition.index].top,
+			left: pointerPositionArr[pointerPosition.index].left
+		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [pointerPosition])
 
 	async function populatePokemonParty() {
+		console.log('getting here')
 		let populatedPartyList = myPokemons;
 		if (!populatedPartyList.length) {
 			let localStorageString = localStorage.getItem('bossPokemonParty')
 			let responce = await api.callPokiParty(localStorageString)
+			console.log({ responce })
 			populatedPartyList = responce.data
+
 			dispatch({
 				type: 'POPULATE_POKEMON_PARTY',
 				payload: populatedPartyList
@@ -61,14 +88,10 @@ const PokemonParty = () => {
 		setPokeParty(populatedPartyList)
 	};
 
-	function callSetSelectedPokemon(pointerPosition) {
-		let index = pointerPositionArray.indexOf(pointerPosition.top)
-		setSelectedPokemon(index)
-	}
-
 	function handleBackPackView(backPackView) {
 		if (backPackView === 'displaySelectedPokemonStats') {
-			let index = pointerPositionArray.indexOf(pointerPosition.top)
+			let index = 1
+			// let index = pointerPositionArr.indexOf(pointerPosition.top)
 			callSetSpriteUrl(index)
 			setSelectedPokemon(index)
 			setBackgrondImgStyle({ position: 'absolute', bottom: '-1px', left: '-1px' })
@@ -86,6 +109,10 @@ const PokemonParty = () => {
 		setSpriteUrl(img)
 	}
 
+	function setTick() {
+		// do stuff
+	}
+
 	let pokemonList = pokeParty.map((el, index) => {
 		let className = `mon-in-bag-container-${index}`
 		return (
@@ -100,10 +127,10 @@ const PokemonParty = () => {
 						<rect x="3" y="2" width="2" height="5" fill="black" />
 						<rect x="5" y="6" width="2" height="1" fill="black" />
 					</svg>
-					<Font text={JSON.stringify(el.level)} style={{marginLeft: '8px'}}/>
+					<Font text={JSON.stringify(el.level)} style={{ marginLeft: '8px' }} />
 				</div>
 				<div className='mon-in-bag-character-container'>
-					<img src='images/players/pokemon-icons-for-party.png' alt=''/>
+					<img src='images/players/pokemon-icons-for-party.png' alt='' />
 					<span></span>
 				</div>
 				<div className='mon-in-bag-hp-bar-container'>
@@ -121,11 +148,6 @@ const PokemonParty = () => {
 			{/* <div className='pokemon-party-backgrond-container'>
 				<img src='images/items/pokemonInBag_red.jpg' alt='Poki Party' style={backgrondImgStyle} />
 			</div> */}
-			{/* <div style={{
-				height: '8px', width: '80px', position: 'absolute', top: 8, left: 24, zIndex: 999
-			}}>
-				<HealthBar data={{ maxHealth: 100, curretnHelath: 50 }} />
-			</div> */}
 			<div
 				className='pokemon-party-poiner-container'
 				style={{
@@ -135,43 +157,16 @@ const PokemonParty = () => {
 			>
 				<Pointer />
 			</div>
-			{backPackView === 'backpackInit' ? (
-				<div className='absoluteP' style={{ paddingLeft: '6px' }}>
-					{pokemonList && pokemonList}
-					<div style={{ position: 'absolute', left: 0, top: 96, height: '48px', width: '100%' }}>
-						<MenuBackgrond position={menuBackgrondInitPos} />
-						<span style={{ position: 'absolute', left: 8, top: 16, height: '32px', width: '144px' }}>
-							<Font text="Choose a POKEMON" />
-						</span>
-					</div>
-
+			<div className='absoluteP' style={{ paddingLeft: '6px' }}>
+				{pokemonList && pokemonList}
+				<div style={{ position: 'absolute', left: 0, top: 96, height: '48px', width: '100%' }}>
+					<MenuBackgrond position={menuBackgrondInitPos} />
+					<span style={{ position: 'absolute', left: 8, top: 16, height: '32px', width: '144px' }}>
+						<Font text="Choose a POKEMON" />
+					</span>
 				</div>
-			) : null}
-			{backPackView === 'displaySelectedPokemonStats' ? (
-				<div className='selected-pokemon-stats-container'>
-					<div className='selected-pokemon-img-container'>
-						<img src={spriteUrl} alt="img" />
-					</div>
-					<div className='selected-pokemon-level-container'>
-						<span>{pokeParty[selectedPokemon].level}</span>
-					</div>
-					<div className='selected-pokemon-name-container'>
-						<span>{pokeParty[selectedPokemon].name}</span>
-					</div>
-					<div className='selected-pokemon-attack-container'>
-						<span>{pokeParty[selectedPokemon].stats.attack}</span>
-					</div>
-					<div className='selected-pokemon-defense-container'>
-						<span>{pokeParty[selectedPokemon].stats.defense}</span>
-					</div>
-					<div className='selected-pokemon-speed-container'>
-						<span>{pokeParty[selectedPokemon].stats.speed}</span>
-					</div>
-					<div className='selected-pokemon-special-container'>
-						<span>{pokeParty[selectedPokemon].stats.special}</span>
-					</div>
-				</div>
-			) : null}
+			</div>
+			{selectedPokemon && <DisplayPartyMember pokemon={pokeParty[selectedPokemon]} showMoves={false} />}
 		</div>
 	);
 };

@@ -9,7 +9,7 @@ import pointerPositions from '../utils/pointerPositions'
 
 const Backpack = () => {
   const dispatch = useDispatch();
-  const { backpackOpen, backKey, pointerPosition, selectInWorld } = useSelector((state) => state)
+  const { backpackOpen, backKey, pointerPosition, selectInWorld, backPackView } = useSelector((state) => state)
   const [openBackpack, setOpenBackpack] = useState(backpackOpen)
   const [displayContent, setDisplayContent] = useState()
   const [pointerPositionIndex, setPointerPositionIndex] = useState(16)
@@ -23,15 +23,19 @@ const Backpack = () => {
   }, [backpackOpen])
 
   useEffect(() => {
-    if (selectInWorld) {
+    if (selectInWorld && backPackView === 'backpackInit') {
       handleSelect()
     }
-  },[selectInWorld]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectInWorld]);
 
   function handleSelect() {
     let selecting = backpackInit[pointerPosition.index].pointing_to
     setDisplayContent(selecting)
+    dispatch({ type: "SET_POINTER_POSITION", payload: {index: pointerPosition.index, view: pointerPosition.view}})
+    dispatch({ type: "SET_BACKPACK_VIEW", payload: selecting })
     dispatch({ type: "SET_SELECT_IN_WORLD", payload: false })
+    console.log({pointerPosition})
   }
 
   useEffect(() => {
@@ -52,9 +56,8 @@ const Backpack = () => {
             <div className='absolute-size-100'>
               <MenuBackgrond position={backgrondPosition} />
             </div>
-            {displayContent === 'pokemon' ? <PokemonParty /> : null}
+            {displayContent === 'pokeParty' ? <PokemonParty /> : null}
             {displayContent === 'pokedex' ? <OpenPokedex /> : null}
-
             <div className="relativeP">
               <div style={{ position: 'absolute', top: `${pointerPositionIndex}px`, left: '8px' }}>
                 <Pointer />

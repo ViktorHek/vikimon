@@ -40,6 +40,7 @@ const PlayerInFight = ({ data }) => {
 
   useEffect(() => {
     handleBackKey()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [backKey])
 
   function handleBackKey() {

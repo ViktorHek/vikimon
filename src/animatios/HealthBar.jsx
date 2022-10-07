@@ -7,9 +7,11 @@ const HealthBar = ({ data }) => {
 
     useEffect(() => {
         setHealth()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     useEffect(() => {
         setHealth()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data])
 
     function setHealth() {
