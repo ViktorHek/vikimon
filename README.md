@@ -60,7 +60,7 @@ Total max = 252
 * 1B -- ability -- pokemons ability where 0 = first ability and 1 = second ability <1>
 * 1L -- nature -- one letter corresponding with an nature. there are 25 natures and 26 letters so maybe letter X can be an indicator for uniqe pokemons <1>
 * 3N -- HP -- number representing remaning hp <3>
-* 10C -- nickname -- a nickname to the pokemon provided by the user. if name = 'viktor', it would say 'viktor@@@@' <10>
+* 0-10C -- nickname -- a nickname to the pokemon provided by the user. if name = 'viktor', it would say 'viktor@@@@' <0-10>
 * . -- seperator
 * 2 * 5 = 10N -- IV -- two numbers representing IV for each stat. Max IV = 15. Order: HP, attack, defense, speed, special <10>
 * 5 * 5 = 25N -- EV -- 5 numbers representing EV for each stat. Max EV = 65535 Order: HP, attack, defense, speed, special <25>
@@ -175,7 +175,7 @@ const object = {
         power: number, 
         type: number, 
         meta: { 
-            damage_class: string, 
+            damage_class: "physical" || "spacial" || "status", 
             effect_chance: number || null, 
             effect_entries: string, 
             priority: number || null, 

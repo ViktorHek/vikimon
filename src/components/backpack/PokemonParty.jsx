@@ -82,7 +82,8 @@ const PokemonParty = () => {
 		console.log('getting here')
 		let populatedPartyList = myPokemons;
 		if (!populatedPartyList.length) {
-			let localStorageString = localStorage.getItem('bossPokemonParty')
+			let localStorageString = localStorage.getItem('partyArr')
+			// let localStorageString = localStorage.getItem('bossPokemonParty')
 			let responce = await api.callPokiParty(localStorageString)
 			console.log({ responce })
 			populatedPartyList = responce.data

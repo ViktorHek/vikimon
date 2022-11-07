@@ -1,5 +1,4 @@
 import initialState from './initialState'
-// import localStorrageManager from '../database/localStorrageManager'
 
 const rootReducer = (state = initialState, action) => {
 
@@ -20,6 +19,7 @@ const rootReducer = (state = initialState, action) => {
         backKey: !state.backKey
       }
     case 'SET_SELECTED_ATTACK':
+      console.log('root attack', action.payload)
       return {
         ...state,
         selectedAttackFronRedux: action.payload

@@ -6,7 +6,6 @@ import OpponentInFight from '../components/fight/OpponentInFight'
 import availableKeys from '../utils/availableKeys'
 import useKeys from '../hooks/use-keys'
 import NavigateFight from '../funktionality/move/NavigateFight'
-import calculator from '../funktionality/calculator'
 import Pointer from '../animatios/Pointer'
 import FightBackgrond from '../animatios/backgronds/FightBackgrond'
 import pointerPositions from '../utils/pointerPositions'
@@ -15,6 +14,8 @@ const Fight = () => {
   const dispatch = useDispatch()
   const selector = useSelector((state) => state)
   const [pokiParty, setPokiParty] = useState([])
+  const [playersPokemon, setPlayersPokemon] = useState({})
+  const [opponentsPokemon, setOpponentsPokemon] = useState({})
   const [pointerPositionIndex, setPointerPositionIndex] = useState(0)
   const { myPokemons, selectedAttackFronRedux, selectInFight, fightView, pointerPosition } = selector
   const { battleInit, selectMoves } = pointerPositions
@@ -23,14 +24,13 @@ const Fight = () => {
     populateParty()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  useEffect(() => {
-    handlePointer()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pointerPosition])
+  // useEffect(() => {
+  //   handlePointer()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [pointerPosition])
+  // function handlePointer() {
 
-  function handlePointer() {
-
-  }
+  // }
 
   useEffect(() => {
     calcDamage(selectedAttackFronRedux)
@@ -50,14 +50,17 @@ const Fight = () => {
   async function populateParty() {
     let populatedPartyList = myPokemons;
     if (!populatedPartyList.length) {
-      let localStorageString = localStorage.getItem('myPokemonParty')
+      let localStorageString = localStorage.getItem('partyArr')
       let responce = await api.callPokiParty(localStorageString)
       populatedPartyList = responce.data
+      console.log({ populatedPartyList })
       dispatch({
         type: 'POPULATE_POKEMON_PARTY',
         payload: populatedPartyList
       })
     }
+    setPlayersPokemon(populatedPartyList[0])
+    setOpponentsPokemon(populatedPartyList[0])
     setPokiParty(populatedPartyList)
   };
 
@@ -85,7 +88,7 @@ const Fight = () => {
 
   function handleSelect() {
     if (!selectInFight) return
-    if( fightView === "battleInit" ) {
+    if (fightView === "battleInit") {
       switch (pointerPositionIndex) {
         case 0:
           dispatch({ type: "SET_FIGHT_VIEW", payload: "selectMoves" })
@@ -123,12 +126,29 @@ const Fight = () => {
     dispatch({ type: "SET_SELECT_IN_FIGHT", payload: false })
   }
 
-  function calcDamage(attack) {
-    if (attack) {
-      let damage = calculator.damageCalculation(pokiParty[0], pokiParty[1], attack)
-      dispatch({ type: 'SET_DAMAGE_TO_OPPONENT', payload: Math.floor(damage) })
-      dispatch({ type: "SET_SELECTED_ATTACK", payload: null })
+  async function calcDamage(attack) {
+    console.log('funk', playersPokemon, opponentsPokemon, attack)
+    if (!attack || !playersPokemon || !opponentsPokemon) return;
+    let payload = {
+      playersPokemon: playersPokemon,
+      opponentsPokemon: opponentsPokemon,
+      battleObject: {
+        moveId: attack.id,
+        playerIsAttacking: true,
+        gymBadges: [true, true, true, true],
+        statChanges: [
+          {
+            change: 1,
+            stat: "attack",
+            target: "player",
+          }
+        ],
+      }
     }
+    let responce = await api.callDamageCalc(payload)
+    let damage = responce.data.damage
+    dispatch({ type: 'SET_DAMAGE_TO_OPPONENT', payload: Math.floor(damage) })
+    dispatch({ type: "SET_SELECTED_ATTACK", payload: null })
   }
 
   return (
@@ -155,8 +175,8 @@ const Fight = () => {
         <FightBackgrond />
       </div>
 
-      {pokiParty.length ? <OpponentInFight data={pokiParty[1]} /> : null}
-      {pokiParty.length ? <PlayerInFight data={pokiParty[0]} /> : null}
+      {pokiParty.length ? <OpponentInFight data={opponentsPokemon} /> : null}
+      {pokiParty.length ? <PlayerInFight data={playersPokemon} /> : null}
     </div>
   )
 }
