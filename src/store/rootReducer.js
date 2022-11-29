@@ -19,7 +19,6 @@ const rootReducer = (state = initialState, action) => {
         backKey: !state.backKey
       }
     case 'SET_SELECTED_ATTACK':
-      console.log('root attack', action.payload)
       return {
         ...state,
         selectedAttackFronRedux: action.payload
