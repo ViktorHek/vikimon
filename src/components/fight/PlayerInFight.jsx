@@ -2,24 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import OptionsFight from './OptionsFight'
 import Font from '../../animatios/font/Font'
+import HealthBar from '../../animatios/HealthBar'
 
 const PlayerInFight = ({ data }) => {
   const dispatch = useDispatch()
   const { fightView, backKey } = useSelector((state) => state)
   const [spriteUrl, setSpriteUrl] = useState("")
   const [view, setView] = useState("battleInit")
+  const [curentHp, setCurentHp] = useState(0)
+  const [maxHp, setMaxHp] = useState(100)
 
   const { id, level, name } = data;
   const dbName = data.dbData.name
-
-  const inFightStats = {
-    attack: data.stats.attack,
-    defence: data.stats.defence,
-    special: data.stats.special,
-    speed: data.stats.speed,
-    hp: data.stats.hp,
-    imgUrl: ""
-  }
 
   useEffect(() => {
     populateData()
@@ -28,6 +22,8 @@ const PlayerInFight = ({ data }) => {
 
   function populateData() {
     setPokemonImgUrl(id)
+    setMaxHp(data.stats.hp)
+    setCurentHp(data.stats.hp)
   }
 
   function setPokemonImgUrl(id) {
@@ -64,9 +60,12 @@ const PlayerInFight = ({ data }) => {
       <div className='fight-users-mon-level-container'>
         <Font text={JSON.stringify(level)} />
       </div>
+      <div className='fight-users-mon-health-bar-container'>
+        <HealthBar data={{curretnHelath: curentHp, maxHealth: maxHp}} />
+      </div>
       <div className='fight-users-mon-hp-container'>
-        <Font text={JSON.stringify(inFightStats.hp)} />
-        <Font text={JSON.stringify(data.stats.hp)} />
+        <Font text={JSON.stringify(curentHp)} />
+        <Font text={JSON.stringify(maxHp)} />
       </div>
       <div className="fight-users-mon-img-container">
         <img src={spriteUrl} alt='pokemon' className='absolute-size-100' />

@@ -134,7 +134,7 @@ const Fight = () => {
   async function calcDamage(attack) {
     console.log("funk", playersPokemon, opponentsPokemon, attack);
     if (!attack || !playersPokemon || !opponentsPokemon) {
-      console.log('missing swomething in calcDamges function', attack, playersPokemon, opponentsPokemon)
+      console.log("missing swomething in calcDamges function", attack, playersPokemon, opponentsPokemon);
       return;
     }
     let payload = {

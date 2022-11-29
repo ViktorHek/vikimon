@@ -39,6 +39,17 @@
     font-weight: bold;
 }
 
+.fight-users-mon-health-bar-container {
+    display: flex;
+    position: absolute;
+    height: 8px;
+    width: 16px;
+    bottom: 64px;
+    left: 72px;
+    font-size: 8px;
+    font-weight: bold;
+}
+
 .fight-users-mon-hp-container {
     position: absolute;
     right: 8px;
