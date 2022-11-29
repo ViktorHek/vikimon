@@ -6,10 +6,8 @@ import Font from '../../animatios/font/Font'
 const PlayerInFight = ({ data }) => {
   const dispatch = useDispatch()
   const { fightView, backKey } = useSelector((state) => state)
-  // const [selectedAttack, setSelectedAttack] = useState('')
-  const [showSelectMove, setShowSelectMove] = useState(false)
   const [spriteUrl, setSpriteUrl] = useState("")
-  const [view, setView] = useState("init")
+  const [view, setView] = useState("battleInit")
 
   const { id, level, name } = data;
   const dbName = data.dbData.name
@@ -28,37 +26,6 @@ const PlayerInFight = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // useEffect(() => {
-  //   console.log('selectInFight2', selectInFight)
-  // }, [selectInFight])
-
-  // useEffect(() => {
-  //   console.log('pointerPositionFight2', pointerPositionFight)
-  // }, [pointerPositionFight])
-
-  useEffect(() => {
-    handleBackKey()
-  }, [backKey])
-
-  function handleBackKey() {
-    if (!backKey) return;
-    let payload = "init"
-    setView(payload)
-    dispatch({ type: "SET_FIGHT_VIEW", payload: payload })
-    dispatch({ type: "SET_BACK_KEY", payload: false })
-  }
-
-  useEffect(() => {
-    console.log({ fightView })
-    setView(fightView)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fightView])
-
-  // useEffect(() => {
-  //   setSelectedAttack(selectedAttackFronRedux)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [selectedAttackFronRedux])
-
   function populateData() {
     setPokemonImgUrl(id)
   }
@@ -71,13 +38,27 @@ const PlayerInFight = ({ data }) => {
     setSpriteUrl(imgUrl)
   }
 
-  function handleShowSelectMove() {
-    setShowSelectMove(!showSelectMove)
+  useEffect(() => {
+    handleBackKey()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [backKey])
+
+  function handleBackKey() {
+    if (!backKey) return;
+    let payload = "battleInit"
+    setView(payload)
+    dispatch({ type: "SET_FIGHT_VIEW", payload: payload })
+    dispatch({ type: "SET_BACK_KEY", payload: false })
   }
+
+  useEffect(() => {
+    setView(fightView)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fightView])
 
   return (
     <div>
-      <div className='fight-users-mon-name-container' onClick={handleShowSelectMove}>
+      <div className='fight-users-mon-name-container'>
         <Font text={name ? name : dbName.toUpperCase()} />
       </div>
       <div className='fight-users-mon-level-container'>
@@ -88,7 +69,7 @@ const PlayerInFight = ({ data }) => {
         <Font text={JSON.stringify(data.stats.hp)} />
       </div>
       <div className="fight-users-mon-img-container">
-        <img src={spriteUrl} alt='pokemon' className='absolute-img' />
+        <img src={spriteUrl} alt='pokemon' className='absolute-size-100' />
       </div>
       {view === "selectMoves" ? <OptionsFight data={data} /> : null}
     </div>

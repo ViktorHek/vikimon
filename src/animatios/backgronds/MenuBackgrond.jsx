@@ -24,7 +24,7 @@ const MenuBackgrond = ({ position }) => {
     }
     const leftBorder = { 
         top: `${top + 8}px`, 
-        left: `${left}px`, 
+        left: `${left - 1}px`, 
         height: `${bottom - 8}px` 
     }
     const bottomBorder = { 
@@ -37,7 +37,7 @@ const MenuBackgrond = ({ position }) => {
         <div className='menu-backgrond-container'>
 
             <div className='top-left-corner' style={topLeft}>
-                <svg width={size} height={size} viewBox="0 0 8 8" fill="none">
+                <svg width={size} height={size} viewBox="0 0 8 8" fill="none" className='absoluteP'>
                     <rect x="4" y="2" width="2" height="1" fill="black" />
                     <rect x="7" y="2" width="1" height="1" fill="black" />
                     <rect x="2" y="2" width="1" height="1" fill="black" />
@@ -56,7 +56,7 @@ const MenuBackgrond = ({ position }) => {
             </div>
 
             <div className='top-right-corner' style={topRight}>
-                <svg width={size} height={size} viewBox="0 0 8 8" fill="none">
+                <svg width={size} height={size} viewBox="0 0 8 8" fill="none" className='absoluteP'>
                     <rect x="3" y="1" width="2" height="1" fill="black" />
                     <rect x="4" y="2" width="2" height="2" fill="black" />
                     <rect x="6" y="3" width="1" height="2" fill="black" />
@@ -75,7 +75,7 @@ const MenuBackgrond = ({ position }) => {
             </div>
 
             <div className='bottom-left-corner' style={bottomLeft}>
-                <svg width={size} height={size} viewBox="0 0 8 8" fill="none">
+                <svg width={size} height={size} viewBox="0 0 8 8" fill="none" className='absoluteP'>
                     <rect x="3" y="1" width="2" height="1" fill="black" />
                     <rect x="5" width="1" height="1" fill="black" />
                     <rect x="6" y="1" width="1" height="1" fill="black" />
@@ -94,7 +94,7 @@ const MenuBackgrond = ({ position }) => {
             </div>
 
             <div className='bottom-right-corner' style={bottomRight}>
-                <svg width={size} height={size} viewBox="0 0 8 8" fill="none">
+                <svg width={size} height={size} viewBox="0 0 8 8" fill="none" className='absoluteP'>
                     <rect x="2" width="1" height="1" fill="black" />
                     <rect x="1" y="1" width="1" height="1" fill="black" />
                     <rect y="2" width="1" height="1" fill="black" />
@@ -114,26 +114,26 @@ const MenuBackgrond = ({ position }) => {
             </div>
 
             <div className='top-border' style={topBorder}>
-                <svg width="100%" height={size} viewBox="0 0 100% 100%" fill="none">
+                <svg width="100%" height={size} viewBox="0 0 100% 100%" fill="none" className='absoluteP'>
                     <rect y="2" width="100%" height="1" fill="black" />
                     <rect y="4" width="100%" height="2" fill="black" />
                 </svg>
             </div>
 
             <div className='left-border' style={leftBorder}>
-                <svg width={size} height="100%" viewBox="0 0 100% 100%" fill="none">
+                <svg width={size} height="100%" viewBox="0 0 100% 100%" fill="none" className='absoluteP'>
                     <rect x="3" width="1" height="100%" fill="black" />
                     <rect x="5" width="1" height="100%" fill="black" />
                 </svg>
             </div>
             <div className='right-border' style={rightBorder}>
-                <svg width={size} height="100%" viewBox="0 0 100% 100%" fill="none">
+                <svg width={size} height="100%" viewBox="0 0 100% 100%" fill="none" className='absoluteP'>
                     <rect x="2" width="1" height="100%" fill="black" />
                     <rect x="4" width="1" height="100%" fill="black" />
                 </svg>
             </div>
             <div className='bottom-border' style={bottomBorder}>
-                <svg width="100%" height={size} viewBox="0 0 100% 100%" fill="none">
+                <svg width="100%" height={size} viewBox="0 0 100% 100%" fill="none" className='absoluteP'>
                     <rect y="2" width="100%" height="1" fill="black" />
                     <rect y="4" width="100%" height="2" fill="black" />
                 </svg>

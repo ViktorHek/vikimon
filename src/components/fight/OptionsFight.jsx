@@ -43,7 +43,7 @@ const OptionsFight = ({ data }) => {
                     <Font text="NORMAL" />
                 </div>
                 <div style={{ marginLeft: '38px' }}>
-                    <Font text="20  /  30" />
+                    <Font text="20/30" />
                 </div>
             </div>
             <div className="attacks-options-container">

@@ -13,14 +13,14 @@ const pointerPositions = {
     ],
     backpackInit: [
         { top: 16, left: 8, pointing_to: 'pokedex' },
-        { top: 32, left: 8, pointing_to: 'pokemon' },
+        { top: 32, left: 8, pointing_to: 'pokeParty' },
         { top: 48, left: 8, pointing_to: 'item' },
         { top: 64, left: 8, pointing_to: 'user' },
         { top: 80, left: 8, pointing_to: 'save' },
         { top: 96, left: 8, pointing_to: 'option' },
         { top: 112, left: 8, pointing_to: 'exit' },
     ],
-    PokemonParty: [
+    pokemonParty: [
         { top: 8, left: 0, pointing_to: 'pokemonInParty1' },
         { top: 24, left: 0, pointing_to: 'pokemonInParty2' },
         { top: 40, left: 0, pointing_to: 'pokemonInParty3' },

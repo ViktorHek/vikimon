@@ -14,7 +14,7 @@ const OpenWorld = () => {
   }, [playermovement])
 
   return (
-    <div className="open-world-container">
+    <div className="relativeP">
       <Player />
       <Backpack />
       <div className="map_container">

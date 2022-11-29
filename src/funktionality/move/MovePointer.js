@@ -1,64 +1,39 @@
-import globals from "../../utils/globalVariables";
+import pointerPositions from "../../utils/pointerPositions";
+
+const {backpackInit, pokemonParty} = pointerPositions
 
 const MovePointer = (dispatch, poinerPos, direction, backPackView) => {
-    console.log('move pointer', poinerPos, direction, backPackView)
-    let payload = { top: 0, left: 0 }
-    const { top, left } = poinerPos
-    if (backPackView === "init") {
-        payload = { top: 0, left: 0 }
-    }
-    if (canGoDown(top, direction)) {
-        console.log('up')
-        payload = {
-            top: getTop(top),
-            // top: top - 16,
-            left: left
+    console.log('MovePointer: ', poinerPos, direction, backPackView)
+
+    console.log('Pointer: ', poinerPos)
+    if (backPackView === "backpackInit") {
+        if (direction === 0 && poinerPos.index < backpackInit.length-1) {
+            dispatch({
+                type: "SET_POINTER_POSITION",
+                payload: { index: poinerPos.index + 1, view: backPackView }
+            })
         }
-        dispatch({ type: "SET_POINTER_POSITION", payload })
-    }
-    if (canGoUp(top, direction)) {
-        console.log('down')
-        payload = {
-            top: getDown(top),
-            left: left
+        if (direction === 1 && poinerPos.index > 0) {
+            dispatch({
+                type: "SET_POINTER_POSITION",
+                payload: { index: poinerPos.index - 1, view: backPackView }
+            })
         }
-        dispatch({ type: "SET_POINTER_POSITION", payload })
+    }
+    if (backPackView === "pokeParty") {
+        if (direction === 0 && poinerPos.index < pokemonParty.length-1) {
+            dispatch({
+                type: "SET_POINTER_POSITION",
+                payload: { index: poinerPos.index + 1, view: backPackView }
+            })
+        }
+        if (direction === 1 && poinerPos.index > 0) {
+            dispatch({
+                type: "SET_POINTER_POSITION",
+                payload: { index: poinerPos.index - 1, view: backPackView }
+            })
+        }
     }
 };
-
-const payloadArr = globals.posiblePointerPositionInPokemonParty // [1, 17, 33, 49, 65, 81]
-
-function getDown(top) {
-    let index = payloadArr.indexOf(top)
-    if (index === payloadArr.length - 1) {
-        return payloadArr[index]
-    } else {
-        return payloadArr[index + 1]
-    }
-}
-
-function getTop(top) {
-    let index = payloadArr.indexOf(top)
-    if (index === 0) {
-        return payloadArr[index]
-    } else {
-        return payloadArr[index - 1]
-    }
-}
-
-function canGoDown(top, direction) {
-    if (direction !== 0 && top !== 1) {
-        return true
-    } else {
-        return false
-    }
-}
-function canGoUp(top, direction) {
-    if (direction !== 1 && top !== 81) {
-        return true
-    } else {
-        return false
-    }
-}
 
 export default MovePointer

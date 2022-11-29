@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import PokemonParty from '../components/backpack/PokemonParty'
 import OpenPokedex from '../components/backpack/OpenPokedex'
 import MenuBackgrond from '../animatios/backgronds/MenuBackgrond'
 import Font from '../animatios/font/Font'
 import Pointer from '../animatios/Pointer'
+import pointerPositions from '../utils/pointerPositions'
 
 const Backpack = () => {
-  const { backpackOpen, backKey, pointerPosition } = useSelector((state) => state)
+  const dispatch = useDispatch();
+  const { backpackOpen, backKey, pointerPosition, selectInWorld, backPackView } = useSelector((state) => state)
   const [openBackpack, setOpenBackpack] = useState(backpackOpen)
-  const [displaypokemons, setDisplaypokemons] = useState(false)
-  const [displayPokedex, setDisplayPokedex] = useState(false)
-  const [pointerPositionIndex, setPointerPositionIndex] = useState(1)
+  const [displayContent, setDisplayContent] = useState()
+  const [pointerPositionIndex, setPointerPositionIndex] = useState(16)
 
+  const { backpackInit } = pointerPositions
   const backgrondPosition = { top: 0, left: 0, right: 72, bottom: 120 }
 
   useEffect(() => {
@@ -21,72 +23,70 @@ const Backpack = () => {
   }, [backpackOpen])
 
   useEffect(() => {
-    setDisplaypokemons(false)
+    if (selectInWorld && backPackView === 'backpackInit') {
+      handleSelect()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectInWorld]);
+
+  function handleSelect() {
+    let selecting = backpackInit[pointerPosition.index].pointing_to
+    setDisplayContent(selecting)
+    dispatch({ type: "SET_POINTER_POSITION", payload: { index: pointerPosition.index, view: pointerPosition.view } })
+    dispatch({ type: "SET_BACKPACK_VIEW", payload: selecting })
+    dispatch({ type: "SET_SELECT_IN_WORLD", payload: false })
+    console.log({ pointerPosition })
+  }
+
+  useEffect(() => {
+    if (backPackView === 'backpackInit') {
+      console.log('härhär')
+      setDisplayContent("")
+      if(backpackOpen) {
+        dispatch({ type: "OPEN_BACKPACK" })
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [backKey])
 
   useEffect(() => {
-    // setDisplaypokemons(false)
-    console.log({pointerPosition})
+    setPointerPositionIndex(backpackInit[pointerPosition.index].top)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointerPosition])
-
-  function handleDisplayParty() {
-    setDisplaypokemons(!displaypokemons)
-  }
-  function handleOpenPokedex() {
-    setDisplayPokedex(!displayPokedex)
-  }
-  function handleOpenItems() {
-    console.log('open items')
-  }
-  function handleDisplayUser() {
-    console.log('open user')
-  }
-  function handleSaveGame() {
-    console.log('handle save game')
-  }
-  function handleOpenOptions() {
-    console.log('open options')
-  }
-  function exitBackpack() {
-    console.log('exit backback')
-  }
 
   return (
     <div className="main-backpack-container">
       {
         openBackpack ? (
           <div className='relativeP'>
-            <div className='backpack-menu-backpack-container'>
+            <div className='absolute-size-100'>
               <MenuBackgrond position={backgrondPosition} />
             </div>
-            {displaypokemons ? <PokemonParty /> : null}
-            {displayPokedex ? <OpenPokedex /> : null}
-
-            <div className="backpack-container">
-              <div style={{position: 'absolute', top: `${pointerPositionIndex * 16}px`, left: '8px'}}>
-                <Pointer/>
+            {displayContent === 'pokeParty' ? <PokemonParty /> : null}
+            {displayContent === 'pokedex' ? <OpenPokedex /> : null}
+            <div className="relativeP">
+              <div style={{ position: 'absolute', top: `${pointerPositionIndex}px`, left: '8px' }}>
+                <Pointer />
               </div>
-              <div className='open-pokedex-box' onClick={handleOpenPokedex}>
+              <div className='open-pokedex-box'>
                 <Font text="POKEDEX" />
               </div>
-              <div className='open-party-box' onClick={handleDisplayParty}>
+              <div className='open-party-box'>
                 <Font text="POKEMON" />
               </div>
-              <div className='open-items-box' onClick={handleOpenItems}>
+              <div className='open-items-box'>
                 <Font text="ITEM" />
               </div>
-              <div className='open-name-box' onClick={handleDisplayUser}>
+              <div className='open-name-box'>
                 <Font text="VIKTOR" />
               </div>
-              <div className='open-save-box' onClick={handleSaveGame}>
+              <div className='open-save-box'>
                 <Font text="SAVE" />
               </div>
-              <div className='open-options-box' onClick={handleOpenOptions}>
+              <div className='open-options-box'>
                 <Font text="OPTION" />
               </div>
-              <div className='exit-backback-box' onClick={exitBackpack}>
+              <div className='exit-backback-box' >
                 <Font text="EXIT" />
               </div>
 

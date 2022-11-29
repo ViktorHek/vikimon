@@ -1,8 +1,6 @@
 import initialState from './initialState'
-// import localStorrageManager from '../database/localStorrageManager'
 
 const rootReducer = (state = initialState, action) => {
-  console.log('@ reducer', action)
 
   switch (action.type) {
     case 'SET_PLAYER_MOVEMENT':
@@ -45,11 +43,6 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         selectInFight: !state.selectInFight
       }
-    case 'SET_SELECT_POINTER_POSITION':
-      return {
-        ...state,
-        pointerPositionFight: action.payload
-      }
     case 'SET_DAMAGE_TO_OPPONENT':
       return {
         ...state,
@@ -64,6 +57,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         backPackView: action.payload
+      }
+    case 'SET_SELECT_IN_WORLD':
+      return {
+        ...state,
+        selectInWorld: action.payload
       }
     default:
       return state

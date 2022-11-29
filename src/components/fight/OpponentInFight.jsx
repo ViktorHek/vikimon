@@ -78,7 +78,7 @@ const Fight = ({ data }) => {
                 <span className='fight-opponent-hp' style={{ width: `${displayHealth}%` }}></span>
             </div>
             <div className='fight-opponent-mon-img-container'>
-                <img src={spriteUrl} alt='pokemon' className='fight-opponent-mon-img' />
+                <img src={spriteUrl} alt='pokemon' className='absolute-size-100' />
             </div>
 
         </div>
