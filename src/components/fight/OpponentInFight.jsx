@@ -26,12 +26,11 @@ const Fight = ({ data }) => {
     }, [])
 
     useEffect(() => {
-        applyAttack()
+        applyAttack(damageOpponent)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [damageOpponent])
 
-    function applyAttack() {
-        if (!damageOpponent) return
+    function applyAttack(damageOpponent) {
         let healthAfterDamage = health - damageOpponent
         let healthPercent = healthAfterDamage / maxHealth
         let healthPercentToPixel = healthPercent * 100

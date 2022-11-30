@@ -12,6 +12,7 @@ const initialState = {
   selectInFight: false,
   fightView: "battleInit",
   damageOpponent: 0,
+  damagePlayer: 0,
   pointerPosition: { index: 0, view: 'backpackInit' },
   backPackView: 'backpackInit',
   selectInWorld: false

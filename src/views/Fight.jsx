@@ -130,7 +130,12 @@ const Fight = () => {
     }
     dispatch({ type: "SET_SELECT_IN_FIGHT", payload: false });
   }
-
+  /**
+   * this function uses playersPokemon, opponentsPokemon from Redux.
+   * @async makes a call to callDamageCalc
+   * @param {{id: number, name: string}} attack curently only using id
+   * @returns {void} dispatching to "SET_DAMAGE_TO_OPPONENT" & "SET_DAMAGE_TO_PLAYER"
+   */
   async function calcDamage(attack) {
     console.log("funk", playersPokemon, opponentsPokemon, attack);
     if (!attack || !playersPokemon || !opponentsPokemon) {
@@ -146,7 +151,8 @@ const Fight = () => {
     };
     let responce = await api.callDamageCalc(payload);
     console.log("resonsce: ", responce.data);
-    let damage = responce.data.playerAttack;
+    let damageToOpponent = responce.data.playerAttack;
+    let damageToPlayer = responce.data.opponentAttack;
     if (responce.data.statChanges.length) {
       let statChangesListFronAPI = [];
       responce.data.statChanges.forEach((el) => {
@@ -154,7 +160,8 @@ const Fight = () => {
       });
       setActiveStatChangesArr(statChangesListFronAPI);
     }
-    dispatch({ type: "SET_DAMAGE_TO_OPPONENT", payload: Math.floor(damage) });
+    dispatch({ type: "SET_DAMAGE_TO_OPPONENT", payload: Math.floor(damageToOpponent) });
+    dispatch({ type: "SET_DAMAGE_TO_PLAYER", payload: Math.floor(damageToPlayer) });
     dispatch({ type: "SET_SELECTED_ATTACK", payload: null });
   }
 

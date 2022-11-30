@@ -48,6 +48,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         damageOpponent: action.payload
       }
+    case 'SET_DAMAGE_TO_PLAYER':
+      return {
+        ...state,
+        damagePlayer: action.payload
+      }
     case 'SET_POINTER_POSITION':
       return {
         ...state,
