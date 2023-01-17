@@ -1,21 +1,23 @@
 const initialState = {
   playermovement: {
     sprite: { x: 17, y: 0 },
-    map: { y: -80, x: -64 }
+    map: { y: -80, x: -64 },
   },
   backpackOpen: false,
   myPokemons: [],
   backKey: false,
   selectedAttackFronRedux: null,
   pokedexDB: [],
-  viewState: '',
+  viewState: "",
   selectInFight: false,
   fightView: "battleInit",
   damageOpponent: 0,
   damagePlayer: 0,
-  pointerPosition: { index: 0, view: 'backpackInit' },
-  backPackView: 'backpackInit',
-  selectInWorld: false
-}
+  pointerPosition: { index: 0, view: "backpackInit" },
+  backPackView: "backpackInit",
+  selectInWorld: false,
+  playerMonsHealth: 0,
+  opponentMonsHealth: 0,
+};
 
-export default initialState
+export default initialState;

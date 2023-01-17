@@ -68,6 +68,16 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         selectInWorld: action.payload
       }
+    case 'SET_PLAYER_CURRENT_HEALTH':
+      return {
+        ...state,
+        playerMonsHealth: action.payload
+      }
+    case 'SET_OPPONENT_CURRENT_HEALTH':
+      return {
+        ...state,
+        opponentMonsHealth: action.payload
+      }
     default:
       return state
   }

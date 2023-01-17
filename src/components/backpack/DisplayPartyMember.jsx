@@ -4,7 +4,6 @@ import Font from '../../animatios/font/Font';
 import MenuBackgrond from '../../animatios/backgronds/MenuBackgrond';
 
 const DisplayPartyMember = ({ pokemon, showMoves }) => {
-    console.log({ pokemon })
     const [moves, setMoves] = useState(false)
     const maxHealth = pokemon.stats.hp
     let curretnHelath = maxHealth

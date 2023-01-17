@@ -29,7 +29,7 @@ const NavigateFight = (dispatch, direction, index, fightView) => {
         if (index === 2) { return 3 };
         return index
       default:
-        console.log('no switch match @NavigateFight first')
+        console.log('no switch match @NavigateFight arrow movement')
     }
   }
 
@@ -45,7 +45,7 @@ const NavigateFight = (dispatch, direction, index, fightView) => {
     case 'keyr':
       return index
     default:
-      console.log('no switch match @NavigateFight second')
+      console.log('no switch match @NavigateFight key press')
       return index
   }
 };

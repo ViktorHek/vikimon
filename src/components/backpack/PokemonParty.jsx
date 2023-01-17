@@ -38,7 +38,6 @@ const PokemonParty = () => {
 	}, [selectedPokemon])
 
 	useEffect(() => {
-		console.log('getting here', selectInWorld, backPackView)
 		if (selectInWorld && backPackView === 'pokeParty') {
 			handleSelect()
 		}
@@ -46,7 +45,6 @@ const PokemonParty = () => {
 	}, [selectInWorld])
 
 	function handleSelect() {
-		console.log('selecting: ', pokeParty[pointerPosition.index])
 		if(selectedPokemon) {
 			if(showMoves) {
 				setShowMoves(false)
@@ -79,13 +77,11 @@ const PokemonParty = () => {
 	}, [pointerPosition])
 
 	async function populatePokemonParty() {
-		console.log('getting here')
 		let populatedPartyList = myPokemons;
 		if (!populatedPartyList.length) {
 			let localStorageString = localStorage.getItem('partyArr')
 			// let localStorageString = localStorage.getItem('bossPokemonParty')
 			let responce = await api.callPokiParty(localStorageString)
-			console.log({ responce })
 			populatedPartyList = responce.data
 
 			dispatch({
@@ -93,7 +89,6 @@ const PokemonParty = () => {
 				payload: populatedPartyList
 			})
 		}
-		console.log({ populatedPartyList })
 		setPokeParty(populatedPartyList)
 	};
 

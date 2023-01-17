@@ -35,12 +35,10 @@ const Backpack = () => {
     dispatch({ type: "SET_POINTER_POSITION", payload: { index: pointerPosition.index, view: pointerPosition.view } })
     dispatch({ type: "SET_BACKPACK_VIEW", payload: selecting })
     dispatch({ type: "SET_SELECT_IN_WORLD", payload: false })
-    console.log({ pointerPosition })
   }
 
   useEffect(() => {
     if (backPackView === 'backpackInit') {
-      console.log('härhär')
       setDisplayContent("")
       if(backpackOpen) {
         dispatch({ type: "OPEN_BACKPACK" })

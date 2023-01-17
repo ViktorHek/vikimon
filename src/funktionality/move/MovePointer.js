@@ -3,9 +3,6 @@ import pointerPositions from "../../utils/pointerPositions";
 const {backpackInit, pokemonParty} = pointerPositions
 
 const MovePointer = (dispatch, poinerPos, direction, backPackView) => {
-    console.log('MovePointer: ', poinerPos, direction, backPackView)
-
-    console.log('Pointer: ', poinerPos)
     if (backPackView === "backpackInit") {
         if (direction === 0 && poinerPos.index < backpackInit.length-1) {
             dispatch({

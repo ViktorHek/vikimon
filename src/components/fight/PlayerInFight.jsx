@@ -9,7 +9,7 @@ const PlayerInFight = ({ data }) => {
   const { fightView, backKey, damagePlayer } = useSelector((state) => state);
   const [spriteUrl, setSpriteUrl] = useState("");
   const [view, setView] = useState("battleInit");
-  const maxHealth = data.stats.hp
+  const maxHealth = data.stats.hp;
   const [health, setHealth] = useState(maxHealth);
 
   const { id, level, name } = data;
@@ -20,7 +20,9 @@ const PlayerInFight = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    applyAttack(damagePlayer);
+    if (damagePlayer !== null) {
+      applyAttack(damagePlayer);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [damagePlayer]);
 
@@ -37,13 +39,18 @@ const PlayerInFight = ({ data }) => {
     if (healthPercentToPixel < 1) {
       healthPercentToPixel = 0;
       playerPokemonFaint();
+    } else {
+      dispatch({
+        type: "SET_PLAYER_CURRENT_HEALTH",
+        payload: healthAfterDamage,
+      });
     }
     // setDisplayHealth(healthPercentToPixel);
   }
 
   function playerPokemonFaint() {
-    console.log('you die')
-    dispatch({ type: "SET_VIEW", payload: 'openWorld'})
+    console.log("you die");
+    dispatch({ type: "SET_VIEW", payload: "openWorld" });
   }
 
   function setPokemonImgUrl(id) {

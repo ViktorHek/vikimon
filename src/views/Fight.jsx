@@ -18,20 +18,13 @@ const Fight = () => {
   const [opponentsPokemon, setOpponentsPokemon] = useState({});
   const [pointerPositionIndex, setPointerPositionIndex] = useState(0);
   const [activeStatChangesArr, setActiveStatChangesArr] = useState([]);
-  const { myPokemons, selectedAttackFronRedux, selectInFight, fightView, pointerPosition } = selector;
+  const { myPokemons, selectedAttackFronRedux, selectInFight, fightView, playerMonsHealth } = selector;
   const { battleInit, selectMoves } = pointerPositions;
 
   useEffect(() => {
     populateParty();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // useEffect(() => {
-  //   handlePointer()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [pointerPosition])
-  // function handlePointer() {
-
-  // }
 
   useEffect(() => {
     if (selectedAttackFronRedux) {
@@ -56,7 +49,6 @@ const Fight = () => {
       let localStorageString = localStorage.getItem("partyArr");
       let responce = await api.callPokiParty(localStorageString);
       populatedPartyList = responce.data;
-      console.log({ populatedPartyList });
       dispatch({
         type: "POPULATE_POKEMON_PARTY",
         payload: populatedPartyList,
@@ -90,7 +82,6 @@ const Fight = () => {
   }
 
   function handleSelect() {
-    console.log("in select: ", selectInFight, fightView, pointerPositionIndex);
     if (!selectInFight) return;
     if (fightView === "battleInit") {
       switch (pointerPositionIndex) {
@@ -137,7 +128,6 @@ const Fight = () => {
    * @returns {void} dispatching to "SET_DAMAGE_TO_OPPONENT" & "SET_DAMAGE_TO_PLAYER"
    */
   async function calcDamage(attack) {
-    console.log("funk", playersPokemon, opponentsPokemon, attack);
     if (!attack || !playersPokemon || !opponentsPokemon) {
       console.log("missing swomething in calcDamges function", attack, playersPokemon, opponentsPokemon);
       return;
@@ -150,7 +140,6 @@ const Fight = () => {
       statChanges: activeStatChangesArr,
     };
     let responce = await api.callDamageCalc(payload);
-    console.log("resonsce: ", responce.data);
     let damageToOpponent = responce.data.playerAttack;
     let damageToPlayer = responce.data.opponentAttack;
     if (responce.data.statChanges.length) {
@@ -162,6 +151,8 @@ const Fight = () => {
     }
     dispatch({ type: "SET_DAMAGE_TO_OPPONENT", payload: Math.floor(damageToOpponent) });
     dispatch({ type: "SET_DAMAGE_TO_PLAYER", payload: Math.floor(damageToPlayer) });
+    dispatch({ type: "SET_DAMAGE_TO_OPPONENT", payload: null });
+    dispatch({ type: "SET_DAMAGE_TO_PLAYER", payload: null });
     dispatch({ type: "SET_SELECTED_ATTACK", payload: null });
   }
 
@@ -171,7 +162,9 @@ const Fight = () => {
       level: pokemon.level,
       abilities: pokemon.abilities,
       types: pokemon.dbData.types,
+      status: "fine",
       stats: {
+        hp: playerMonsHealth,
         attack: pokemon.stats.attack,
         defense: pokemon.stats.defense,
         special: pokemon.stats.special,
