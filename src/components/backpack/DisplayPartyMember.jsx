@@ -16,7 +16,7 @@ const DisplayPartyMember = ({ pokemon, showMoves }) => {
     }, [showMoves])
 
     return (
-        <div className='absolute-full-size' style={{ zIndex: 100, backgroundColor: '#f8e8f8' }}>
+        <div className='absolute-full-size' id='DisplayPartyMember' style={{ zIndex: 100, backgroundColor: '#f8e8f8' }}>
             {!moves ? (
                 <div className='selected-pokemon-stats-container'>
                     <div style={{ position: 'absolute', top: '64px', left: 0, height: '80px', width: '80px' }}>

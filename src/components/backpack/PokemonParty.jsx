@@ -10,32 +10,19 @@ import DisplayPartyMember from './DisplayPartyMember';
 
 const PokemonParty = () => {
 	const dispatch = useDispatch()
-	const { myPokemons, pointerPosition, backPackView, backKey, selectInWorld } = useSelector((state) => state);
+	const { myPokemons, pointerPosition, backKey, backPackView, selectInWorld } = useSelector((state) => state);
 	const [pokeParty, setPokeParty] = useState([]);
 	const [pointerStyle, setPointerStyle] = useState({ top: 8, left: 0 })
-	const [backgrondImgStyle, setBackgrondImgStyle] = useState({ position: 'absolute', top: '-1px', left: '-1px' })
 	const [selectedPokemon, setSelectedPokemon] = useState(null)
 	const [showMoves, setShowMoves] = useState(false)
-	const [spriteUrl, setSpriteUrl] = useState("")
 	const pointerPositionArr = pointerPositions.pokemonParty
 
 	const menuBackgrondInitPos = { top: 0, left: 0, right: 152, bottom: 40 }
 
 	useEffect(() => {
 		populatePokemonParty();
-		setTick()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-
-	useEffect(() => {
-		handleBackPackView(backPackView)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [backPackView])
-
-	useEffect(() => {
-		console.log('selectedPokemon', selectedPokemon)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedPokemon])
 
 	useEffect(() => {
 		if (selectInWorld && backPackView === 'pokeParty') {
@@ -45,15 +32,18 @@ const PokemonParty = () => {
 	}, [selectInWorld])
 
 	function handleSelect() {
-		if(selectedPokemon) {
+		if(selectedPokemon !== null) {
 			if(showMoves) {
 				setShowMoves(false)
 			} else {
 				setShowMoves(true)
 			}
 		}
+		console.log('pointerPosition', pointerPosition, pointerPosition.index)
 		setSelectedPokemon(pointerPosition.index)
 		dispatch({ type: "SET_SELECT_IN_WORLD", payload: false })
+		console.log('pokeParty', pokeParty)
+		console.log('selectedPokemon',selectedPokemon)
 	}
 
 	useEffect(() => {
@@ -62,7 +52,7 @@ const PokemonParty = () => {
 	}, [backKey])
 
 	function handleBackKey() {
-		if (selectedPokemon) {
+		if (selectedPokemon !== null) {
 			dispatch({ type: "SET_BACKPACK_VIEW", payload: 'backpackInit' })
 			setSelectedPokemon(null)
 		}
@@ -91,31 +81,6 @@ const PokemonParty = () => {
 		}
 		setPokeParty(populatedPartyList)
 	};
-
-	function handleBackPackView(backPackView) {
-		if (backPackView === 'displaySelectedPokemonStats') {
-			let index = 1
-			// let index = pointerPositionArr.indexOf(pointerPosition.top)
-			callSetSpriteUrl(index)
-			setSelectedPokemon(index)
-			setBackgrondImgStyle({ position: 'absolute', bottom: '-1px', left: '-1px' })
-		} else {
-			setBackgrondImgStyle({ position: 'absolute', top: '-1px', left: '-1px' })
-		}
-	}
-
-	function callSetSpriteUrl(index) {
-		let id = pokeParty[index].id
-		let img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/${id}.png`
-		if (!id) {
-			img = '/images/pokemons/b_green-supgb_151_back.png'
-		}
-		setSpriteUrl(img)
-	}
-
-	function setTick() {
-		// do stuff
-	}
 
 	let pokemonList = pokeParty.map((el, index) => {
 		let className = `mon-in-bag-container-${index}`
@@ -170,7 +135,7 @@ const PokemonParty = () => {
 					</span>
 				</div>
 			</div>
-			{selectedPokemon && <DisplayPartyMember pokemon={pokeParty[selectedPokemon]} showMoves={showMoves} />}
+			{selectedPokemon !== null && <DisplayPartyMember pokemon={pokeParty[selectedPokemon]} showMoves={showMoves} />}
 		</div>
 	);
 };

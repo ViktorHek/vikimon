@@ -43,6 +43,10 @@ const Player = () => {
       case 'arrowup':
       case 'arrowleft':
       case 'arrowright':
+      case 'keys':
+      case 'keyw':
+      case 'keya':
+      case 'keyd':
         moveTarget(dispatch, element)
         break;
       case 'keyi':
@@ -60,7 +64,7 @@ const Player = () => {
       case 'keyx':
         dispatch({ type: "SET_VIEW", payload: 'WildPokemonEncounter' })
         break;
-      case 'keyw':
+      case 'keyc':
         dispatch({ type: "SET_BACKPACK_VIEW", payload: 'displaySelectedPokemonStats' })
         break;
       case 'enter':

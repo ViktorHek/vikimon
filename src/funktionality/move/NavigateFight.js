@@ -1,5 +1,9 @@
 const NavigateFight = (dispatch, direction, index, fightView) => {
 
+  if(direction === 'keys') direction = 'arrowdown'
+  if(direction === 'keyw') direction = 'arrowup'
+  if(direction === 'keya') direction = 'arrowleft'
+  if(direction === 'keyd') direction = 'arrowright'
 
   if (fightView !== "battleInit") {
     if (index < 3 && direction === 'arrowdown') {

@@ -4,6 +4,10 @@ const WalkKeys = {
     arrowup: 1,
     arrowleft: 2,
     arrowright: 3,
+    keys: 0,
+    keyw: 1,
+    keya: 2,
+    keyd: 3,
 
     // interaction
     keyi: 'openBag',
@@ -12,7 +16,7 @@ const WalkKeys = {
     backspace: 'back',
     keyr: 'runFromBattle',
     keyx: 'select',
-    keyw: 'view'
+    keyc: 'view'
 }
 
 // digit1
