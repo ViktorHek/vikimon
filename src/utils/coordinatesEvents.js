@@ -1,5 +1,5 @@
 const coordinatesEvents = [
-    {typeOfEvent: 'WildPokemonEncounter', x: 50, y: 50}
+    {typeOfEvent: 'WildPokemonEncounter', x: -128, y: -64}
 ]
 
 export default coordinatesEvents

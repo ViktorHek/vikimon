@@ -69,8 +69,7 @@ const PokemonParty = () => {
 	async function populatePokemonParty() {
 		let populatedPartyList = myPokemons;
 		if (!populatedPartyList.length) {
-			let localStorageString = localStorage.getItem('partyArr')
-			// let localStorageString = localStorage.getItem('bossPokemonParty')
+			let localStorageString = localStorage.getItem('testParty')
 			let responce = await api.callPokiParty(localStorageString)
 			populatedPartyList = responce.data
 
@@ -85,7 +84,7 @@ const PokemonParty = () => {
 	let pokemonList = pokeParty.map((el, index) => {
 		let className = `mon-in-bag-container-${index}`
 		return (
-			<div key={el.uid} className={className}>
+			<div key={`${el.uid},${index}`} className={className}>
 				<div className='mon-in-bag-name-container'>
 					<Font text={el.name.toUpperCase()} />
 				</div>

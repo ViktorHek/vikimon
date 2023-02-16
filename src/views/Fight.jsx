@@ -9,16 +9,24 @@ import NavigateFight from "../funktionality/move/NavigateFight";
 import Pointer from "../animatios/Pointer";
 import FightBackgrond from "../animatios/backgronds/FightBackgrond";
 import pointerPositions from "../utils/pointerPositions";
+import PokemonParty from "../components/backpack/PokemonParty";
 
 const Fight = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const [pokiParty, setPokiParty] = useState([]);
+  const [showPokemonParty, setShowPokemonParty] = useState(false);
   const [playersPokemon, setPlayersPokemon] = useState({});
   const [opponentsPokemon, setOpponentsPokemon] = useState({});
   const [pointerPositionIndex, setPointerPositionIndex] = useState(0);
   const [activeStatChangesArr, setActiveStatChangesArr] = useState([]);
-  const { myPokemons, selectedAttackFronRedux, selectInFight, fightView, playerMonsHealth } = selector;
+  const {
+    myPokemons,
+    selectedAttackFronRedux,
+    selectInFight,
+    fightView,
+    playerMonsHealth,
+  } = selector;
   const { battleInit, selectMoves } = pointerPositions;
 
   useEffect(() => {
@@ -46,7 +54,7 @@ const Fight = () => {
   async function populateParty() {
     let populatedPartyList = myPokemons;
     if (!populatedPartyList.length) {
-      let localStorageString = localStorage.getItem("partyArr");
+      let localStorageString = localStorage.getItem("testParty");
       let responce = await api.callPokiParty(localStorageString);
       populatedPartyList = responce.data;
       dispatch({
@@ -74,7 +82,12 @@ const Fight = () => {
     for (const key in availableKeys) {
       if (Object.hasOwnProperty.call(availableKeys, key)) {
         if (key === dir) {
-          let newIndex = NavigateFight(dispatch, dir, pointerPositionIndex, fightView);
+          let newIndex = NavigateFight(
+            dispatch,
+            dir,
+            pointerPositionIndex,
+            fightView
+          );
           setPointerPositionIndex(newIndex);
         }
       }
@@ -83,6 +96,9 @@ const Fight = () => {
 
   function handleSelect() {
     if (!selectInFight) return;
+
+    if(showPokemonParty) setShowPokemonParty(false)
+
     if (fightView === "battleInit") {
       switch (pointerPositionIndex) {
         case 0:
@@ -90,6 +106,7 @@ const Fight = () => {
           break;
         case 1:
           console.log("selecting pokemon");
+          setShowPokemonParty(true)
           break;
         case 2:
           console.log("selecting items");
@@ -98,22 +115,37 @@ const Fight = () => {
           dispatch({ type: "SET_VIEW", payload: "openWorld" });
           break;
         default:
-          console.error("error in handleSelect @ Fight.jsx ", pointerPositionIndex);
+          console.error(
+            "error in handleSelect @ Fight.jsx ",
+            pointerPositionIndex
+          );
           break;
       }
     } else {
       switch (pointerPositionIndex) {
         case 0:
-          dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[0] });
+          dispatch({
+            type: "SET_SELECTED_ATTACK",
+            payload: myPokemons[0].moves[0],
+          });
           break;
         case 1:
-          dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[1] });
+          dispatch({
+            type: "SET_SELECTED_ATTACK",
+            payload: myPokemons[0].moves[1],
+          });
           break;
         case 2:
-          dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[2] });
+          dispatch({
+            type: "SET_SELECTED_ATTACK",
+            payload: myPokemons[0].moves[2],
+          });
           break;
         case 3:
-          dispatch({ type: "SET_SELECTED_ATTACK", payload: myPokemons[0].moves[3] });
+          dispatch({
+            type: "SET_SELECTED_ATTACK",
+            payload: myPokemons[0].moves[3],
+          });
           break;
         default:
           break;
@@ -129,7 +161,12 @@ const Fight = () => {
    */
   async function calcDamage(attack) {
     if (!attack || !playersPokemon || !opponentsPokemon) {
-      console.log("missing swomething in calcDamges function", attack, playersPokemon, opponentsPokemon);
+      console.log(
+        "missing swomething in calcDamges function",
+        attack,
+        playersPokemon,
+        opponentsPokemon
+      );
       return;
     }
     let payload = {
@@ -149,8 +186,14 @@ const Fight = () => {
       });
       setActiveStatChangesArr(statChangesListFronAPI);
     }
-    dispatch({ type: "SET_DAMAGE_TO_OPPONENT", payload: Math.floor(damageToOpponent) });
-    dispatch({ type: "SET_DAMAGE_TO_PLAYER", payload: Math.floor(damageToPlayer) });
+    dispatch({
+      type: "SET_DAMAGE_TO_OPPONENT",
+      payload: Math.floor(damageToOpponent),
+    });
+    dispatch({
+      type: "SET_DAMAGE_TO_PLAYER",
+      payload: Math.floor(damageToPlayer),
+    });
     dispatch({ type: "SET_DAMAGE_TO_OPPONENT", payload: null });
     dispatch({ type: "SET_DAMAGE_TO_PLAYER", payload: null });
     dispatch({ type: "SET_SELECTED_ATTACK", payload: null });
@@ -170,13 +213,23 @@ const Fight = () => {
         special: pokemon.stats.special,
         speed: pokemon.stats.speed,
       },
-      moves: [pokemon.moves[0], pokemon.moves[1], pokemon.moves[2], pokemon.moves[3]],
+      moves: [
+        pokemon.moves[0],
+        pokemon.moves[1],
+        pokemon.moves[2],
+        pokemon.moves[3],
+      ],
     };
     return obj;
   }
 
   return (
     <div className="fight-main-container">
+      {showPokemonParty && (
+        <div className="relativeP">
+          <PokemonParty />
+        </div>
+      )}
       <div
         style={
           fightView === "battleInit"
