@@ -41,7 +41,7 @@ const Backpack = () => {
     if (backPackView === 'backpackInit') {
       setDisplayContent("")
       if(backpackOpen) {
-        dispatch({ type: "OPEN_BACKPACK" })
+        dispatch({ type: "TOGGLE_BACKPACK" })
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

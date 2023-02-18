@@ -8,7 +8,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         playermovement: action.payload
       }
-    case 'OPEN_BACKPACK':
+    case 'TOGGLE_BACKPACK':
       return {
         ...state,
         backpackOpen: !state.backpackOpen

@@ -5,7 +5,7 @@ import PlayerInFight from "../components/fight/PlayerInFight";
 import OpponentInFight from "../components/fight/OpponentInFight";
 import availableKeys from "../utils/availableKeys";
 import useKeys from "../hooks/use-keys";
-import NavigateFight from "../funktionality/move/NavigateFight";
+import NavigateFight from "../funktionality/navigation/navigateFight";
 import Pointer from "../animatios/Pointer";
 import FightBackgrond from "../animatios/backgronds/FightBackgrond";
 import pointerPositions from "../utils/pointerPositions";
