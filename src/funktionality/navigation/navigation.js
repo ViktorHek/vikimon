@@ -15,7 +15,6 @@ const Navigation = (dir, dispatch, selector) => {
         const element = availableKeys[key];
         if (key === dir) {
           identifyTypeOffKey(dir, element)
-          console.log('checkoing', dir, element)
         }
       }
     }
@@ -60,9 +59,6 @@ const Navigation = (dir, dispatch, selector) => {
       PlayerMove(dispatch, playermovement, element)
     }
   }
-
-
-
 
   return checkKeys(dir)
 }
