@@ -16,7 +16,7 @@ const rootReducer = (state = initialState, action) => {
     case 'SET_BACK_KEY':
       return {
         ...state,
-        backKey: !state.backKey
+        backKey: action.payload
       }
     case 'SET_SELECTED_ATTACK':
       return {

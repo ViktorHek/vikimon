@@ -17,7 +17,7 @@ const Backpack = () => {
     backPackView,
   } = useSelector((state) => state);
   const [openBackpack, setOpenBackpack] = useState(backpackOpen);
-  const [displayContent, setDisplayContent] = useState();
+  const [displayContent, setDisplayContent] = useState("");
   const [pokemonPartyProp, setPokemonPartyProp] = useState("");
   const [pointerPositionIndex, setPointerPositionIndex] = useState(16);
 
@@ -30,7 +30,7 @@ const Backpack = () => {
   }, [backpackOpen]);
 
   useEffect(() => {
-    if (selectInWorld) handleSelect();
+    if (selectInWorld && backpackOpen) handleSelect(selectInWorld);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectInWorld]);
 
@@ -44,21 +44,12 @@ const Backpack = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointerPosition]);
 
-  function handleSelect() {
-    if (!selectInWorld) return;
-    if (backPackView === "backpackInit") {
-      let selecting = backpackInit[pointerPosition.index].pointing_to;
-      setDisplayContent(selecting);
-      dispatch({
-        type: "SET_POINTER_POSITION",
-        payload: { index: pointerPosition.index, view: pointerPosition.view },
-      });
-      dispatch({ type: "SET_BACKPACK_VIEW", payload: selecting });
-    }
-    if (backPackView === "pokeParty") {
+  function handleSelect(selectInWorld) {
+    if(selectInWorld === "pokeParty") {
+      setDisplayContent(selectInWorld);
+    } else {
       setPokemonPartyProp("enter");
     }
-    dispatch({ type: "SET_SELECT_IN_WORLD", payload: false });
   }
 
   function handleBackKey() {
@@ -67,15 +58,20 @@ const Backpack = () => {
     }
     if (backPackView === "backpackInit") {
       setDisplayContent("");
-      if (backpackOpen) {
-        dispatch({ type: "TOGGLE_BACKPACK" });
-      }
+      dispatch({ type: "TOGGLE_BACKPACK" });
     }
-    dispatch({ type: "SET_BACK_KEY", payload: false });
   }
-
-  function resetProp() {
+  /**
+   * Function is called from child component after select/enter or backkey has been used. The child component checks for changes in the prop for an action to happen.
+   * @param {string} type curently used for specific task atm, 'back' means that the user is backing out of the pokemon party
+   * @returns {viod} setting state with a potensial dispatch
+   */
+  function resetProp(type) {
     setPokemonPartyProp("");
+    if (type === "back") {
+      dispatch({ type: "SET_BACKPACK_VIEW", payload: "backpackInit" });
+      setDisplayContent("");
+    }
   }
 
   return (
@@ -89,7 +85,7 @@ const Backpack = () => {
             <PokemonParty
               pointerPosition={pointerPosition}
               pokemonPartyProp={pokemonPartyProp}
-              resetProp={() => resetProp()}
+              resetProp={(type) => resetProp(type)}
             />
           ) : null}
           {displayContent === "pokedex" ? <OpenPokedex /> : null}

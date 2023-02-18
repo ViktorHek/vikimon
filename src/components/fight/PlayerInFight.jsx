@@ -71,7 +71,7 @@ const PlayerInFight = ({ data }) => {
     let payload = "battleInit";
     setView(payload);
     dispatch({ type: "SET_FIGHT_VIEW", payload: payload });
-    dispatch({ type: "SET_BACK_KEY", payload: false });
+    // dispatch({ type: "SET_BACK_KEY", payload: false });
   }
 
   useEffect(() => {

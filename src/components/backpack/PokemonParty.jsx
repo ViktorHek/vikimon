@@ -51,12 +51,12 @@ const PokemonParty = ({ pointerPosition, pokemonPartyProp, resetProp }) => {
   }
 
   function handleBackKey() {
-    if (selectedPokemon !== null) {
-      setSelectedPokemon(null);
+    if (selectedPokemon === null) {
+      resetProp('back')
     } else {
-      dispatch({ type: "SET_BACKPACK_VIEW", payload: "backpackInit" });
+      setSelectedPokemon(null);
+      resetProp()
     }
-		resetProp()
   }
 
   async function populatePokemonParty() {

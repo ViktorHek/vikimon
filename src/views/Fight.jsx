@@ -97,7 +97,7 @@ const Fight = () => {
   function handleSelect() {
     if (!selectInFight) return;
 
-    if(showPokemonParty) setShowPokemonParty(false)
+    if (showPokemonParty) setShowPokemonParty(false);
 
     if (fightView === "battleInit") {
       switch (pointerPositionIndex) {
@@ -106,7 +106,7 @@ const Fight = () => {
           break;
         case 1:
           console.log("selecting pokemon");
-          setShowPokemonParty(true)
+          setShowPokemonParty(true);
           break;
         case 2:
           console.log("selecting items");

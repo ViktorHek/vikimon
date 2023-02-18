@@ -1,20 +1,22 @@
-import availableKeys from '../../utils/availableKeys'
-import MovePointer from './movePointer'
-import PlayerMove from './playerMove'
+import availableKeys from "../../utils/availableKeys";
+import MovePointer from "./movePointer";
+import PlayerMove from "./playerMove";
+import pointerPositions from "../../utils/pointerPositions";
 
 const Navigation = (dir, dispatch, selector) => {
-  const { playermovement, backpackOpen, pointerPosition, backPackView } = selector
+  const { playermovement, backpackOpen, pointerPosition, backPackView } =
+    selector;
 
   function checkKeys(dir) {
     if (availableKeys.hasOwnProperty(dir) === false) {
-      console.log('Not a valid Key @Player.jsx - useKey()', { dir })
-      return null
+      console.log("Not a valid Key @Player.jsx - useKey()", { dir });
+      return null;
     }
     for (const key in availableKeys) {
       if (Object.hasOwnProperty.call(availableKeys, key)) {
         const element = availableKeys[key];
         if (key === dir) {
-          identifyTypeOffKey(dir, element)
+          identifyTypeOffKey(dir, element);
         }
       }
     }
@@ -22,45 +24,68 @@ const Navigation = (dir, dispatch, selector) => {
 
   function identifyTypeOffKey(dir, element) {
     switch (dir) {
-      case 'arrowdown':
-      case 'arrowup':
-      case 'arrowleft':
-      case 'arrowright':
-      case 'keys':
-      case 'keyw':
-      case 'keya':
-      case 'keyd':
-        moveTarget(dispatch, element)
+      case "arrowdown":
+      case "arrowup":
+      case "arrowleft":
+      case "arrowright":
+      case "keys":
+      case "keyw":
+      case "keya":
+      case "keyd":
+        moveTarget(dispatch, element);
         break;
-      case 'keyi':
+      case "keyi":
         if (backpackOpen) {
-          dispatch({ type: "TOGGLE_BACKPACK" })
+          dispatch({ type: "TOGGLE_BACKPACK" });
         } else {
-          dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: 'backpackInit' } })
-          dispatch({ type: "TOGGLE_BACKPACK" })
+          dispatch({
+            type: "SET_POINTER_POSITION",
+            payload: { index: 0, view: "backpackInit" },
+          });
+          dispatch({ type: "TOGGLE_BACKPACK" });
         }
         break;
-      case 'backspace':
-        dispatch({ type: "SET_BACK_KEY" })
+      case "backspace":
+        dispatch({ type: "SET_BACK_KEY", payload: true });
+        dispatch({ type: "SET_BACK_KEY", payload: false });
         break;
-      case 'enter':
-        dispatch({ type: "SET_SELECT_IN_WORLD", payload: true })
+      case "enter":
+        let selected = identifySelectedTarget()
+        dispatch({ type: "SET_SELECT_IN_WORLD", payload: selected });
+        dispatch({ type: "SET_SELECT_IN_WORLD", payload: false });
         break;
       default:
-        console.log('is a valid key, but can not find the type @Player.jsx - identifyTypeOffKey()', { dir })
+        console.log(
+          "is a valid key, but can not find the type @Player.jsx - identifyTypeOffKey()",
+          { dir }
+        );
         break;
     }
   }
 
   function moveTarget(dispatch, element) {
     if (backpackOpen) {
-      MovePointer(dispatch, pointerPosition, element, backPackView)
+      MovePointer(dispatch, pointerPosition, element, backPackView);
     } else {
-      PlayerMove(dispatch, playermovement, element)
+      PlayerMove(dispatch, playermovement, element);
     }
   }
 
-  return checkKeys(dir)
-}
+  function identifySelectedTarget() {
+    if (backPackView === "backpackInit") {
+      let selecting = pointerPositions.backpackInit[pointerPosition.index].pointing_to;
+      let payload = {
+        index: 0,
+        view: pointerPosition.view,
+      };
+      dispatch({ type: "SET_BACKPACK_VIEW", payload: selecting });
+      dispatch({ type: "SET_POINTER_POSITION", payload: payload });
+      return selecting
+    }
+    return true
+  }
 
-export default Navigation
+  return checkKeys(dir);
+};
+
+export default Navigation;
