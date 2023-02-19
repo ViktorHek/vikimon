@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import api from "../database/api";
 import PlayerInFight from "../components/fight/PlayerInFight";
 import OpponentInFight from "../components/fight/OpponentInFight";
-import availableKeys from "../utils/availableKeys";
-import useKeys from "../hooks/use-keys";
-import NavigateFight from "../funktionality/navigation/navigateFight";
+// import availableKeys from "../utils/availableKeys";
+// import useKeys from "../hooks/use-keys";
+// import NavigateFight from "../funktionality/navigation/navigateFight";
 import Pointer from "../animatios/Pointer";
 import FightBackgrond from "../animatios/backgronds/FightBackgrond";
 import pointerPositions from "../utils/pointerPositions";
@@ -26,6 +26,7 @@ const Fight = () => {
     selectInFight,
     fightView,
     playerMonsHealth,
+    pointerPosition
   } = selector;
   const { battleInit, selectMoves } = pointerPositions;
 
@@ -42,7 +43,7 @@ const Fight = () => {
   }, [selectedAttackFronRedux]);
 
   useEffect(() => {
-    handleSelect();
+    if (selectInFight) handleSelect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectInFight]);
 
@@ -50,6 +51,11 @@ const Fight = () => {
     setPointerPositionIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fightView]);
+
+  useEffect(() => {
+    setPointerPositionIndex(pointerPosition.index);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pointerPosition.index]);
 
   async function populateParty() {
     let populatedPartyList = myPokemons;
@@ -67,90 +73,9 @@ const Fight = () => {
     setPokiParty(populatedPartyList);
   }
 
-  useKeys((event) => {
-    // event.code is better for keys like space and shift
-    const dir = event.code.toLowerCase();
-    event.preventDefault();
-    if (availableKeys.hasOwnProperty(dir)) {
-      checkKeys(dir);
-    } else {
-      console.log("Not a valid Key @Fight.jsx - useKey()", dir);
-    }
-  });
-
-  function checkKeys(dir) {
-    for (const key in availableKeys) {
-      if (Object.hasOwnProperty.call(availableKeys, key)) {
-        if (key === dir) {
-          let newIndex = NavigateFight(
-            dispatch,
-            dir,
-            pointerPositionIndex,
-            fightView
-          );
-          setPointerPositionIndex(newIndex);
-        }
-      }
-    }
-  }
-
   function handleSelect() {
-    if (!selectInFight) return;
-
+    console.log("hello");
     if (showPokemonParty) setShowPokemonParty(false);
-
-    if (fightView === "battleInit") {
-      switch (pointerPositionIndex) {
-        case 0:
-          dispatch({ type: "SET_FIGHT_VIEW", payload: "selectMoves" });
-          break;
-        case 1:
-          console.log("selecting pokemon");
-          setShowPokemonParty(true);
-          break;
-        case 2:
-          console.log("selecting items");
-          break;
-        case 3:
-          dispatch({ type: "SET_VIEW", payload: "openWorld" });
-          break;
-        default:
-          console.error(
-            "error in handleSelect @ Fight.jsx ",
-            pointerPositionIndex
-          );
-          break;
-      }
-    } else {
-      switch (pointerPositionIndex) {
-        case 0:
-          dispatch({
-            type: "SET_SELECTED_ATTACK",
-            payload: myPokemons[0].moves[0],
-          });
-          break;
-        case 1:
-          dispatch({
-            type: "SET_SELECTED_ATTACK",
-            payload: myPokemons[0].moves[1],
-          });
-          break;
-        case 2:
-          dispatch({
-            type: "SET_SELECTED_ATTACK",
-            payload: myPokemons[0].moves[2],
-          });
-          break;
-        case 3:
-          dispatch({
-            type: "SET_SELECTED_ATTACK",
-            payload: myPokemons[0].moves[3],
-          });
-          break;
-        default:
-          break;
-      }
-    }
     dispatch({ type: "SET_SELECT_IN_FIGHT", payload: false });
   }
   /**

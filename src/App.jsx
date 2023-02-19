@@ -30,7 +30,8 @@ function App() {
   return (
     <div className="main_game_container">
       <div className="GameBox">
-        {displayedView === "FightView" ? <Fight /> : <OpenWorld />}
+        <OpenWorld />
+        {displayedView === "FightView" && <Fight />}
       </div>
     </div>
   );

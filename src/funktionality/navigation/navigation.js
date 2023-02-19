@@ -2,10 +2,18 @@ import availableKeys from "../../utils/availableKeys";
 import MovePointer from "./movePointer";
 import PlayerMove from "./playerMove";
 import pointerPositions from "../../utils/pointerPositions";
+import NavigateFight from "./navigateFight";
 
 const Navigation = (dir, dispatch, selector) => {
-  const { playermovement, backpackOpen, pointerPosition, backPackView } =
-    selector;
+  const {
+    playermovement,
+    backpackOpen,
+    pointerPosition,
+    backPackView,
+    viewState,
+    fightView,
+    myPokemons,
+  } = selector;
 
   function checkKeys(dir) {
     if (availableKeys.hasOwnProperty(dir) === false) {
@@ -50,9 +58,9 @@ const Navigation = (dir, dispatch, selector) => {
         dispatch({ type: "SET_BACK_KEY", payload: false });
         break;
       case "enter":
-        let selected = identifySelectedTarget()
+        let selected = identifySelectedTarget();
         dispatch({ type: "SET_SELECT_IN_WORLD", payload: selected });
-        dispatch({ type: "SET_SELECT_IN_WORLD", payload: false });
+        dispatch({ type: "SET_SELECT_IN_WORLD", payload: null });
         break;
       default:
         console.log(
@@ -64,25 +72,91 @@ const Navigation = (dir, dispatch, selector) => {
   }
 
   function moveTarget(dispatch, element) {
-    if (backpackOpen) {
-      MovePointer(dispatch, pointerPosition, element, backPackView);
+    if (viewState === "WildPokemonEncounter") {
+      var pointerPositionIndex = NavigateFight(
+        dispatch,
+        dir,
+        pointerPosition.index,
+        fightView
+      );
+      dispatch({
+        type: "SET_POINTER_POSITION",
+        payload: { view: pointerPosition.view, index: pointerPositionIndex },
+      });
     } else {
-      PlayerMove(dispatch, playermovement, element);
+      if (backpackOpen) {
+        MovePointer(dispatch, pointerPosition, element, backPackView);
+      } else {
+        PlayerMove(dispatch, playermovement, element);
+      }
     }
   }
 
   function identifySelectedTarget() {
+    console.log("identifySelectedTarget funk ", viewState, fightView);
+    if (viewState === "WildPokemonEncounter") {
+      if (fightView === "battleInit") {
+        switch (pointerPosition.index) {
+          case 0:
+            dispatch({ type: "SET_FIGHT_VIEW", payload: "selectMoves" });
+            return false;
+          case 1:
+            console.log("selecting pokemon");
+            // setShowPokemonParty(true);
+            return false;
+          case 2:
+            console.log("selecting items");
+            return false;
+          case 3:
+            dispatch({ type: "SET_VIEW", payload: "openWorld" });
+            return false;
+          default:
+            console.error("error in handleSelect @ Fight.jsx");
+            return false;
+        }
+      } else {
+        switch (pointerPosition.index) {
+          case 0:
+            dispatch({
+              type: "SET_SELECTED_ATTACK",
+              payload: myPokemons[0].moves[0],
+            });
+            return false;
+          case 1:
+            dispatch({
+              type: "SET_SELECTED_ATTACK",
+              payload: myPokemons[0].moves[1],
+            });
+            return false;
+          case 2:
+            dispatch({
+              type: "SET_SELECTED_ATTACK",
+              payload: myPokemons[0].moves[2],
+            });
+            return false;
+          case 3:
+            dispatch({
+              type: "SET_SELECTED_ATTACK",
+              payload: myPokemons[0].moves[3],
+            });
+            return false;
+          default:
+            return false;
+        }
+      }
+    }
     if (backPackView === "backpackInit") {
-      let selecting = pointerPositions.backpackInit[pointerPosition.index].pointing_to;
+      let selecting =
+        pointerPositions.backpackInit[pointerPosition.index].pointing_to;
       let payload = {
         index: 0,
         view: pointerPosition.view,
       };
       dispatch({ type: "SET_BACKPACK_VIEW", payload: selecting });
       dispatch({ type: "SET_POINTER_POSITION", payload: payload });
-      return selecting
+      return selecting;
     }
-    return true
+    return true;
   }
 
   return checkKeys(dir);

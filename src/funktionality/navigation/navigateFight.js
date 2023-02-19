@@ -1,18 +1,21 @@
 const NavigateFight = (dispatch, direction, index, fightView) => {
-
+console.log('figth nav: ', direction, index, fightView)
   if(direction === 'keys') direction = 'arrowdown'
   if(direction === 'keyw') direction = 'arrowup'
   if(direction === 'keya') direction = 'arrowleft'
   if(direction === 'keyd') direction = 'arrowright'
 
   if (fightView !== "battleInit") {
+
     if (index < 3 && direction === 'arrowdown') {
       return index + 1
     }
     if (index > 0 && direction === 'arrowup') {
       return index - 1
     }
+
   } else {
+
     switch (direction) {
       case 'arrowdown':
         if (index === 0) { return 2 };
@@ -33,8 +36,9 @@ const NavigateFight = (dispatch, direction, index, fightView) => {
         if (index === 2) { return 3 };
         return index
       default:
-        console.log('no switch match @NavigateFight arrow movement')
+        console.log('no switch match @NavigateFight arrow movement. index = ', index)
     }
+    
   }
 
   switch (direction) {
@@ -49,7 +53,7 @@ const NavigateFight = (dispatch, direction, index, fightView) => {
     case 'keyr':
       return index
     default:
-      console.log('no switch match @NavigateFight key press')
+      console.log('no switch match @NavigateFight key press. direction = ', direction)
       return index
   }
 };

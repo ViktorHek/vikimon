@@ -11,13 +11,13 @@ const initialState = {
   viewState: "",
   selectInFight: false,
   fightView: "battleInit",
-  damageOpponent: 0,
-  damagePlayer: 0,
+  damageOpponent: null,
+  damagePlayer: null,
   pointerPosition: { index: 0, view: "backpackInit" },
   backPackView: "backpackInit",
   selectInWorld: false,
-  playerMonsHealth: 0,
-  opponentMonsHealth: 0,
+  playerMonsHealth: null,
+  opponentMonsHealth: null,
 };
 
 export default initialState;
