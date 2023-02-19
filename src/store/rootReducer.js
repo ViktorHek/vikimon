@@ -38,11 +38,6 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         fightView: action.payload
       }
-    case 'SET_SELECT_IN_FIGHT':
-      return {
-        ...state,
-        selectInFight: !state.selectInFight
-      }
     case 'SET_DAMAGE_TO_OPPONENT':
       return {
         ...state,
@@ -63,10 +58,10 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         backPackView: action.payload
       }
-    case 'SET_SELECT_IN_WORLD':
+    case 'SET_SELECT':
       return {
         ...state,
-        selectInWorld: action.payload
+        isSelecting: action.payload
       }
     case 'SET_PLAYER_CURRENT_HEALTH':
       return {

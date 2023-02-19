@@ -17,7 +17,7 @@ const Navigation = (dir, dispatch, selector) => {
 
   function checkKeys(dir) {
     if (availableKeys.hasOwnProperty(dir) === false) {
-      console.log("Not a valid Key @Player.jsx - useKey()", { dir });
+      console.log("Not a valid Key @Player.jsx - useKey()", dir);
       return null;
     }
     for (const key in availableKeys) {
@@ -59,8 +59,8 @@ const Navigation = (dir, dispatch, selector) => {
         break;
       case "enter":
         let selected = identifySelectedTarget();
-        dispatch({ type: "SET_SELECT_IN_WORLD", payload: selected });
-        dispatch({ type: "SET_SELECT_IN_WORLD", payload: null });
+        dispatch({ type: "SET_SELECT", payload: selected });
+        dispatch({ type: "SET_SELECT", payload: null });
         break;
       default:
         console.log(
@@ -72,28 +72,25 @@ const Navigation = (dir, dispatch, selector) => {
   }
 
   function moveTarget(dispatch, element) {
-    if (viewState === "WildPokemonEncounter") {
-      var pointerPositionIndex = NavigateFight(
-        dispatch,
-        dir,
-        pointerPosition.index,
-        fightView
-      );
-      dispatch({
-        type: "SET_POINTER_POSITION",
-        payload: { view: pointerPosition.view, index: pointerPositionIndex },
-      });
-    } else {
-      if (backpackOpen) {
-        MovePointer(dispatch, pointerPosition, element, backPackView);
-      } else {
-        PlayerMove(dispatch, playermovement, element);
-      }
+    if (viewState === "openWorld" && !backpackOpen) {
+      PlayerMove(dispatch, playermovement, element);
+      return;
     }
+    let pointerPositionIndex = MovePointer(
+      pointerPosition,
+      element,
+      backPackView,
+      dir,
+      fightView,
+      viewState
+    );
+    dispatch({
+      type: "SET_POINTER_POSITION",
+      payload: { view: pointerPosition.view, index: pointerPositionIndex },
+    });
   }
 
   function identifySelectedTarget() {
-    console.log("identifySelectedTarget funk ", viewState, fightView);
     if (viewState === "WildPokemonEncounter") {
       if (fightView === "battleInit") {
         switch (pointerPosition.index) {
@@ -146,8 +143,7 @@ const Navigation = (dir, dispatch, selector) => {
       }
     }
     if (backPackView === "backpackInit") {
-      let selecting =
-        pointerPositions.backpackInit[pointerPosition.index].pointing_to;
+      let selecting = pointerPositions.backpackInit[pointerPosition.index].pointing_to;
       let payload = {
         index: 0,
         view: pointerPosition.view,
