@@ -47,7 +47,7 @@ const Fight = ({ data }) => {
 
     function opponentPokemonFaint() {
         console.log('YOU WIN!!')
-        dispatch({ type: "SET_VIEW", payload: 'openWorld' })
+        dispatch({ type: "SET_MAIN_VIEW", payload: 'openWorld' })
     }
 
     function populateData() {

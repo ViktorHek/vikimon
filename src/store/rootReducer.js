@@ -28,10 +28,10 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         myPokemons: action.payload
       }
-    case 'SET_VIEW':
+    case 'SET_MAIN_VIEW':
       return {
         ...state,
-        viewState: action.payload
+        mainView: action.payload
       }
     case 'SET_FIGHT_VIEW':
       return {

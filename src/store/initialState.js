@@ -8,7 +8,7 @@ const initialState = {
   backKey: false,
   selectedAttackFronRedux: null,
   pokedexDB: [],
-  viewState: "openWorld",
+  mainView: "openWorld",
   isSelecting: false,
   fightView: "battleInit",
   damageOpponent: null,

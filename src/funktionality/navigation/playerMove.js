@@ -70,7 +70,7 @@ const PlayerMove = (dispatch, playermovement, direction) => {
   }
   coordinatesEvents.forEach((el) => {
     if (el.x === payload.map.x && el.y === payload.map.y) {
-      dispatch({ type: "SET_VIEW", payload: el.typeOfEvent })
+      dispatch({ type: "SET_MAIN_VIEW", payload: el.typeOfEvent })
     }
   })
   dispatch({ type: "SET_PLAYER_MOVEMENT", payload })

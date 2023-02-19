@@ -10,7 +10,7 @@ const Navigation = (dir, dispatch, selector) => {
     backpackOpen,
     pointerPosition,
     backPackView,
-    viewState,
+    mainView,
     fightView,
     myPokemons,
   } = selector;
@@ -72,7 +72,7 @@ const Navigation = (dir, dispatch, selector) => {
   }
 
   function moveTarget(dispatch, element) {
-    if (viewState === "openWorld" && !backpackOpen) {
+    if (mainView === "openWorld" && !backpackOpen) {
       PlayerMove(dispatch, playermovement, element);
       return;
     }
@@ -82,7 +82,7 @@ const Navigation = (dir, dispatch, selector) => {
       backPackView,
       dir,
       fightView,
-      viewState
+      mainView
     );
     dispatch({
       type: "SET_POINTER_POSITION",
@@ -91,7 +91,7 @@ const Navigation = (dir, dispatch, selector) => {
   }
 
   function identifySelectedTarget() {
-    if (viewState === "WildPokemonEncounter") {
+    if (mainView === "WildPokemonEncounter") {
       if (fightView === "battleInit") {
         switch (pointerPosition.index) {
           case 0:
@@ -105,7 +105,7 @@ const Navigation = (dir, dispatch, selector) => {
             console.log("selecting items");
             return false;
           case 3:
-            dispatch({ type: "SET_VIEW", payload: "openWorld" });
+            dispatch({ type: "SET_MAIN_VIEW", payload: "openWorld" });
             return false;
           default:
             console.error("error in handleSelect @ Fight.jsx");

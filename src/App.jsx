@@ -10,16 +10,16 @@ import Navigation from "./funktionality/navigation/navigation";
 function App() {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
-  const { viewState } = useSelector((state) => state);
+  const { mainView } = useSelector((state) => state);
   const [displayedView, setDisplayedView] = useState("world");
 
   useEffect(() => {
-    if (viewState === "WildPokemonEncounter") {
+    if (mainView === "WildPokemonEncounter") {
       setDisplayedView("FightView");
     } else {
       setDisplayedView("world");
     }
-  }, [viewState]);
+  }, [mainView]);
 
   useKeys((event) => {
     const dir = event.code.toLowerCase();

@@ -2,8 +2,8 @@ import pointerPositions from "../../utils/pointerPositions";
 
 const { backpackInit, pokemonParty } = pointerPositions;
 
-const MovePointer = (poinerPos, element, backPackView, direction, fightView, viewState) => {
-  if (viewState === "openWorld") {
+const MovePointer = (poinerPos, element, backPackView, direction, fightView, mainView) => {
+  if (mainView === "openWorld") {
     if (backPackView === "backpackInit") {
       if (element === 0 && poinerPos.index < backpackInit.length - 1) {
         return poinerPos.index + 1;
