@@ -13,7 +13,7 @@ const Backpack = () => {
     backpackOpen,
     backKey,
     pointerPosition,
-    isSelecting,
+    selectTarget,
     backPackView,
   } = useSelector((state) => state);
   const [openBackpack, setOpenBackpack] = useState(backpackOpen);
@@ -30,9 +30,9 @@ const Backpack = () => {
   }, [backpackOpen]);
 
   useEffect(() => {
-    if (isSelecting && backpackOpen) handleSelect(isSelecting);
+    if (selectTarget && backpackOpen) handleSelect(selectTarget);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSelecting]);
+  }, [selectTarget]);
 
   useEffect(() => {
     if (backKey) handleBackKey();
@@ -44,9 +44,9 @@ const Backpack = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointerPosition]);
 
-  function handleSelect(isSelecting) {
-    if(isSelecting === "pokeParty") {
-      setDisplayContent(isSelecting);
+  function handleSelect(selectTarget) {
+    if(selectTarget === "pokeParty") {
+      setDisplayContent(selectTarget);
     } else {
       setPokemonPartyProp("enter");
     }

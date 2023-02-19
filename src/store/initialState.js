@@ -9,7 +9,7 @@ const initialState = {
   selectedAttackFronRedux: null,
   pokedexDB: [],
   mainView: "openWorld",
-  isSelecting: false,
+  selectTarget: false,
   fightView: "battleInit",
   damageOpponent: null,
   damagePlayer: null,

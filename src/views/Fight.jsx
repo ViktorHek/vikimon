@@ -20,7 +20,7 @@ const Fight = () => {
   const {
     myPokemons,
     selectedAttackFronRedux,
-    isSelecting,
+    selectTarget,
     fightView,
     playerMonsHealth,
     pointerPosition
@@ -29,7 +29,6 @@ const Fight = () => {
 
   useEffect(() => {
     populateParty();
-    console.log('pointerPosition init ', pointerPosition)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -41,9 +40,9 @@ const Fight = () => {
   }, [selectedAttackFronRedux]);
 
   useEffect(() => {
-    if (isSelecting) handleSelect();
+    if (selectTarget) handleSelect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSelecting]);
+  }, [selectTarget]);
 
   useEffect(() => {
     setPointerPositionIndex(0);
@@ -51,7 +50,6 @@ const Fight = () => {
   }, [fightView]);
 
   useEffect(() => {
-    console.log('pointerPosition change ', pointerPosition)
     setPointerPositionIndex(pointerPosition.index);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointerPosition.index]);
@@ -74,8 +72,7 @@ const Fight = () => {
 
   function handleSelect() {
     console.log("hello");
-    if (showPokemonParty) setShowPokemonParty(false);
-    dispatch({ type: "SET_SELECT", payload: false });
+    // if (showPokemonParty) setShowPokemonParty(false);
   }
   /**
    * this function uses playersPokemon, opponentsPokemon from Redux.

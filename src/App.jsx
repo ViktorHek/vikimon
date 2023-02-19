@@ -14,7 +14,7 @@ function App() {
   const [displayedView, setDisplayedView] = useState("world");
 
   useEffect(() => {
-    if (mainView === "WildPokemonEncounter") {
+    if (mainView === "fight") {
       setDisplayedView("FightView");
     } else {
       setDisplayedView("world");

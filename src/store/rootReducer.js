@@ -61,7 +61,7 @@ const rootReducer = (state = initialState, action) => {
     case 'SET_SELECT':
       return {
         ...state,
-        isSelecting: action.payload
+        selectTarget: action.payload
       }
     case 'SET_PLAYER_CURRENT_HEALTH':
       return {

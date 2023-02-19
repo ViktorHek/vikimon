@@ -2,7 +2,6 @@ import availableKeys from "../../utils/availableKeys";
 import MovePointer from "./movePointer";
 import PlayerMove from "./playerMove";
 import pointerPositions from "../../utils/pointerPositions";
-import NavigateFight from "./navigateFight";
 
 const Navigation = (dir, dispatch, selector) => {
   const {
@@ -43,23 +42,16 @@ const Navigation = (dir, dispatch, selector) => {
         moveTarget(dispatch, element);
         break;
       case "keyi":
-        if (backpackOpen) {
-          dispatch({ type: "TOGGLE_BACKPACK" });
-        } else {
-          dispatch({
-            type: "SET_POINTER_POSITION",
-            payload: { index: 0, view: "backpackInit" },
-          });
-          dispatch({ type: "TOGGLE_BACKPACK" });
-        }
+        handleInventory();
         break;
       case "backspace":
         dispatch({ type: "SET_BACK_KEY", payload: true });
         dispatch({ type: "SET_BACK_KEY", payload: false });
         break;
+      case "space":
       case "enter":
-        let selected = identifySelectedTarget();
-        dispatch({ type: "SET_SELECT", payload: selected });
+        let payload = identifySelectedTarget();
+        dispatch(payload);
         dispatch({ type: "SET_SELECT", payload: null });
         break;
       default:
@@ -68,6 +60,18 @@ const Navigation = (dir, dispatch, selector) => {
           { dir }
         );
         break;
+    }
+  }
+
+  function handleInventory() {
+    if (backpackOpen) {
+      dispatch({ type: "TOGGLE_BACKPACK" });
+    } else {
+      dispatch({
+        type: "SET_POINTER_POSITION",
+        payload: { index: 0, view: "backpackInit" },
+      });
+      dispatch({ type: "TOGGLE_BACKPACK" });
     }
   }
 
@@ -90,69 +94,28 @@ const Navigation = (dir, dispatch, selector) => {
     });
   }
 
-  function identifySelectedTarget() {
-    if (mainView === "WildPokemonEncounter") {
+  function identifySelectedTarget() { // merge fightView and backpackView to get ridd of if statments
+    let payloadObj = {
+      type: "SET_SELECT",
+      payload: null,
+    };
+    if (mainView === "fight") {
+      payloadObj.payload = pointerPositions[fightView][pointerPosition.index].pointing_to;
       if (fightView === "battleInit") {
-        switch (pointerPosition.index) {
-          case 0:
-            dispatch({ type: "SET_FIGHT_VIEW", payload: "selectMoves" });
-            return false;
-          case 1:
-            console.log("selecting pokemon");
-            // setShowPokemonParty(true);
-            return false;
-          case 2:
-            console.log("selecting items");
-            return false;
-          case 3:
-            dispatch({ type: "SET_MAIN_VIEW", payload: "openWorld" });
-            return false;
-          default:
-            console.error("error in handleSelect @ Fight.jsx");
-            return false;
-        }
-      } else {
-        switch (pointerPosition.index) {
-          case 0:
-            dispatch({
-              type: "SET_SELECTED_ATTACK",
-              payload: myPokemons[0].moves[0],
-            });
-            return false;
-          case 1:
-            dispatch({
-              type: "SET_SELECTED_ATTACK",
-              payload: myPokemons[0].moves[1],
-            });
-            return false;
-          case 2:
-            dispatch({
-              type: "SET_SELECTED_ATTACK",
-              payload: myPokemons[0].moves[2],
-            });
-            return false;
-          case 3:
-            dispatch({
-              type: "SET_SELECTED_ATTACK",
-              payload: myPokemons[0].moves[3],
-            });
-            return false;
-          default:
-            return false;
-        }
+        payloadObj.type = "SET_FIGHT_VIEW";
       }
     }
     if (backPackView === "backpackInit") {
-      let selecting = pointerPositions.backpackInit[pointerPosition.index].pointing_to;
-      let payload = {
-        index: 0,
-        view: pointerPosition.view,
-      };
-      dispatch({ type: "SET_BACKPACK_VIEW", payload: selecting });
-      dispatch({ type: "SET_POINTER_POSITION", payload: payload });
-      return selecting;
+      payloadObj.payload = pointerPositions[backPackView][pointerPosition.index].pointing_to;
+      if (backPackView === "backpackInit") {
+        payloadObj.type = "SET_BACKPACK_VIEW";
+      }
     }
-    return true;
+    if (payloadObj.payload === "runFromBattle" || payloadObj.payload === "exit") {
+      payloadObj.payload = "";
+      dispatch({ type: "SET_MAIN_VIEW", payload: "openWorld" });
+    }
+    return payloadObj;
   }
 
   return checkKeys(dir);
