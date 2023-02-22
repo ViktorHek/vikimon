@@ -14,11 +14,7 @@ function App() {
   const [displayedView, setDisplayedView] = useState("world");
 
   useEffect(() => {
-    if (mainView === "fight") {
-      setDisplayedView("FightView");
-    } else {
-      setDisplayedView("world");
-    }
+    setDisplayedView(mainView) // fight || openWorld
   }, [mainView]);
 
   useKeys((event) => {
@@ -31,7 +27,7 @@ function App() {
     <div className="main_game_container">
       <div className="GameBox">
         <OpenWorld />
-        {displayedView === "FightView" && <Fight />}
+        {displayedView === "fight" && <Fight />}
       </div>
     </div>
   );

@@ -16,31 +16,21 @@ const Fight = () => {
   const [playersPokemon, setPlayersPokemon] = useState({});
   const [opponentsPokemon, setOpponentsPokemon] = useState({});
   const [pointerPositionIndex, setPointerPositionIndex] = useState(0);
+  const [playerDamage, setPlayerDamage] = useState(0);
+  const [opponentDamage, setOpponentDamage] = useState(0);
+  const [battleID, setBattleID] = useState(null);
   const [activeStatChangesArr, setActiveStatChangesArr] = useState([]);
-  const {
-    myPokemons,
-    selectedAttackFronRedux,
-    selectTarget,
-    fightView,
-    playerMonsHealth,
-    pointerPosition
-  } = selector;
+  const { myPokemons, selectTarget, fightView, playerMonsHealth, pointerPosition } = selector;
   const { battleInit, selectMoves } = pointerPositions;
 
   useEffect(() => {
-    populateParty();
+    console.log("hej");
+    populatePartyAndInitBattle();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (selectedAttackFronRedux) {
-      calcDamage(selectedAttackFronRedux);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedAttackFronRedux]);
-
-  useEffect(() => {
-    if (selectTarget) handleSelect();
+    if (selectTarget) handleSelect(selectTarget);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectTarget]);
 
@@ -54,7 +44,7 @@ const Fight = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointerPosition.index]);
 
-  async function populateParty() {
+  async function populatePartyAndInitBattle() {
     let populatedPartyList = myPokemons;
     if (!populatedPartyList.length) {
       let localStorageString = localStorage.getItem("testParty");
@@ -66,83 +56,87 @@ const Fight = () => {
       });
     }
     setPlayersPokemon(populatedPartyList[0]);
-    setOpponentsPokemon(populatedPartyList[0]);
+    setOpponentsPokemon(populatedPartyList[1]);
     setPokiParty(populatedPartyList);
+    let initBattlePayload = {
+      playersPokemon: populatedPartyList[0],
+      opponentsPokemon: populatedPartyList[1],
+      user: { gymBadges: { attack: true, defense: true, special: true, speed: true } },
+      statChanges: activeStatChangesArr,
+    };
+    let responce = await api.initBattle(initBattlePayload);
+    console.log("data", responce.data);
+    setBattleID(responce.data.battleId);
   }
 
-  function handleSelect() {
-    console.log("hello");
-    // if (showPokemonParty) setShowPokemonParty(false);
+  function handleSelect(target) {
+    console.log('handle select: ', target)
+    switch (target) {
+      case "move0":
+      case "move1":
+      case "move2":
+      case "move3":
+        calcDamage(target);
+        break;
+      case "selectMoves":
+        console.log("handle selectingMoves");
+        break;
+      case "selectPokemon":
+        setShowPokemonParty(true);
+        console.log("handle selectPokemon");
+        break;
+      case "selectItem":
+        console.log("handle selectItem");
+        break;
+      case "runFromBattle":
+        console.log("handle runFromBattle");
+        break;
+      default:
+        console.log("no target in handleSelect @ Fight.jsx. target: ", target);
+        return;
+    }
   }
   /**
    * this function uses playersPokemon, opponentsPokemon from Redux.
    * @async makes a call to callDamageCalc
-   * @param {{id: number, name: string}} attack curently only using id
+   * @param {string} attack format is move + index. for exampl 'move0'
    * @returns {void} dispatching to "SET_DAMAGE_TO_OPPONENT" & "SET_DAMAGE_TO_PLAYER"
    */
   async function calcDamage(attack) {
-    if (!attack || !playersPokemon || !opponentsPokemon) {
-      console.log(
-        "missing swomething in calcDamges function",
-        attack,
-        playersPokemon,
-        opponentsPokemon
-      );
-      return;
-    }
+    if (!attack || !playersPokemon || !opponentsPokemon) return;
+    let selectedAttack = playersPokemon.moves[parseInt(attack.replace("move", ""))];
     let payload = {
-      playersPokemon: getPokiObjectForBattle(playersPokemon),
-      opponentsPokemon: getPokiObjectForBattle(opponentsPokemon),
-      moveId: attack.id,
-      gymBadges: [true, true, true, true],
-      statChanges: activeStatChangesArr,
+      battleId: battleID,
+      moveId: selectedAttack.id,
     };
     let responce = await api.callDamageCalc(payload);
+    console.log("responce", responce.data);
     let damageToOpponent = responce.data.playerAttack;
     let damageToPlayer = responce.data.opponentAttack;
-    if (responce.data.statChanges.length) {
-      let statChangesListFronAPI = [];
-      responce.data.statChanges.forEach((el) => {
-        statChangesListFronAPI.push(el);
-      });
-      setActiveStatChangesArr(statChangesListFronAPI);
-    }
-    dispatch({
-      type: "SET_DAMAGE_TO_OPPONENT",
-      payload: Math.floor(damageToOpponent),
-    });
-    dispatch({
-      type: "SET_DAMAGE_TO_PLAYER",
-      payload: Math.floor(damageToPlayer),
-    });
-    dispatch({ type: "SET_DAMAGE_TO_OPPONENT", payload: null });
-    dispatch({ type: "SET_DAMAGE_TO_PLAYER", payload: null });
-    dispatch({ type: "SET_SELECTED_ATTACK", payload: null });
+    setPlayerDamage(Math.floor(damageToPlayer));
+    setOpponentDamage(Math.floor(damageToOpponent));
+    setPlayerDamage(null);
+    setOpponentDamage(null);
   }
 
-  function getPokiObjectForBattle(pokemon) {
-    let obj = {
-      id: pokemon.id,
-      level: pokemon.level,
-      abilities: pokemon.abilities,
-      types: pokemon.dbData.types,
-      status: "fine",
-      stats: {
-        hp: playerMonsHealth,
-        attack: pokemon.stats.attack,
-        defense: pokemon.stats.defense,
-        special: pokemon.stats.special,
-        speed: pokemon.stats.speed,
-      },
-      moves: [
-        pokemon.moves[0],
-        pokemon.moves[1],
-        pokemon.moves[2],
-        pokemon.moves[3],
-      ],
-    };
-    return obj;
-  }
+  // function getPokiObjectForBattle(pokemon) {
+  //   let obj = {
+  //     id: pokemon.id,
+  //     level: pokemon.level,
+  //     abilities: pokemon.abilities,
+  //     types: pokemon.dbData.types,
+  //     status: "fine",
+  //     stats: {
+  //       hp: playerMonsHealth,
+  //       attack: pokemon.stats.attack,
+  //       defense: pokemon.stats.defense,
+  //       special: pokemon.stats.special,
+  //       speed: pokemon.stats.speed,
+  //     },
+  //     moves: [pokemon.moves[0], pokemon.moves[1], pokemon.moves[2], pokemon.moves[3]],
+  //   };
+  //   return obj;
+  // }
 
   return (
     <div className="fight-main-container">
@@ -170,9 +164,8 @@ const Fight = () => {
       <div className="relativeP">
         <FightBackgrond />
       </div>
-
-      {pokiParty.length ? <OpponentInFight data={opponentsPokemon} /> : null}
-      {pokiParty.length ? <PlayerInFight data={playersPokemon} /> : null}
+      {battleID !== null && <OpponentInFight data={opponentsPokemon} damage={opponentDamage} />}
+      {battleID !== null && <PlayerInFight data={playersPokemon} damage={playerDamage} />}
     </div>
   );
 };

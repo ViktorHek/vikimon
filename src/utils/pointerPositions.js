@@ -6,10 +6,10 @@ const pointerPositions = {
         { top: 128, left: 120, pointing_to: 'runFromBattle' }
     ],
     selectMoves: [
-        { top: 104, left: 40, pointing_to: 'move1' },
-        { top: 112, left: 40, pointing_to: 'move2' },
-        { top: 120, left: 40, pointing_to: 'move3' },
-        { top: 128, left: 40, pointing_to: 'move4' }
+        { top: 104, left: 40, pointing_to: 'move0' },
+        { top: 112, left: 40, pointing_to: 'move1' },
+        { top: 120, left: 40, pointing_to: 'move2' },
+        { top: 128, left: 40, pointing_to: 'move3' }
     ],
     backpackInit: [
         { top: 16, left: 8, pointing_to: 'pokedex' },
