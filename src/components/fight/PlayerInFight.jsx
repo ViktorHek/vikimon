@@ -6,7 +6,7 @@ import HealthBar from "../../animatios/HealthBar";
 
 const PlayerInFight = ({ data }) => {
   const dispatch = useDispatch();
-  const { fightView, backKey, damagePlayer } = useSelector((state) => state);
+  const { secondaryView, backKey, damagePlayer } = useSelector((state) => state);
   const [spriteUrl, setSpriteUrl] = useState("");
   const [view, setView] = useState("battleInit");
   const maxHealth = data.stats.hp;
@@ -70,14 +70,14 @@ const PlayerInFight = ({ data }) => {
     if (!backKey) return;
     let payload = "battleInit";
     setView(payload);
-    dispatch({ type: "SET_FIGHT_VIEW", payload: payload });
+    dispatch({ type: "SET_SECONDARY_VIEW", payload: payload });
     // dispatch({ type: "SET_BACK_KEY", payload: false });
   }
 
   useEffect(() => {
-    setView(fightView);
+    setView(secondaryView);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fightView]);
+  }, [secondaryView]);
 
   return (
     <div>

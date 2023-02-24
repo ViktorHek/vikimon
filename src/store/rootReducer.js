@@ -33,10 +33,10 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         mainView: action.payload
       }
-    case 'SET_FIGHT_VIEW':
+    case 'SET_SECONDARY_VIEW':
       return {
         ...state,
-        fightView: action.payload
+        secondaryView: action.payload
       }
     case 'SET_DAMAGE_TO_OPPONENT':
       return {
@@ -52,11 +52,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pointerPosition: action.payload
-      }
-    case 'SET_BACKPACK_VIEW':
-      return {
-        ...state,
-        backPackView: action.payload
       }
     case 'SET_SELECT':
       return {

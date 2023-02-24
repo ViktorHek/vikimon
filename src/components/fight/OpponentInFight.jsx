@@ -33,7 +33,6 @@ const Fight = ({ data }) => {
     }, [damageOpponent])
 
     function applyAttack(damageOpponent) {
-        console.log('at applyAttack in opponentInFight', damageOpponent)
         let healthAfterDamage = health - damageOpponent
         let healthPercent = healthAfterDamage / maxHealth
         let healthPercentToPixel = healthPercent * 100

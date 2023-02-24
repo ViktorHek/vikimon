@@ -7,6 +7,7 @@ import Font from "../../animatios/font/Font";
 import MenuBackgrond from "../../animatios/backgronds/MenuBackgrond";
 import pointerPositions from "../../utils/pointerPositions";
 import DisplayPartyMember from "./DisplayPartyMember";
+import globals from "../../utils/globalVariables";
 
 const PokemonParty = ({ pointerPosition, pokemonPartyProp, resetProp }) => {
   const dispatch = useDispatch();
@@ -62,7 +63,7 @@ const PokemonParty = ({ pointerPosition, pokemonPartyProp, resetProp }) => {
   async function populatePokemonParty() {
     let populatedPartyList = myPokemons;
     if (!populatedPartyList.length) {
-      let localStorageString = localStorage.getItem("testParty");
+      let localStorageString = localStorage.getItem(globals.lsPokemonParty);
       let responce = await api.callPokiParty(localStorageString);
       populatedPartyList = responce.data;
       dispatch({

@@ -14,7 +14,7 @@ const Backpack = () => {
     backKey,
     pointerPosition,
     selectTarget,
-    backPackView,
+    secondaryView,
   } = useSelector((state) => state);
   const [openBackpack, setOpenBackpack] = useState(backpackOpen);
   const [displayContent, setDisplayContent] = useState("");
@@ -53,10 +53,10 @@ const Backpack = () => {
   }
 
   function handleBackKey() {
-    if (backPackView === "pokeParty") {
+    if (secondaryView === "pokeParty") {
       setPokemonPartyProp("back");
     }
-    if (backPackView === "backpackInit") {
+    if (secondaryView === "backpackInit") {
       setDisplayContent("");
       dispatch({ type: "TOGGLE_BACKPACK" });
     }
@@ -69,7 +69,7 @@ const Backpack = () => {
   function resetProp(type) {
     setPokemonPartyProp("");
     if (type === "back") {
-      dispatch({ type: "SET_BACKPACK_VIEW", payload: "backpackInit" });
+      dispatch({ type: "SET_SECONDARY_VIEW", payload: "backpackInit" });
       setDisplayContent("");
     }
   }

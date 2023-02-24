@@ -7,11 +7,11 @@ import Pointer from "../animatios/Pointer";
 import FightBackgrond from "../animatios/backgronds/FightBackgrond";
 import pointerPositions from "../utils/pointerPositions";
 import PokemonParty from "../components/backpack/PokemonParty";
+import globals from "../utils/globalVariables";
 
 const Fight = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
-  const [pokiParty, setPokiParty] = useState([]);
   const [showPokemonParty, setShowPokemonParty] = useState(false);
   const [playersPokemon, setPlayersPokemon] = useState({});
   const [opponentsPokemon, setOpponentsPokemon] = useState({});
@@ -19,12 +19,10 @@ const Fight = () => {
   const [playerDamage, setPlayerDamage] = useState(0);
   const [opponentDamage, setOpponentDamage] = useState(0);
   const [battleID, setBattleID] = useState(null);
-  const [activeStatChangesArr, setActiveStatChangesArr] = useState([]);
-  const { myPokemons, selectTarget, fightView, playerMonsHealth, pointerPosition } = selector;
-  const { battleInit, selectMoves } = pointerPositions;
+  const [view, setView] = useState("battleInit");
+  const { myPokemons, selectTarget, secondaryView, pointerPosition } = selector;
 
   useEffect(() => {
-    console.log("hej");
     populatePartyAndInitBattle();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -35,19 +33,21 @@ const Fight = () => {
   }, [selectTarget]);
 
   useEffect(() => {
-    setPointerPositionIndex(0);
+    if(secondaryView) setView(secondaryView)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fightView]);
+  }, [secondaryView]);
 
   useEffect(() => {
-    setPointerPositionIndex(pointerPosition.index);
+    if(pointerPosition.view) setPointerPositionIndex(pointerPosition.index);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pointerPosition.index]);
+  }, [pointerPosition.index, pointerPosition.view]);
 
   async function populatePartyAndInitBattle() {
+    dispatch({type: 'SET_POINTER_POSITION', payload: {index: 0, view: 'battleInit'}})
+    dispatch({type: 'SET_SECONDARY_VIEW', payload: 'battleInit'})
     let populatedPartyList = myPokemons;
     if (!populatedPartyList.length) {
-      let localStorageString = localStorage.getItem("testParty");
+      let localStorageString = localStorage.getItem(globals.lsPokemonParty);
       let responce = await api.callPokiParty(localStorageString);
       populatedPartyList = responce.data;
       dispatch({
@@ -57,20 +57,16 @@ const Fight = () => {
     }
     setPlayersPokemon(populatedPartyList[0]);
     setOpponentsPokemon(populatedPartyList[1]);
-    setPokiParty(populatedPartyList);
     let initBattlePayload = {
       playersPokemon: populatedPartyList[0],
       opponentsPokemon: populatedPartyList[1],
       user: { gymBadges: { attack: true, defense: true, special: true, speed: true } },
-      statChanges: activeStatChangesArr,
     };
     let responce = await api.initBattle(initBattlePayload);
-    console.log("data", responce.data);
     setBattleID(responce.data.battleId);
   }
 
   function handleSelect(target) {
-    console.log('handle select: ', target)
     switch (target) {
       case "move0":
       case "move1":
@@ -119,25 +115,6 @@ const Fight = () => {
     setOpponentDamage(null);
   }
 
-  // function getPokiObjectForBattle(pokemon) {
-  //   let obj = {
-  //     id: pokemon.id,
-  //     level: pokemon.level,
-  //     abilities: pokemon.abilities,
-  //     types: pokemon.dbData.types,
-  //     status: "fine",
-  //     stats: {
-  //       hp: playerMonsHealth,
-  //       attack: pokemon.stats.attack,
-  //       defense: pokemon.stats.defense,
-  //       special: pokemon.stats.special,
-  //       speed: pokemon.stats.speed,
-  //     },
-  //     moves: [pokemon.moves[0], pokemon.moves[1], pokemon.moves[2], pokemon.moves[3]],
-  //   };
-  //   return obj;
-  // }
-
   return (
     <div className="fight-main-container">
       {showPokemonParty && (
@@ -146,19 +123,11 @@ const Fight = () => {
         </div>
       )}
       <div
-        style={
-          fightView === "battleInit"
-            ? {
-                position: "absolute",
-                top: `${battleInit[pointerPositionIndex].top}px`,
-                left: `${battleInit[pointerPositionIndex].left}px`,
-              }
-            : {
-                position: "absolute",
-                top: `${selectMoves[pointerPositionIndex].top}px`,
-                left: `${selectMoves[pointerPositionIndex].left}px`,
-              }
-        }>
+        style={{
+          position: "absolute",
+          top: `${pointerPositions[view][pointerPositionIndex].top}px`,
+          left: `${pointerPositions[view][pointerPositionIndex].left}px`,
+        }}>
         <Pointer />
       </div>
       <div className="relativeP">
