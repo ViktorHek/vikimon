@@ -4,9 +4,9 @@ import OptionsFight from "./OptionsFight";
 import Font from "../../animatios/font/Font";
 import HealthBar from "../../animatios/HealthBar";
 
-const PlayerInFight = ({ data }) => {
+const PlayerInFight = ({ data, damage }) => {
   const dispatch = useDispatch();
-  const { secondaryView, backKey, damagePlayer } = useSelector((state) => state);
+  const { secondaryView, backKey } = useSelector((state) => state);
   const [spriteUrl, setSpriteUrl] = useState("");
   const [view, setView] = useState("battleInit");
   const maxHealth = data.stats.hp;
@@ -20,11 +20,11 @@ const PlayerInFight = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (damagePlayer !== null) {
-      applyAttack(damagePlayer);
+    if (damage !== null) {
+      applyAttack(damage);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [damagePlayer]);
+  }, [damage]);
 
   function populateData() {
     setPokemonImgUrl(id);

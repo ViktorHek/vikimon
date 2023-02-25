@@ -106,9 +106,8 @@ const Fight = () => {
       moveId: selectedAttack.id,
     };
     let responce = await api.callDamageCalc(payload);
-    console.log("responce", responce.data);
-    let damageToOpponent = responce.data.playerAttack;
-    let damageToPlayer = responce.data.opponentAttack;
+    let damageToOpponent = responce.data.playerAttackCalc.damage;
+    let damageToPlayer = responce.data.opponentAttackCalc.damage;
     setPlayerDamage(Math.floor(damageToPlayer));
     setOpponentDamage(Math.floor(damageToOpponent));
     setPlayerDamage(null);

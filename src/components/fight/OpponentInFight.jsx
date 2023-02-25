@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Font from '../../animatios/font/Font'
 
-const Fight = ({ data }) => {
+const Fight = ({ data, damage }) => {
     const dispatch = useDispatch()
-    const { damageOpponent } = useSelector((state) => state)
     const [spriteUrl, setSpriteUrl] = useState("")
     const [displayHealth, setDisplayHealth] = useState(100)
     const maxHealth = data.stats.hp
@@ -26,11 +25,11 @@ const Fight = ({ data }) => {
     }, [])
 
     useEffect(() => {
-        if(damageOpponent !== null) {
-            applyAttack(damageOpponent)
+        if(damage !== null) {
+            applyAttack(damage)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [damageOpponent])
+    }, [damage])
 
     function applyAttack(damageOpponent) {
         let healthAfterDamage = health - damageOpponent
