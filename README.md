@@ -3,17 +3,14 @@
 ## Changes from original game
 * Exeggutor learns the move egg-bomb at leval 50 insted of only throught machine
 * MissingNo have a defence basestat of 1 insted of 0
-* the plan is to have an number between 1-15 that indicates a pokemons IV witch effects all the stats
-* the plan is to have an number between 1-65 that indicates a pokemons EV witch effects all the stats. when a pokemon is defeated, whatever pokemon, the pokemon you use will gain 10 EV / 100 = 0.1 EV. after gaining defeating 10 pokemon, the pokemon used will receave 1 EV point witsh is equal to 100 EV point in the original game. The EV piont will be saved but not the progress, meaning 1.9 EV point = 1 EV point. 
 * removing natures 'rash' and 'careful'. also adding nature 'ultimate' that increase all stats
 * mew is under the buss
 * new boss called 'the developer' with maxed out pokemons.
 
 ## Ides and plans 
-
 * there are 324 trainers in total. 
     - alternative 1: have a 324 char long list of 0 or 1. 1 = deffeated, 0 = undeffeated
-    - alternative 2: group all trainers by area. aka when you exit 'mr moon' all trainers in 'mr moob' will be checked at deffeated. But if you deffeat one trainer and escape rope out, you will have to deffeat that same triner again.
+    - alternative 2: group all trainers by area. aka when you exit 'mr moon' all trainers in 'mr moon' will be checked at deffeated. But if you deffeat one trainer and escape rope out, you will have to deffeat that same triner again.
 * use japanise sprites as default and the american version for shinys. 
     - maybe use the shiny sprites to indicate perfect IV to reduce storage and also give the shinynes an function. 
 
@@ -21,11 +18,9 @@
 
 N = number
 L = letter
-C = char [a-z|A-Z|0-9]
-B = ether 0 or 1
+C = char, [ a-z | A-Z | 0-9 ]
+B = bite, ether 0 or 1
 @ = blank
-
-Total chars if maxed out = 33 + 252 + 119 + 324 + 390 + 4452 + 235 = 1353 + 4452 = 5805
 
 ### User
 * 3N 3N 3N -- position on map -- first 3 numbers = what map, second 3 numbers = x cordinates, last 3 numbers = y cordinates <9>
@@ -131,9 +126,7 @@ Total max = 19 + 200 + 16 = 235
 const object = {
     id: number,
     name: string,
-    abilities: [
-        string
-    ], // lenght < 3
+    abilities: [ string ], // lenght < 3
     base_experience: number,
     growth_rate: number, // lenght < 6
     catch_rate: number, // lenght < 256
@@ -144,14 +137,6 @@ const object = {
             level_learned_at: number
         }
     ],
-    sprites: {
-        defaultSprite: {
-            height: number,
-            width: number,
-            x: number,
-            y: number
-        }
-    },
     stats: {
         hp: number,
         attack: number,

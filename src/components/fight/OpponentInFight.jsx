@@ -33,7 +33,6 @@ const Fight = ({ data }) => {
     }, [damageOpponent])
 
     function applyAttack(damageOpponent) {
-        console.log('at applyAttack in opponentInFight', damageOpponent)
         let healthAfterDamage = health - damageOpponent
         let healthPercent = healthAfterDamage / maxHealth
         let healthPercentToPixel = healthPercent * 100
@@ -47,7 +46,7 @@ const Fight = ({ data }) => {
 
     function opponentPokemonFaint() {
         console.log('YOU WIN!!')
-        dispatch({ type: "SET_VIEW", payload: 'openWorld' })
+        dispatch({ type: "SET_MAIN_VIEW", payload: 'openWorld' })
     }
 
     function populateData() {

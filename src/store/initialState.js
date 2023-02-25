@@ -8,16 +8,15 @@ const initialState = {
   backKey: false,
   selectedAttackFronRedux: null,
   pokedexDB: [],
-  viewState: "",
-  selectInFight: false,
-  fightView: "battleInit",
-  damageOpponent: 0,
-  damagePlayer: 0,
-  pointerPosition: { index: 0, view: "backpackInit" },
-  backPackView: "backpackInit",
-  selectInWorld: false,
-  playerMonsHealth: 0,
-  opponentMonsHealth: 0,
+  mainView: "openWorld", // openWorld || fight
+  secondaryView: "", // battleInit || selectMoves || backpackInit || pokemonParty
+  selectTarget: false,
+  damageOpponent: null,
+  damagePlayer: null,
+  pointerPosition: { index: 0, view: "" },
+  playerMonsHealth: null,
+  opponentMonsHealth: null,
 };
 
 export default initialState;
+

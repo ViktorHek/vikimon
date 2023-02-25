@@ -8,7 +8,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         playermovement: action.payload
       }
-    case 'OPEN_BACKPACK':
+    case 'TOGGLE_BACKPACK':
       return {
         ...state,
         backpackOpen: !state.backpackOpen
@@ -16,7 +16,7 @@ const rootReducer = (state = initialState, action) => {
     case 'SET_BACK_KEY':
       return {
         ...state,
-        backKey: !state.backKey
+        backKey: action.payload
       }
     case 'SET_SELECTED_ATTACK':
       return {
@@ -28,20 +28,15 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         myPokemons: action.payload
       }
-    case 'SET_VIEW':
+    case 'SET_MAIN_VIEW':
       return {
         ...state,
-        viewState: action.payload
+        mainView: action.payload
       }
-    case 'SET_FIGHT_VIEW':
+    case 'SET_SECONDARY_VIEW':
       return {
         ...state,
-        fightView: action.payload
-      }
-    case 'SET_SELECT_IN_FIGHT':
-      return {
-        ...state,
-        selectInFight: !state.selectInFight
+        secondaryView: action.payload
       }
     case 'SET_DAMAGE_TO_OPPONENT':
       return {
@@ -58,15 +53,10 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         pointerPosition: action.payload
       }
-    case 'SET_BACKPACK_VIEW':
+    case 'SET_SELECT':
       return {
         ...state,
-        backPackView: action.payload
-      }
-    case 'SET_SELECT_IN_WORLD':
-      return {
-        ...state,
-        selectInWorld: action.payload
+        selectTarget: action.payload
       }
     case 'SET_PLAYER_CURRENT_HEALTH':
       return {

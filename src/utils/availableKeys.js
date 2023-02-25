@@ -14,9 +14,6 @@ const WalkKeys = {
     space: 'enter',
     enter: 'enter',
     backspace: 'back',
-    keyr: 'runFromBattle',
-    keyx: 'select',
-    keyc: 'view'
 }
 
 // digit1
