@@ -1,6 +1,7 @@
 import ashSprite from '../../utils/spritePosition'
-import coordinatesEvents from '../../utils/coordinatesEvents'
-import globals from '../../utils/globalVariables' // one global mapTile = 16
+import maps from '../../components/maps/maps';
+
+const currentMap = 'palletTown' // handcoded for testing
 
 const PlayerMove = (dispatch, playermovement, direction) => {
   let payload = { sprite: {}, map: {} }
@@ -15,7 +16,7 @@ const PlayerMove = (dispatch, playermovement, direction) => {
         },
         map: {
           x: map.x,
-          y: map.y - globals.mapTile
+          y: map.y + 1
         }
       }
       break;
@@ -27,7 +28,7 @@ const PlayerMove = (dispatch, playermovement, direction) => {
         },
         map: {
           x: map.x,
-          y: map.y + globals.mapTile
+          y: map.y - 1
         }
       }
       break;
@@ -38,7 +39,7 @@ const PlayerMove = (dispatch, playermovement, direction) => {
           y: 0
         },
         map: {
-          x: map.x + globals.mapTile,
+          x: map.x - 1,
           y: map.y
         }
       }
@@ -50,7 +51,7 @@ const PlayerMove = (dispatch, playermovement, direction) => {
           y: 0
         },
         map: {
-          x: map.x - globals.mapTile,
+          x: map.x + 1,
           y: map.y
         }
       }
@@ -68,11 +69,14 @@ const PlayerMove = (dispatch, playermovement, direction) => {
       }
       break;
   }
-  coordinatesEvents.forEach((el) => {
-    if (el.x === payload.map.x && el.y === payload.map.y) {
-      dispatch({ type: "SET_MAIN_VIEW", payload: el.typeOfEvent })
-    }
-  })
+  let nextTileType = getNextTileType(playermovement, direction, payload)
+  if(nextTileType === 'block') {
+    payload.map.x = playermovement.map.x
+    payload.map.y = playermovement.map.y
+  }
+  if (nextTileType === 'grass' || nextTileType === 'water') {
+    dispatch({ type: "SET_MAIN_VIEW", payload: 'fight' })
+  }
   dispatch({ type: "SET_PLAYER_MOVEMENT", payload })
 };
 
@@ -82,6 +86,27 @@ function getAshSprite(ashSprite, x) {
     return ashSprite[0]
   } else {
     return ashSprite[currentIndex + 1]
+  }
+}
+
+function getNextTileType(playermovement, direction, payload) {
+  let testMap = maps[currentMap]
+  let x = payload.map.x
+  let y = payload.map.y
+  let type = testMap[y][x]
+  switch (type) {
+    case 0:
+      return 'normal'
+    case 1:
+      return 'block'
+    case 2:
+      return 'grass'
+    case 3:
+      return 'water'
+    case 4:
+      return 'door'
+    default:
+      break;
   }
 }
 

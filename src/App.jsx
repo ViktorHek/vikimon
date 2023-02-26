@@ -14,7 +14,7 @@ function App() {
   const [displayedView, setDisplayedView] = useState("world");
 
   useEffect(() => {
-    setDisplayedView(mainView) // fight || openWorld
+    setDisplayedView(mainView); // fight || openWorld
   }, [mainView]);
 
   useKeys((event) => {

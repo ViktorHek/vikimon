@@ -1,9 +1,10 @@
 .map_container {
-  display: flex;
-  flex-wrap: wrap;
   height: 100%;
   width: 100%;
   z-index: -999;
+  position: relative;
+  top: 58px;
+  left: 64px;
 }
 
 .display-map-container {

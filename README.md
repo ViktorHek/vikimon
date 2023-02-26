@@ -119,66 +119,24 @@ Total max = 19 + 200 + 16 = 235
 * pokemon sprites https://www.pokencyclopedia.info/en/index.php?id=sprites/gen1
 * inspiration https://github.com/pret/pokered 
 
-## Syntax 
 
-### Pokemon Object 
+## Map
 
-const object = {
-    id: number,
-    name: string,
-    abilities: [ string ], // lenght < 3
-    base_experience: number,
-    growth_rate: number, // lenght < 6
-    catch_rate: number, // lenght < 256
-    height: number,
-    moves: [
-        {
-            name: string, 
-            level_learned_at: number
-        }
-    ],
-    stats: {
-        hp: number,
-        attack: number,
-        defense: number,
-        special: number,
-        speed: number
-    },
-    types: [
-        string
-    ], // lenght < 3
-    weight: number
-}
+### functionality
 
+Start from top-left corner. y axis will be the main array holding one x axis per y-level.
+exapmle: y: [
+    x: [ 0,2,3,4,5 ],
+    x: [ 1,2,3,4,2 ],
+    x: [ 3,2,4,2,3 ]
+]
 
-### Pokemon Move
+### Type of tiles
 
-    const object = { 
-        id: number, 
-        name: string, 
-        accuracy: number, 
-        power: number, 
-        type: number, 
-        meta: { 
-            damage_class: "physical" || "spacial" || "status", 
-            effect_chance: number || null, 
-            effect_entries: string, 
-            priority: number || null, 
-            crit_rate: number || null, 
-            drain: number || null, 
-            flinch_chance: number || null, 
-            healing: number || null, 
-            max_hits: number || null, 
-            max_turns: number || null, 
-            mix_hits: number || null, 
-            mix_turns: number || null, 
-            stat_changes: [
-                { 
-                    change: number || null, 
-                    stat: string || null 
-                }
-            ],
-            target: sting, 
-            index: number
-        } 
-    },
+- 0 = normal - walkable land with no aditional features
+- 1 = block - inmovable object or wall that blocks the player from progression
+- 2 = grass - place where you can find wild pokemons on land
+- 3 = water - place where you can find wild pokemons on water
+- 4 = door - will change the map. should not be nesesary to indicate where you can enter the door
+
+- missig:  signs - nobody reads them anyway
