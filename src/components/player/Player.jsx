@@ -9,7 +9,7 @@ const Player = () => {
 
   useEffect(() => {
     setMainPlayerDir(playermovement.sprite)
-  }, [playermovement, mainPlayerDir])
+  }, [playermovement.sprite.y, playermovement.sprite.x, mainPlayerDir])
 
   return (
     <div className='absoluteP'>
