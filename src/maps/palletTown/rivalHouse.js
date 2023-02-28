@@ -1,32 +1,28 @@
 // warps
 const a = {
-  nextMap: "playerHouseF2",
-  nextPos: [2, 8],
-};
-const b = {
   nextMap: "palletTownMain",
-  nextPos: [7, 6],
+  nextPos: [7, 14],
 };
 
 // // taile array
 const grid = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 0, 1, 0, 0, 0, a, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 1, 1, 0, 0, 0, 0, 0, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
   [1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, b, b, 1, 1, 1, 1, 1],
+  [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
+  [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
+  [1, 1, 1, a, a, 1, 1, 1, 1, 1],
 ];
 
-const playerHouseF1 = {
+const rivalHouse = {
   height: "128px",
   width: "128px",
   grid: grid,
-  src: "/images/maps/palletTown/playerHouseF1.jpg",
+  src: "/images/maps/palletTown/rivalHouse.jpg",
 };
 
-export default playerHouseF1;
+export default rivalHouse;

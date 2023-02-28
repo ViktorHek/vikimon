@@ -5,11 +5,11 @@ const a = {
 };
 const b = {
   nextMap: "rivalHouse",
-  nextPos: [5, 5],
+  nextPos: [8, 3],
 };
 const c = {
   nextMap: "oaksLab",
-  nextPos: [5, 5],
+  nextPos: [12, 5],
 };
 const d = {
   nextMap: "some route",
