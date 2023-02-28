@@ -1,21 +1,22 @@
-import React from 'react'
+import React from "react";
 import { useEffect, useState } from "react";
-import { useSelector } from 'react-redux'
-import DisplayPlayerSprite from './DisplayPlayerSprite';
+import { useSelector } from "react-redux";
+import DisplayPlayerSprite from "./DisplayPlayerSprite";
 
 const Player = () => {
-  const { playermovement } = useSelector((state) => state)
-  const [mainPlayerDir, setMainPlayerDir] = useState({ x: 17, y: 0 })
+  const { playermovement } = useSelector((state) => state);
+  const [mainPlayerDir, setMainPlayerDir] = useState({ x: 17, y: 0 });
 
   useEffect(() => {
-    setMainPlayerDir(playermovement.sprite)
-  }, [playermovement.sprite.y, playermovement.sprite.x, mainPlayerDir])
+    setMainPlayerDir(playermovement.sprite);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playermovement.sprite.y, playermovement.sprite.x, mainPlayerDir]);
 
   return (
-    <div className='absoluteP'>
+    <div className="absoluteP">
       <DisplayPlayerSprite data={mainPlayerDir} />
     </div>
-  )
-}
+  );
+};
 
-export default Player
+export default Player;
