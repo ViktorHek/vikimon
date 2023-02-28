@@ -31,6 +31,8 @@ body {
   width: $GameWidth;
   overflow: hidden;
   position: relative;
+  background-color: #292f4f;
+  z-index: -1;
 }
 
 .absoluteP {
