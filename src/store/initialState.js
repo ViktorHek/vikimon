@@ -1,7 +1,8 @@
 const initialState = {
   playermovement: {
     sprite: { x: 17, y: 0 },
-    map: { y: -80, x: -64 },
+    map: { y: 8, x: 8 },
+    img: 'palletTownMain'
   },
   backpackOpen: false,
   myPokemons: [],

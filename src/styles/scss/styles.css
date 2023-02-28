@@ -34,6 +34,8 @@ body {
   width: 160px;
   overflow: hidden;
   position: relative;
+  background-color: #292f4f;
+  z-index: -1;
 }
 
 .absoluteP {
@@ -57,14 +59,12 @@ body {
 }
 
 .map_container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
   height: 100%;
   width: 100%;
   z-index: -999;
+  position: relative;
+  top: 58px;
+  left: 64px;
 }
 
 .display-map-container {

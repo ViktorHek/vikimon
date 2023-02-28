@@ -9,7 +9,7 @@ const DisplayPlayerSprite = ({ data }) => {
   useEffect(() => {
     setPosX(data.x)
     setPosY(data.y)
-  }, [data])
+  }, [data.y, data.x])
 
   return (
     <div className='display-player-strite-container'>

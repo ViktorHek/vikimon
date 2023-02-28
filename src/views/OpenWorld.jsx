@@ -1,17 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import Player from '../components/player/Player'
-import Backpack from './Backpack'
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import Player from "../components/player/Player";
+import Backpack from "./Backpack";
+import maps from "../maps/maps";
 
 const OpenWorld = () => {
-  const { playermovement } = useSelector((state) => state)
-  const [mapPos, setMapPos] = useState(playermovement.map)
-  let mapImg = '/images/maps/Pallet_Town_Outside.jpg'
+  const { playermovement } = useSelector((state) => state);
+  const [mapFile, setMapFile] = useState(maps[playermovement.img]);
+  const [left, setLeft] = useState(0);
+  const [right, setRight] = useState(0);
 
   useEffect(() => {
-    setMapPos(playermovement.map)
+    handlemapPosition(playermovement.map.x, playermovement.map.y);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playermovement])
+  }, [playermovement.map.x, playermovement.map.y]);
+
+  useEffect(() => {
+    if (playermovement.img) setMapFile(maps[playermovement.img]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playermovement.img]);
+
+  function handlemapPosition(x, y) {
+    let left = 16 - x * 16;
+    let right = 16 - y * 16;
+    setLeft(left);
+    setRight(right);
+  }
 
   return (
     <div className="relativeP">
@@ -20,20 +34,20 @@ const OpenWorld = () => {
       <div className="map_container">
         <div className="display_map_container">
           <img
-            src={mapImg}
+            src={mapFile.src}
             alt="error"
             style={{
-              width: '320px',
-              height: '288px',
-              position: 'absolute',
-              left: `${mapPos.x}px`,
-              top: `${mapPos.y}px`,
+              width: mapFile.width,
+              height: mapFile.height,
+              position: "absolute",
+              left: `${left}px`,
+              top: `${right}px`,
             }}
           />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default OpenWorld
+export default OpenWorld;
