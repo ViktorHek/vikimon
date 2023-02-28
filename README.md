@@ -1,8 +1,14 @@
-# read me
+# Read Me
 
 ## Installation
 
-run ```npm clone repo```
+Open the terminal and create a repositorie
+
+#### Front-end - Vikimon
+
+run ```npm clone https://github.com/ViktorHek/vikimon.git```
+
+run ```cd vikomon```
 
 run ```npm install```
 
@@ -17,6 +23,15 @@ value:
 [["028d0101010101first",50,0,50,0,[0,0,0,0,0],[89,10,14,10,28,10,129,10]],["028d1515151515second",50,0,50,0,[65535,65535,65535,65535,65535],[89,10,14,10,28,10,129,10]],["094p0707070707*",50,0,50,0,[10000,10000,10000,10000,10000],[109,10,95,10,92,10,94,10]],["095j1515151515bob",50,1,50,0,[0,0,65535,0,0],[103,10,20,10,89,10,104,10]],["150p0707070707*",50,0,50,0,[65535,65535,65535,65535,65535],[94,10,112,10,59,10,54,10]],["141d0707070707*",50,0,50,0,[65535,65535,65535,65535,65535],[57,10,34,10,36,10,69,10]]]
 ```
 
+#### Back-end - Pokedex
+run ```npm clone https://github.com/ViktorHek/pokedex.git```
+
+run ```cd pokedex```
+
+run ```npm install```
+
+run ```node app.js```
+
 
 ## Changes from original game
 * Exeggutor learns the move egg-bomb at leval 50 insted of only throught machine
@@ -24,6 +39,7 @@ value:
 * removing natures 'rash' and 'careful'. also adding nature 'ultimate' that increase all stats
 * mew is under the buss
 * new boss called 'the developer' with maxed out pokemons.
+
 ## Ides and plans 
 * there are 324 trainers in total. 
     - alternative 1: have a 324 char long list of 0 or 1. 1 = deffeated, 0 = undeffeated
@@ -142,11 +158,13 @@ Total max = 19 + 200 + 16 = 235
 ### functionality
 
 Start from top-left corner. y axis will be the main array holding one x axis per y-level.
+```
 exapmle: y: [
     x: [ 0,2,3,4,5 ],
     x: [ 1,2,3,4,2 ],
     x: [ 3,2,4,2,3 ]
 ]
+```
 
 ### Type of tiles
 
@@ -154,6 +172,6 @@ exapmle: y: [
 - 1 = block - inmovable object or wall that blocks the player from progression
 - 2 = grass - place where you can find wild pokemons on land
 - 3 = water - place where you can find wild pokemons on water
-- 4 = door - will change the map. should not be nesesary to indicate where you can enter the door
+- letter = door - will change the map. should not be nesesary to indicate where you can enter the door
 
 - missig:  signs - nobody reads them anyway
