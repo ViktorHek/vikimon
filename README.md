@@ -6,6 +6,8 @@ run ```npm clone repo```
 
 run ```npm install```
 
+run ```npm start```
+
 Open local storage and add a column 
 
 named ```testParty```
