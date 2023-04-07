@@ -33,18 +33,18 @@ const Fight = () => {
   }, [selectTarget]);
 
   useEffect(() => {
-    if(secondaryView) setView(secondaryView)
+    if (secondaryView) setView(secondaryView);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [secondaryView]);
 
   useEffect(() => {
-    if(pointerPosition.view) setPointerPositionIndex(pointerPosition.index);
+    if (pointerPosition.view) setPointerPositionIndex(pointerPosition.index);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointerPosition.index, pointerPosition.view]);
 
   async function populatePartyAndInitBattle() {
-    dispatch({type: 'SET_POINTER_POSITION', payload: {index: 0, view: 'battleInit'}})
-    dispatch({type: 'SET_SECONDARY_VIEW', payload: 'battleInit'})
+    dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: "battleInit" } });
+    dispatch({ type: "SET_SECONDARY_VIEW", payload: "battleInit" });
     let populatedPartyList = myPokemons;
     if (!populatedPartyList.length) {
       let localStorageString = localStorage.getItem(globals.lsPokemonParty);
@@ -72,6 +72,8 @@ const Fight = () => {
       case "move1":
       case "move2":
       case "move3":
+        dispatch({ type: "SET_SECONDARY_VIEW", payload: "battleInit" });
+        dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: "battleInit" } });
         calcDamage(target);
         break;
       case "selectMoves":
@@ -106,6 +108,7 @@ const Fight = () => {
       moveId: selectedAttack.id,
     };
     let responce = await api.callDamageCalc(payload);
+    console.log(responce.data)
     let damageToOpponent = responce.data.playerAttackCalc.damage;
     let damageToPlayer = responce.data.opponentAttackCalc.damage;
     setPlayerDamage(Math.floor(damageToPlayer));
@@ -117,11 +120,12 @@ const Fight = () => {
   return (
     <div className="fight-main-container">
       {showPokemonParty && (
-        <div className="relativeP">
+        <div className="relativeP fight-main-poke-party-container">
           <PokemonParty />
         </div>
       )}
       <div
+        className="fight-pointer-container"
         style={{
           position: "absolute",
           top: `${pointerPositions[view][pointerPositionIndex].top}px`,
@@ -129,7 +133,7 @@ const Fight = () => {
         }}>
         <Pointer />
       </div>
-      <div className="relativeP">
+      <div className="relativeP fight-main-background-container">
         <FightBackgrond />
       </div>
       {battleID !== null && <OpponentInFight data={opponentsPokemon} damage={opponentDamage} />}

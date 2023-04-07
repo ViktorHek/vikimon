@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import OptionsFight from "./OptionsFight";
 import Font from "../../animatios/font/Font";
 import HealthBar from "../../animatios/HealthBar";
+import globals from "../../utils/globalVariables";
+import MenuBackgrond from "../../animatios/backgronds/MenuBackgrond";
 
 const PlayerInFight = ({ data, damage }) => {
   const dispatch = useDispatch();
@@ -14,6 +16,7 @@ const PlayerInFight = ({ data, damage }) => {
 
   const { id, level, name } = data;
   const dbName = data.dbData.name;
+  const menuPositioning = { top: 0, left: 0, right: 88, bottom: 40 };
 
   useEffect(() => {
     populateData();
@@ -55,7 +58,7 @@ const PlayerInFight = ({ data, damage }) => {
 
   function setPokemonImgUrl(id) {
     let imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/back/${id}.png`;
-    if (!id) {
+    if (globals.noInternet) {
       imgUrl = "/images/pokemons/b_green-supgb_151_back.png";
     }
     setSpriteUrl(imgUrl);
@@ -69,7 +72,7 @@ const PlayerInFight = ({ data, damage }) => {
   function handleBackKey() {
     if (!backKey) return;
     let payload = "battleInit";
-    setView(payload);
+    // setView(payload);
     dispatch({ type: "SET_SECONDARY_VIEW", payload: payload });
     // dispatch({ type: "SET_BACK_KEY", payload: false });
   }
@@ -97,7 +100,25 @@ const PlayerInFight = ({ data, damage }) => {
       <div className="fight-users-mon-img-container">
         <img src={spriteUrl} alt="pokemon" className="absolute-size-100" />
       </div>
-      {view === "selectMoves" ? <OptionsFight data={data} /> : null}
+      {view === "textDisplay" && <MenuBackgrond position={menuPositioning} />}
+      {view === "battleInit" && (
+        <div className="fight-init-options-menu-container">
+          <MenuBackgrond position={menuPositioning} />
+          <div className="fight-init-select-fight-text">
+            <Font text="FIGHT" />
+          </div>
+          <div className="fight-init-select-pokemon-text">
+            <Font text="MON" />
+          </div>
+          <div className="fight-init-select-item-text">
+            <Font text="ITEM" />
+          </div>
+          <div className="fight-init-select-run-text">
+            <Font text="RUN" />
+          </div>
+        </div>
+      )}
+      {view === "selectMoves" && <OptionsFight data={data} />}
     </div>
   );
 };

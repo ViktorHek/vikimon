@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Font from '../../animatios/font/Font'
+import globals from '../../utils/globalVariables'
 
 const Fight = ({ data, damage }) => {
     const dispatch = useDispatch()
@@ -54,8 +55,8 @@ const Fight = ({ data, damage }) => {
 
     function setPokemonImgUrl(id) {
         let imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/${id}.png`
-        if (!id) {
-            imgUrl = '/images/pokemons/b_green-supgb_001_transparent.png'
+        if (globals.noInternet) {
+            imgUrl = "/images/pokemons/spr_green-supgb_001.png"
         }
         setSpriteUrl(imgUrl)
     }
