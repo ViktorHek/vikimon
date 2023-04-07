@@ -72,7 +72,7 @@ const Fight = () => {
       case "move1":
       case "move2":
       case "move3":
-        dispatch({ type: "SET_SECONDARY_VIEW", payload: "battleInit" });
+        dispatch({ type: "SET_SECONDARY_VIEW", payload: "displayText" });
         dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: "battleInit" } });
         calcDamage(target);
         break;
@@ -108,7 +108,6 @@ const Fight = () => {
       moveId: selectedAttack.id,
     };
     let responce = await api.callDamageCalc(payload);
-    console.log(responce.data)
     let damageToOpponent = responce.data.playerAttackCalc.damage;
     let damageToPlayer = responce.data.opponentAttackCalc.damage;
     setPlayerDamage(Math.floor(damageToPlayer));
@@ -124,15 +123,17 @@ const Fight = () => {
           <PokemonParty />
         </div>
       )}
-      <div
-        className="fight-pointer-container"
-        style={{
-          position: "absolute",
-          top: `${pointerPositions[view][pointerPositionIndex].top}px`,
-          left: `${pointerPositions[view][pointerPositionIndex].left}px`,
-        }}>
-        <Pointer />
-      </div>
+      {pointerPositions[view] && (
+        <div
+          className="fight-pointer-container"
+          style={{
+            position: "absolute",
+            top: `${pointerPositions[view][pointerPositionIndex].top}px`,
+            left: `${pointerPositions[view][pointerPositionIndex].left}px`,
+          }}>
+          <Pointer />
+        </div>
+      )}
       <div className="relativeP fight-main-background-container">
         <FightBackgrond />
       </div>

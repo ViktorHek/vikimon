@@ -13,7 +13,7 @@ const FightBackgrond = () => {
             <div className='fight-menu-backgrond-container'>
                 <MenuBackgrond position={menuPositioning1} />
             </div>
-            <div className='fight-init-options-menu-container'>
+            {/* <div className='fight-init-options-menu-container'>
                 <MenuBackgrond position={menuPositioning2} />
                 <div className='fight-init-select-fight-text'>
                     <Font text="FIGHT" />
@@ -27,7 +27,7 @@ const FightBackgrond = () => {
                 <div className='fight-init-select-run-text'>
                     <Font text="RUN" />
                 </div>
-            </div>
+            </div> */}
             <div className="fight-svg-backgrond-container">
                 <svg width="160" height="144" viewBox="0 0 160 144" fill="none">
                     <rect x="11" y="16" width="2" height="12" fill="black" />

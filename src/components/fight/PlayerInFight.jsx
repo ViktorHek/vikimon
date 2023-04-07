@@ -30,6 +30,7 @@ const PlayerInFight = ({ data, damage }) => {
   }, [damage]);
 
   function populateData() {
+    console.log('init view: ', view)
     setPokemonImgUrl(id);
     setHealth(data.stats.hp);
   }
