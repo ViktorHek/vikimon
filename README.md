@@ -4,6 +4,8 @@
 
 Open the terminal and create a repositorie
 
+- require node version 16.20.0
+
 #### Front-end - Vikimon
 
 run ```npm clone https://github.com/ViktorHek/vikimon.git```
