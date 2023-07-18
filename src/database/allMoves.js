@@ -1,4 +1,4 @@
-export default allMoves = [
+export default [
   {
     id: 1,
     name: "pound",
@@ -63,7 +63,7 @@ export default allMoves = [
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
-        "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
+        "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -90,7 +90,7 @@ export default allMoves = [
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
-        "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
+        "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -514,7 +514,7 @@ export default allMoves = [
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
-        "Inflicts regular damage. For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. The user continues to use other moves during this time. If the user leaves the field, this effect ends. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use. rapid spin cancels this effect.",
+        "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. The user continues to use other moves during this time. If the user leaves the field, this effect ends. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use. rapid spin cancels this effect.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -803,7 +803,7 @@ export default allMoves = [
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
-        "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
+        "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -909,7 +909,7 @@ export default allMoves = [
       damage_class: "physical",
       effect_chance: 100,
       effect_entries:
-        "Inflicts regular damage. For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. The user continues to use other moves during this time. If the user leaves the field, this effect ends. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use. rapid spin cancels this effect.",
+        "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. The user continues to use other moves during this time. If the user leaves the field, this effect ends. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use. rapid spin cancels this effect.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -962,7 +962,7 @@ export default allMoves = [
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
-        "Inflicts regular damage. User is forced to attack with this move for 2–3 turns,selected at random. After the last hit, the user becomes confused. safeguard does not protect against the confusion from this move.",
+        "Inflicts regular damage. User is forced to attack with this move for 2-3 turns,selected at random. After the last hit, the user becomes confused. safeguard does not protect against the confusion from this move.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -1094,7 +1094,7 @@ export default allMoves = [
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
-        "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
+        "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -1304,7 +1304,7 @@ export default allMoves = [
       damage_class: "status",
       effect_chance: null,
       effect_entries:
-        "Disables the target's last used move, preventing its use for 4–7 turns, selected at random, or until the target leaves the field. If the target hasn't used a move since entering the field, if it tried to use a move this turn and failed, if its last used move has 0 PP remaining, or if it already has a move disabled, this move will fail.",
+        "Disables the target's last used move, preventing its use for 4-7 turns, selected at random, or until the target leaves the field. If the target hasn't used a move since entering the field, if it tried to use a move this turn and failed, if its last used move has 0 PP remaining, or if it already has a move disabled, this move will fail.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -2100,7 +2100,7 @@ export default allMoves = [
       damage_class: "special",
       effect_chance: null,
       effect_entries:
-        "Inflicts regular damage. User is forced to attack with this move for 2–3 turns,selected at random. After the last hit, the user becomes confused. safeguard does not protect against the confusion from this move.",
+        "Inflicts regular damage. User is forced to attack with this move for 2-3 turns,selected at random. After the last hit, the user becomes confused. safeguard does not protect against the confusion from this move.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -2179,7 +2179,7 @@ export default allMoves = [
       damage_class: "special",
       effect_chance: 100,
       effect_entries:
-        "Inflicts regular damage. For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. The user continues to use other moves during this time. If the user leaves the field, this effect ends. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use. rapid spin cancels this effect.",
+        "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. The user continues to use other moves during this time. If the user leaves the field, this effect ends. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use. rapid spin cancels this effect.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3368,7 +3368,7 @@ export default allMoves = [
       damage_class: "special",
       effect_chance: 100,
       effect_entries:
-        "Inflicts regular damage. For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. The user continues to use other moves during this time. If the user leaves the field, this effect ends. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use. rapid spin cancels this effect.",
+        "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. The user continues to use other moves during this time. If the user leaves the field, this effect ends. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use. rapid spin cancels this effect.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3448,7 +3448,7 @@ export default allMoves = [
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
-        "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
+        "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3686,7 +3686,7 @@ export default allMoves = [
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
-        "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
+        "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -4057,7 +4057,7 @@ export default allMoves = [
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
-        "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
+        "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use.",
       priority: null,
       crit_rate: null,
       drain: null,

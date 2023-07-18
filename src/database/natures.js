@@ -1,4 +1,4 @@
-export default natures = [
+export default [
     { identifyer: 'a', name: 'adamant', increasedStat: 'attack', decreasedStat: 'special'},
     { identifyer: 'b', name: 'brave', increasedStat: 'attack', decreasedStat: 'speed'},
     { identifyer: 'c', name: 'calm', increasedStat: 'special', decreasedStat: 'attack'},

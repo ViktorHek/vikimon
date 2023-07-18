@@ -1,12 +1,8 @@
-const natures = require("../dataBase/natures");
-const calculator = require("../calculator/calculator");
-const pokemonDB = require("../dataBase/pokemons");
-const allMoves = require("../dataBase/AllMovesArr");
 
 import natures from "../../database/natures";
 import calculator from '../calculator/calculator'
 import pokemons from "../../database/pokemons";
-
+import allMoves from "../../database/allMoves";
 
 
 
@@ -18,7 +14,8 @@ import pokemons from "../../database/pokemons";
 // [080, 40, 1, 's', 143, 'viktor', 15, [35000, 35000, 35000, 35000, 35000], 26, 35, 94, 35, 3, 35, 4, 35]
 // '[80,40,1,"s",143,"viktor",15,35000,35000,35000,35000,35000,2635,9435,335,435]'
 
-export default convertStringToPokemon = ({ pokemonStrings }) => {
+const ConvertStringToPokemon = (pokemonStrings) => {
+  console.log('pokemonStrings', pokemonStrings)
   const pokemonArr = JSON.parse(pokemonStrings);
   let pokemonPartyArr = [];
   for (let index = 0; index < pokemonArr.length; index++) {
@@ -161,3 +158,5 @@ function getDbData(id) {
   });
   return returnValue;
 }
+
+export default ConvertStringToPokemon

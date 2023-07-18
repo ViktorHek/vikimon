@@ -1,4 +1,4 @@
-export default types = [
+export default [
     {
         name: 'normal', 
         superEffective: [], 

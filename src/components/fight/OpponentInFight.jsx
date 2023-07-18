@@ -4,6 +4,7 @@ import Font from '../../animatios/font/Font'
 import globals from '../../utils/globalVariables'
 
 const Fight = ({ data, damage }) => {
+    console.log('data', data)
     const dispatch = useDispatch()
     const [spriteUrl, setSpriteUrl] = useState("")
     const [displayHealth, setDisplayHealth] = useState(100)

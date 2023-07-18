@@ -2,7 +2,7 @@
 // const allMovesArr = require("../../dataBase/AllMovesArr");
 
 import battleCalculator from './battleCalculator'
-import allMoves from '../../database/allMoves';
+import allMovesArr from '../../database/allMoves';
 
 const battleDataArray = [];
 

@@ -8,6 +8,7 @@ import FightBackgrond from "../animatios/backgronds/FightBackgrond";
 import pointerPositions from "../utils/pointerPositions";
 import PokemonParty from "../components/backpack/PokemonParty";
 import globals from "../utils/globalVariables";
+import ConvertStringToPokemon from "../funktionality/conversion/convertStringToPokemon";
 
 const Fight = () => {
   const dispatch = useDispatch();
@@ -48,8 +49,11 @@ const Fight = () => {
     let populatedPartyList = myPokemons;
     if (!populatedPartyList.length) {
       let localStorageString = localStorage.getItem(globals.lsPokemonParty);
-      let responce = await api.callPokiParty(localStorageString);
-      populatedPartyList = responce.data;
+      console.log('bef', localStorageString)
+      let populatedPartyList = ConvertStringToPokemon(localStorageString)
+      // console.log({ff})
+      // let responce = await api.callPokiParty(localStorageString);
+      // populatedPartyList = responce.data;
       dispatch({
         type: "POPULATE_POKEMON_PARTY",
         payload: populatedPartyList,
@@ -62,8 +66,9 @@ const Fight = () => {
       opponentsPokemon: populatedPartyList[1],
       user: { gymBadges: { attack: true, defense: true, special: true, speed: true } },
     };
-    let responce = await api.initBattle(initBattlePayload);
-    setBattleID(responce.data.battleId);
+    // let responce = await api.initBattle(initBattlePayload);
+    setBattleID(1);
+    // setBattleID(responce.data.battleId);
   }
 
   function handleSelect(target) {
