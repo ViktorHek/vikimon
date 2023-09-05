@@ -15,13 +15,13 @@ const Fight = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const [showPokemonParty, setShowPokemonParty] = useState(false); //
-  const [battleObject, setBattleObject] = useState(null); //
+  // const [battleObject, setBattleObject] = useState(null); //
   const [pointerPositionIndex, setPointerPositionIndex] = useState(0); 
   const [playerDamage, setPlayerDamage] = useState(0);
   const [opponentDamage, setOpponentDamage] = useState(0);
   const [view, setView] = useState("battleInit");
   const [isLoaded, setIsLoaded] = useState(false)
-  const { myPokemons, selectTarget, secondaryView, pointerPosition } = selector;
+  const { myPokemons, selectTarget, secondaryView, pointerPosition, battleObject } = selector;
 
   useEffect(() => {
     populatePartyAndInitBattle();
@@ -44,6 +44,7 @@ const Fight = () => {
   }, [pointerPosition.index, pointerPosition.view]);
 
   async function populatePartyAndInitBattle() {
+    if(battleObject === {} || !battleObject) return 
     dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: "battleInit" } });
     dispatch({ type: "SET_SECONDARY_VIEW", payload: "battleInit" });
     let populatedPartyList = myPokemons;
@@ -70,7 +71,7 @@ const Fight = () => {
       case "move1":
       case "move2":
       case "move3":
-        dispatch({ type: "SET_SECONDARY_VIEW", payload: "displayText" });
+        dispatch({ type: "SET_SECONDARY_VIEW", payload: "battleInit" });
         dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: "battleInit" } });
         calcDamage(target);
         break;
@@ -99,8 +100,9 @@ const Fight = () => {
    * @returns {void} dispatching to "SET_DAMAGE_TO_OPPONENT" & "SET_DAMAGE_TO_PLAYER"
    */
   async function calcDamage(attack) {
+    console.log('bo', battleObject)
     if (!attack || battleObject === {}) return;
-    let selectedAttack = battleObject.playersPokemon.moves[parseInt(attack.replace("move", ""))];
+    let selectedAttack = battleObject.playerMon.moves[parseInt(attack.replace("move", ""))];
     let payload = {
       battleId: 1,
       moveId: selectedAttack.id,
@@ -112,12 +114,12 @@ const Fight = () => {
       playerAttacksFirst
     );
     console.log("check", responce);
-    let damageToOpponent = responce.data.playerAttackCalc.damage;
-    let damageToPlayer = responce.data.opponentAttackCalc.damage;
+    let damageToOpponent = responce.playerAttackCalc.damage;
+    let damageToPlayer = responce.opponentAttackCalc.damage;
     setPlayerDamage(Math.floor(damageToPlayer));
     setOpponentDamage(Math.floor(damageToOpponent));
-    setPlayerDamage(null);
-    setOpponentDamage(null);
+    // setPlayerDamage(null);
+    // setOpponentDamage(null);
   }
 
   return (

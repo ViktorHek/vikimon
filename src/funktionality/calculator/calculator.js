@@ -50,50 +50,50 @@ function playerAttacksFirst(battleOblect) {
 }
 
 const getBothPlayersDamageCalc = function getBothPlayersDamageCalc(
-  battleId,
+  battleObj,
   moveId,
   playerAttacksFirst
 ) {
   let playerAttackCalc = {};
   let opponentAttackCalc = {};
   let playerMove = getMoveFromId(moveId);
-  let opponentMove = getMoveFromtrainerAI(battleId);
-  let index = battleDataArray.findIndex((el) => el.id === battleId);
+  let opponentMove = getMoveFromId(moveId);
+  // let opponentMove = getMoveFromtrainerAI(battleId);
   if (playerAttacksFirst) {
-    playerAttackCalc = battleCalculator(battleDataArray[index], playerMove, true);
-    uppdateBattleDataArray(index, playerAttackCalc.statChange);
-    opponentAttackCalc = battleCalculator(battleDataArray[index], opponentMove, false);
-    uppdateBattleDataArray(index, opponentAttackCalc.statChange);
+    playerAttackCalc = battleCalculator(battleObj, playerMove, true);
+    uppdateBattleDataArray(battleObj, playerAttackCalc.statChange);
+    opponentAttackCalc = battleCalculator(battleObj, opponentMove, false);
+    uppdateBattleDataArray(battleObj, opponentAttackCalc.statChange);
   } else {
-    opponentAttackCalc = battleCalculator(battleDataArray[index], opponentMove, false);
-    uppdateBattleDataArray(index, opponentAttackCalc.statChange);
-    playerAttackCalc = battleCalculator(battleDataArray[index], playerMove, true);
-    uppdateBattleDataArray(index, playerAttackCalc.statChange);
+    opponentAttackCalc = battleCalculator(battleObj, opponentMove, false);
+    uppdateBattleDataArray(battleObj, opponentAttackCalc.statChange);
+    playerAttackCalc = battleCalculator(battleObj, playerMove, true);
+    uppdateBattleDataArray(battleObj, playerAttackCalc.statChange);
   }
   return { playerAttackCalc, opponentAttackCalc };
 };
 
-function uppdateBattleDataArray(index, statChange) {
+function uppdateBattleDataArray(battleObj, statChange) {
   if (!statChange) return;
   if (statChange.target === "player") {
-    for (const el in battleDataArray[index].playerMon.battleStats) {
-      let newVal = battleDataArray[index].playerMon.battleStats[el];
-      let hasBadgeBoost = battleDataArray[index].gymBadges[el];
+    for (const el in battleObj.playerMon.battleStats) {
+      let newVal = battleObj.playerMon.battleStats[el];
+      let hasBadgeBoost = battleObj.gymBadges[el];
       if (el === "accuracy" || el === "evasion") hasBadgeBoost = false;
       if (statChange.stat === el) {
         newVal = newVal * statChangesEffectPercent(statChange.change) * (hasBadgeBoost ? 1.125 : 1);
       } else {
         newVal = newVal * (hasBadgeBoost ? 1.125 : 1);
       }
-      battleDataArray[index].playerMon.battleStats[el] = Math.floor(newVal);
+      battleObj.playerMon.battleStats[el] = Math.floor(newVal);
     }
   } else {
-    for (const el in battleDataArray[index].opponentMon.battleStats) {
-      let newVal = battleDataArray[index].opponentMon.battleStats[el];
+    for (const el in battleObj.opponentMon.battleStats) {
+      let newVal = battleObj.opponentMon.battleStats[el];
       if (statChange.stat === el) {
         newVal = newVal * statChangesEffectPercent(statChange.change);
       }
-      battleDataArray[index].opponentMon.battleStats[el] = Math.floor(newVal);
+      battleObj.opponentMon.battleStats[el] = Math.floor(newVal);
     }
   }
 }

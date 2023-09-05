@@ -29,6 +29,7 @@ const Fight = ({ damage }) => {
     }, [])
 
     useEffect(() => {
+        console.log('dam', damage)
         if(damage !== null) {
             applyAttack(damage)
         }
