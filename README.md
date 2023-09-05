@@ -177,3 +177,19 @@ exapmle: y: [
 - letter = door - will change the map. should not be nesesary to indicate where you can enter the door
 
 - missig:  signs - nobody reads them anyway
+
+## Trainer AI
+
+### Standard AI
+
+rules: 
+- will always use the attack they calculate to be the most benifisial
+- doens not know th HP of themself or you
+- never switch, unless they can't to anything
+
+### Smart AI
+
+rules:
+- will always use the attack they calculate to be the most benifisial
+- knows everybodys hp
+- can switch. will do so if it's a bad matchup and the trainer have a pokemon in the back that can take a hit from the players most powerfull attack and hit back for substansial damage

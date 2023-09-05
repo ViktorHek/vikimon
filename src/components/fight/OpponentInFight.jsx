@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Font from '../../animatios/font/Font'
 import globals from '../../utils/globalVariables'
 
-const Fight = ({ data, damage }) => {
-    console.log('data', data)
+const Fight = ({ damage }) => {
+    
     const dispatch = useDispatch()
     const [spriteUrl, setSpriteUrl] = useState("")
     const [displayHealth, setDisplayHealth] = useState(100)
-    const maxHealth = data.stats.hp
-    const [health, setHealth] = useState(maxHealth)
-
+    const {battleObject} = useSelector(state => state)
+    let data = battleObject.playerMon
+    console.log('data', data)
+    const maxHealth = data.unBuffedStats.hp
     const { level, id } = data;
-    const dbName = data.dbData.name
+    const dbName = data.name
+    const [health, setHealth] = useState(maxHealth)
     // const baseStats = {
     //     attack: data.stats.attack,
     //     defence: data.stats.defence,

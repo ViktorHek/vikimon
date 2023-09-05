@@ -12,9 +12,11 @@ const initialState = {
   mainView: "openWorld", // openWorld || fight
   secondaryView: "", // battleInit || selectMoves || backpackInit || pokemonParty
   selectTarget: false,
+  pointerPosition: { index: 0, view: "" },
+
+  battleObject: {},
   damageOpponent: null,
   damagePlayer: null,
-  pointerPosition: { index: 0, view: "" },
   playerMonsHealth: null,
   opponentMonsHealth: null,
 };

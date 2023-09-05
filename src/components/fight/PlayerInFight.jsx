@@ -6,16 +6,19 @@ import HealthBar from "../../animatios/HealthBar";
 import globals from "../../utils/globalVariables";
 import MenuBackgrond from "../../animatios/backgronds/MenuBackgrond";
 
-const PlayerInFight = ({ data, damage }) => {
+// move functionality to fight.jsx and use redux for data transfer
+
+const PlayerInFight = ({ damage }) => {
   const dispatch = useDispatch();
-  const { secondaryView, backKey } = useSelector((state) => state);
+  const { secondaryView, backKey, battleObject } = useSelector((state) => state);
   const [spriteUrl, setSpriteUrl] = useState("");
   const [view, setView] = useState("battleInit");
-  const maxHealth = data.stats.hp;
+  let data = battleObject.playerMon
+  const maxHealth = data.unBuffedStats.hp;
   const [health, setHealth] = useState(maxHealth);
 
   const { id, level, name } = data;
-  const dbName = data.dbData.name;
+  const dbName = data.name;
   const menuPositioning = { top: 0, left: 0, right: 88, bottom: 40 };
 
   useEffect(() => {
@@ -30,9 +33,9 @@ const PlayerInFight = ({ data, damage }) => {
   }, [damage]);
 
   function populateData() {
-    console.log('init view: ', view)
+    console.log("init view: ", view);
     setPokemonImgUrl(id);
-    setHealth(data.stats.hp);
+    setHealth(data.currentHp);
   }
 
   function applyAttack(damagePlayer) {

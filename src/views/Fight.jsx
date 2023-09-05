@@ -9,18 +9,18 @@ import pointerPositions from "../utils/pointerPositions";
 import PokemonParty from "../components/backpack/PokemonParty";
 import globals from "../utils/globalVariables";
 import ConvertStringToPokemon from "../funktionality/conversion/convertStringToPokemon";
+import calculator from "../funktionality/calculator/calculator";
 
 const Fight = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
-  const [showPokemonParty, setShowPokemonParty] = useState(false);
-  const [playersPokemon, setPlayersPokemon] = useState({});
-  const [opponentsPokemon, setOpponentsPokemon] = useState({});
-  const [pointerPositionIndex, setPointerPositionIndex] = useState(0);
+  const [showPokemonParty, setShowPokemonParty] = useState(false); //
+  const [battleObject, setBattleObject] = useState(null); //
+  const [pointerPositionIndex, setPointerPositionIndex] = useState(0); 
   const [playerDamage, setPlayerDamage] = useState(0);
   const [opponentDamage, setOpponentDamage] = useState(0);
-  const [battleID, setBattleID] = useState(null);
   const [view, setView] = useState("battleInit");
+  const [isLoaded, setIsLoaded] = useState(false)
   const { myPokemons, selectTarget, secondaryView, pointerPosition } = selector;
 
   useEffect(() => {
@@ -49,26 +49,19 @@ const Fight = () => {
     let populatedPartyList = myPokemons;
     if (!populatedPartyList.length) {
       let localStorageString = localStorage.getItem(globals.lsPokemonParty);
-      console.log('bef', localStorageString)
-      let populatedPartyList = ConvertStringToPokemon(localStorageString)
-      // console.log({ff})
-      // let responce = await api.callPokiParty(localStorageString);
-      // populatedPartyList = responce.data;
+      populatedPartyList = ConvertStringToPokemon(localStorageString);
       dispatch({
         type: "POPULATE_POKEMON_PARTY",
         payload: populatedPartyList,
       });
     }
-    setPlayersPokemon(populatedPartyList[0]);
-    setOpponentsPokemon(populatedPartyList[1]);
-    let initBattlePayload = {
-      playersPokemon: populatedPartyList[0],
-      opponentsPokemon: populatedPartyList[1],
-      user: { gymBadges: { attack: true, defense: true, special: true, speed: true } },
-    };
-    // let responce = await api.initBattle(initBattlePayload);
-    setBattleID(1);
-    // setBattleID(responce.data.battleId);
+    let playerMon = populatedPartyList[0];
+    let opponentMon = populatedPartyList[1];
+    let user = { gymBadges: { attack: true, defense: true, special: true, speed: true } };
+    let obj = calculator.createBattleObject(playerMon, opponentMon, user);
+    dispatch({type: "SET_BATTLE_OBJECT", payload: obj})
+    console.log("battleobj", obj);
+    setIsLoaded(!isLoaded)
   }
 
   function handleSelect(target) {
@@ -106,13 +99,19 @@ const Fight = () => {
    * @returns {void} dispatching to "SET_DAMAGE_TO_OPPONENT" & "SET_DAMAGE_TO_PLAYER"
    */
   async function calcDamage(attack) {
-    if (!attack || !playersPokemon || !opponentsPokemon) return;
-    let selectedAttack = playersPokemon.moves[parseInt(attack.replace("move", ""))];
+    if (!attack || battleObject === {}) return;
+    let selectedAttack = battleObject.playersPokemon.moves[parseInt(attack.replace("move", ""))];
     let payload = {
-      battleId: battleID,
+      battleId: 1,
       moveId: selectedAttack.id,
     };
-    let responce = await api.callDamageCalc(payload);
+    let playerAttacksFirst = calculator.playerAttacksFirst(battleObject);
+    let responce = calculator.getBothPlayersDamageCalc(
+      battleObject,
+      selectedAttack.id,
+      playerAttacksFirst
+    );
+    console.log("check", responce);
     let damageToOpponent = responce.data.playerAttackCalc.damage;
     let damageToPlayer = responce.data.opponentAttackCalc.damage;
     setPlayerDamage(Math.floor(damageToPlayer));
@@ -142,8 +141,10 @@ const Fight = () => {
       <div className="relativeP fight-main-background-container">
         <FightBackgrond />
       </div>
-      {battleID !== null && <OpponentInFight data={opponentsPokemon} damage={opponentDamage} />}
-      {battleID !== null && <PlayerInFight data={playersPokemon} damage={playerDamage} />}
+      {isLoaded && (
+        <OpponentInFight damage={opponentDamage} />
+      )}
+      {isLoaded && <PlayerInFight damage={playerDamage} />}
     </div>
   );
 };

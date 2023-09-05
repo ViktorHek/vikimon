@@ -58,6 +58,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         selectTarget: action.payload
       }
+
+    case 'SET_BATTLE_OBJECT':
+      return {
+        ...state,
+        battleObject: action.payload
+      }    
     case 'SET_PLAYER_CURRENT_HEALTH':
       return {
         ...state,

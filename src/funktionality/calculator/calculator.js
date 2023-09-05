@@ -37,9 +37,8 @@ const generateRandomNumber = function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-function playerAttacksFirst(battleId) {
-  let index = battleDataArray.findIndex((el) => el.id === battleId);
-  const { playerMon, opponentMon } = battleDataArray[index];
+function playerAttacksFirst(battleOblect) {
+  const { playerMon, opponentMon } = battleOblect
   let playerSpeed = playerMon.battleStats.speed;
   let opponentSpeed = opponentMon.battleStats.speed;
   let speedTie = playerSpeed === opponentSpeed && Math.random() < 0.5;
@@ -155,11 +154,8 @@ function removeOldBattleObjects() {
   // probaly gonna use battleDataArray.splice()
 }
 
-const createBattleObject = function createBattleObject(data) {
-  // removeOldBattleObjects();
-  const { playersPokemon, opponentsPokemon, user } = data;
+const createBattleObject = function createBattleObject(playersPokemon, opponentsPokemon, user) {
   let returnValue = {
-    id: battleDataArray.length + 1,
     playerMon: {
       id: playersPokemon.id,
       name: playersPokemon.name,
