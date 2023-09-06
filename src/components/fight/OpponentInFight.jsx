@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import Font from '../../animatios/font/Font'
 import globals from '../../utils/globalVariables'
 
-const Fight = ({ damage }) => {
-    
+const OpponentInFight = ({ damage }) => {
+    console.log('render opponent in fight')
     const dispatch = useDispatch()
     const [spriteUrl, setSpriteUrl] = useState("")
     const [displayHealth, setDisplayHealth] = useState(100)
     const {battleObject} = useSelector(state => state)
     let data = battleObject.playerMon
-    console.log('data', data)
     const maxHealth = data.unBuffedStats.hp
     const { level, id } = data;
     const dbName = data.name
@@ -29,7 +28,6 @@ const Fight = ({ damage }) => {
     }, [])
 
     useEffect(() => {
-        console.log('dam', damage)
         if(damage !== null) {
             applyAttack(damage)
         }
@@ -90,4 +88,4 @@ const Fight = ({ damage }) => {
     )
 }
 
-export default Fight
+export default OpponentInFight

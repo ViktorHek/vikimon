@@ -15,7 +15,6 @@ import allMoves from "../../database/allMoves";
 // '[80,40,1,"s",143,"viktor",15,35000,35000,35000,35000,35000,2635,9435,335,435]'
 
 const ConvertStringToPokemon = (pokemonStrings) => {
-  console.log('pokemonStrings', pokemonStrings)
   const pokemonArr = JSON.parse(pokemonStrings);
   let pokemonPartyArr = [];
   for (let index = 0; index < pokemonArr.length; index++) {

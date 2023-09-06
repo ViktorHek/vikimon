@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import OptionsFight from "./OptionsFight";
 import Font from "../../animatios/font/Font";
 import HealthBar from "../../animatios/HealthBar";
-import globals from "../../utils/globalVariables";
 import MenuBackgrond from "../../animatios/backgronds/MenuBackgrond";
 
 // move functionality to fight.jsx and use redux for data transfer
@@ -11,20 +10,19 @@ import MenuBackgrond from "../../animatios/backgronds/MenuBackgrond";
 const PlayerInFight = ({ damage }) => {
   const dispatch = useDispatch();
   const { secondaryView, backKey, battleObject } = useSelector((state) => state);
-  const [spriteUrl, setSpriteUrl] = useState("");
+  console.log({battleObject})
+  const { id, level, name, unBuffedStats, currentHp } = battleObject.playerMon;
+  const maxHealth = unBuffedStats.hp;
   const [view, setView] = useState("battleInit");
-  let data = battleObject.playerMon
-  const maxHealth = data.unBuffedStats.hp;
   const [health, setHealth] = useState(maxHealth);
-
-  const { id, level, name } = data;
-  const dbName = data.name;
+  
   const menuPositioning = { top: 0, left: 0, right: 88, bottom: 40 };
 
   useEffect(() => {
     populateData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     if (damage !== null) {
       applyAttack(damage);
@@ -33,12 +31,10 @@ const PlayerInFight = ({ damage }) => {
   }, [damage]);
 
   function populateData() {
-    console.log("init view: ", view);
-    setPokemonImgUrl(id);
-    setHealth(data.currentHp);
+    setHealth(currentHp);
   }
 
-  function applyAttack(damagePlayer) {
+  function applyAttack(damagePlayer) { // remove
     let healthAfterDamage = health - damagePlayer;
     let healthPercent = healthAfterDamage / maxHealth;
     let healthPercentToPixel = healthPercent * 100;
@@ -55,25 +51,17 @@ const PlayerInFight = ({ damage }) => {
     // setDisplayHealth(healthPercentToPixel);
   }
 
-  function playerPokemonFaint() {
+  function playerPokemonFaint() { // remove
     console.log("you die");
     dispatch({ type: "SET_MAIN_VIEW", payload: "openWorld" });
   }
 
-  function setPokemonImgUrl(id) {
-    let imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/back/${id}.png`;
-    if (globals.noInternet) {
-      imgUrl = "/images/pokemons/b_green-supgb_151_back.png";
-    }
-    setSpriteUrl(imgUrl);
-  }
-
-  useEffect(() => {
+  useEffect(() => { // remove
     handleBackKey();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [backKey]);
 
-  function handleBackKey() {
+  function handleBackKey() { // remove
     if (!backKey) return;
     let payload = "battleInit";
     // setView(payload);
@@ -89,20 +77,20 @@ const PlayerInFight = ({ damage }) => {
   return (
     <div>
       <div className="fight-users-mon-name-container">
-        <Font text={name ? name : dbName.toUpperCase()} />
+        <Font text={name} />
       </div>
       <div className="fight-users-mon-level-container">
         <Font text={JSON.stringify(level)} />
       </div>
       <div className="fight-users-mon-health-bar-container">
-        <HealthBar data={{ curretnHelath: health, maxHealth: maxHealth }} />
+        <HealthBar data={{ curretnHelath: currentHp, maxHealth: maxHealth }} />
       </div>
       <div className="fight-users-mon-hp-container">
-        <Font text={JSON.stringify(health)} />
+        <Font text={JSON.stringify(currentHp)} />
         <Font text={JSON.stringify(maxHealth)} />
       </div>
       <div className="fight-users-mon-img-container">
-        <img src={spriteUrl} alt="pokemon" className="absolute-size-100" />
+        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/back/${id}.png`} alt="pokemon" className="absolute-size-100" />
       </div>
       {view === "textDisplay" && <MenuBackgrond position={menuPositioning} />}
       {view === "battleInit" && (
@@ -122,7 +110,7 @@ const PlayerInFight = ({ damage }) => {
           </div>
         </div>
       )}
-      {view === "selectMoves" && <OptionsFight data={data} />}
+      {view === "selectMoves" && <OptionsFight data={battleObject.playerMon} />}
     </div>
   );
 };
