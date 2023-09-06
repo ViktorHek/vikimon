@@ -1,4 +1,4 @@
-export default [
+const types = [
     {
         name: 'normal', 
         superEffective: [], 
@@ -89,3 +89,4 @@ export default [
         noEffect: []
     },
 ];
+export default types

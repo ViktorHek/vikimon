@@ -1,10 +1,11 @@
 
 // import types from "../../dataBase/types";
-import specialMoves from '../../database/nameLists/specialMoves'
+// import specialMoves from '../../database/nameLists/specialMoves'
 
 
 const uniqueMoves = function uniqueMoves(data) {
-  const { attackingMon, defendingMon, move, playerIsAttacking } = data;
+  const { move } = data;
+  // const { attackingMon, defendingMon, move, playerIsAttacking } = data;
 
   let returnValue = {
     damage: 0,

@@ -1,4 +1,4 @@
-export default [
+const allMoves = [
   {
     id: 1,
     name: "pound",
@@ -4365,3 +4365,4 @@ export default [
     },
   },
 ];
+export default allMoves

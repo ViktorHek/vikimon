@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import api from "../database/api";
 import PlayerInFight from "../components/fight/PlayerInFight";
 import OpponentInFight from "../components/fight/OpponentInFight";
 import Pointer from "../animatios/Pointer";
@@ -15,7 +14,6 @@ const Fight = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const [showPokemonParty, setShowPokemonParty] = useState(false); //
-  // const [battleObject, setBattleObject] = useState(null); //
   const [pointerPositionIndex, setPointerPositionIndex] = useState(0); 
   const [playerDamage, setPlayerDamage] = useState(0);
   const [opponentDamage, setOpponentDamage] = useState(0);
@@ -57,11 +55,10 @@ const Fight = () => {
       });
     }
     let playerMon = populatedPartyList[0];
-    let opponentMon = populatedPartyList[1];
+    let opponentMon = populatedPartyList[0];
     let user = { gymBadges: { attack: true, defense: true, special: true, speed: true } };
     let obj = calculator.createBattleObject(playerMon, opponentMon, user);
     dispatch({type: "SET_BATTLE_OBJECT", payload: obj})
-    console.log("battleobj", obj);
     setIsLoaded(!isLoaded)
   }
 
@@ -95,25 +92,22 @@ const Fight = () => {
   }
   /**
    * this function uses playersPokemon, opponentsPokemon from Redux.
-   * @async makes a call to callDamageCalc
    * @param {string} attack format is move + index. for exampl 'move0'
    * @returns {void} dispatching to "SET_DAMAGE_TO_OPPONENT" & "SET_DAMAGE_TO_PLAYER"
    */
-  async function calcDamage(attack) {
-    console.log('bo', battleObject)
+  function calcDamage(attack) {
     if (!attack || battleObject === {}) return;
     let selectedAttack = battleObject.playerMon.moves[parseInt(attack.replace("move", ""))];
-    let payload = {
-      battleId: 1,
-      moveId: selectedAttack.id,
-    };
+    // let payload = {
+    //   battleId: 1,
+    //   moveId: selectedAttack.id,
+    // };
     let playerAttacksFirst = calculator.playerAttacksFirst(battleObject);
     let responce = calculator.getBothPlayersDamageCalc(
       battleObject,
       selectedAttack.id,
       playerAttacksFirst
     );
-    console.log("check", responce);
     let damageToOpponent = responce.playerAttackCalc.damage;
     let damageToPlayer = responce.opponentAttackCalc.damage;
     setPlayerDamage(Math.floor(damageToPlayer));

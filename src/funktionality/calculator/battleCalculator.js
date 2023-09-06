@@ -67,36 +67,11 @@ function checkIfMoveHitts(move, attackingMonAccuracy, defendingMonEvasion) {
   }
 }
 
-// /**
-//  * Used to categorice moves to make it easyer for customized functionality.
-//  * @returns {"psysical"|"psysical_stat_change"|"psysical_custom"|"special"|"special_stat_change"|"special_custom"|"status"|"status_stat_change"|"status_custom"} categorized by physical or specail damage, status or stat change & custom (meaning unique) or effect (meaning the move has an secondary effect)
-//  */
-// function getTypeOfMove(move) {
-//   let damageClass = move.meta.damage_class;
-//   let isSpecail = isSpecailMove(move);
-//   let stat_change = move.meta.stat_change;
-//   if (isSpecail) {
-//     return "custom";
-//   } else if (stat_change) {
-//     return damageClass + "_stat_change";
-//   } else return damageClass;
-// }
-
-function isSpecailMove(move) {
-  const name = move.name;
-  if (specialMovesList.all.includes(name)) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 /**
  * ((((2 * level * critical) / 5 + 2) * (power * (attack / deffence))) / 50 + 2) * stab * type1 * type2 * random
  * this function is for moves that only deel damage and do not have added effects
  * @returns {Number} damage of move. Is rounded down and can not be below 1
  */
-
 function getDamage(data) {
   if (data.move.meta.stat_change) {
     let obj = { damage: 0, isCrit: 1, random: 1, effectiveness: 1 };
@@ -140,7 +115,7 @@ function calculateIfCrit(speedStat, move) {
   } else {
     return 1;
   }
-}
+} // kan kortas ner
 
 /**
  * function that returns attacking pokemons attackpower / defending pokemons defence power.
@@ -279,8 +254,8 @@ function getStatChange(data) {
 
 function getAddedEffects(data) {
   const moveName = data.move.name;
-  let target = "opponent";
-  let type = "";
+  // let target = "opponent";
+  // let type = "";
   switch (moveName) {
     case "disable": // need acces to the last move used by the opponent
     case "mist": // needs a counter for number of turns active
@@ -298,10 +273,12 @@ function getAddedEffects(data) {
   }
 }
 
-function getMessage(data, returnValue, damageCalc) {
-  const { status, statChange, message, addedEffect } = returnValue;
-  const { damage, isCrit, random, effectiveness } = damageCalc;
-  const { attackingMon, defendingMon, move, playerIsAttacking } = data;
+function getMessage(data, damageCalc) {
+  const { isCrit, effectiveness } = damageCalc;
+  const { attackingMon, move } = data;
+  // const { status, statChange, message, addedEffect } = returnValue;
+  // const { damage, isCrit, random, effectiveness } = damageCalc;
+  // const { attackingMon, defendingMon, move, playerIsAttacking } = data;
   let messageArr = [];
 
   messageArr.push(`${attackingMon.name} attacked with ${move.name}`); // what move

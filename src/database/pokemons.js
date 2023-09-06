@@ -1,7 +1,7 @@
 // growth_rate: 1=slow, 2=medium-slow, 3=medium-fast, 4=fast
 // IV range from 1-15
 
-export default [
+const pokemons = [
   {
     id: 1,
     name: "bulbasaur",
@@ -6929,3 +6929,4 @@ export default [
     weight: 1,
   },
 ];
+export default pokemons

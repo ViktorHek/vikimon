@@ -108,11 +108,6 @@ function getMoveFromId(id) {
   return moveObj;
 }
 
-function getMoveFromtrainerAI(battleId) {
-  // future project. the move Tackle have the ID 33
-  return getMoveFromId(33);
-}
-
 function statChangesEffectPercent(statChanges) {
   switch (statChanges) {
     case -6:
@@ -145,13 +140,6 @@ function statChangesEffectPercent(statChanges) {
       console.log("no switch match in statChangesEffectPercent()", statChanges);
       return 1;
   }
-}
-
-function removeOldBattleObjects() {
-  // add a loop of battleDataArray.
-  // subtract 24 hours from current date.
-  // if battleObj.createdAt if before current date - 24h, then remove that obj.
-  // probaly gonna use battleDataArray.splice()
 }
 
 const createBattleObject = function createBattleObject(playersPokemon, opponentsPokemon, user) {

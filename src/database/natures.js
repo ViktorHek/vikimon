@@ -1,4 +1,4 @@
-export default [
+const natures = [
     { identifyer: 'a', name: 'adamant', increasedStat: 'attack', decreasedStat: 'special'},
     { identifyer: 'b', name: 'brave', increasedStat: 'attack', decreasedStat: 'speed'},
     { identifyer: 'c', name: 'calm', increasedStat: 'special', decreasedStat: 'attack'},
@@ -23,3 +23,4 @@ export default [
     { identifyer: 'v', name: 'quirky', increasedStat: null, decreasedStat: null},
     { identifyer: 'w', name: 'ultimate', increasedStat: 'all', decreasedStat: null}
 ]
+export default natures
