@@ -16,15 +16,9 @@ body {
 }
 
 .main_game_container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
   width: 100vw;
 }
@@ -94,7 +88,6 @@ body {
   height: 100%;
   width: 100%;
 }
-
 .pokemon-party-backgrond-container img {
   height: 292px;
   width: 324px;
@@ -182,7 +175,6 @@ body {
   background-color: #f8e8f8;
   overflow: hidden;
 }
-
 .mon-in-bag-character-container img {
   height: 171px;
   width: 35px;
@@ -231,7 +223,6 @@ body {
   width: 56px;
   background-color: #f8e8f8;
 }
-
 .selected-pokemon-img-container img {
   position: absolute;
   top: 0;
@@ -308,7 +299,6 @@ body {
   width: 100%;
   background-color: #f8e8f8;
 }
-
 .menu-backgrond-container .top-left-corner,
 .menu-backgrond-container .top-right-corner,
 .menu-backgrond-container .bottom-left-corner,
@@ -317,13 +307,11 @@ body {
   height: 8px;
   width: 8px;
 }
-
 .menu-backgrond-container .bottom-border,
 .menu-backgrond-container .top-border {
   position: absolute;
   height: 8px;
 }
-
 .menu-backgrond-container .left-border,
 .menu-backgrond-container .right-border {
   position: absolute;
@@ -350,8 +338,6 @@ body {
 }
 
 .fight-users-mon-name-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   position: absolute;
   height: 9px;
@@ -364,8 +350,6 @@ body {
 }
 
 .fight-users-mon-level-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   position: absolute;
   height: 8px;
@@ -377,8 +361,6 @@ body {
 }
 
 .fight-users-mon-health-bar-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   position: absolute;
   height: 8px;
@@ -395,8 +377,6 @@ body {
   bottom: 56px;
   height: 8px;
   width: 64px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -428,8 +408,6 @@ body {
 .fight-move-selecter-1,
 .fight-move-selecter-2,
 .fight-move-selecter-3 {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   height: 8px;
   width: 104px;
@@ -473,8 +451,8 @@ body {
 
 .fight-opponent-hp-container {
   position: absolute;
-  top: 19px;
-  left: 32px;
+  top: 16px;
+  left: 8px;
   height: 2px;
   width: 48px;
   background-color: #f8e8f8;
@@ -510,13 +488,8 @@ body {
   width: 100%;
   bottom: 7px;
   left: 47px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 
 .fight-menu-backgrond-container {
@@ -572,25 +545,14 @@ body {
 .main-font-container {
   height: 8px;
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .font-word-container {
   height: 8px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin-right: 8px;
 }
@@ -605,7 +567,6 @@ body {
   width: 8px;
   position: relative;
 }
-
 .main-font-chars-container svg {
   position: absolute;
   top: 0;
@@ -618,10 +579,8 @@ body {
   z-index: 9;
   position: relative;
 }
-
 .main-pointer-container svg {
   position: absolute;
   top: 0;
   left: 0;
-}
-/*# sourceMappingURL=styles.css.map */
+}/*# sourceMappingURL=styles.css.map */

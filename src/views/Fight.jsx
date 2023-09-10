@@ -15,14 +15,13 @@ const Fight = () => {
   const selector = useSelector((state) => state);
   const [showPokemonParty, setShowPokemonParty] = useState(false); //
   const [pointerPositionIndex, setPointerPositionIndex] = useState(0);
-  const [playerDamage, setPlayerDamage] = useState(0);
-  const [opponentDamage, setOpponentDamage] = useState(0);
   const [view, setView] = useState("battleInit");
   const [isLoaded, setIsLoaded] = useState(false);
-  const { myPokemons, selectTarget, secondaryView, pointerPosition, battleObject } = selector;
+  const { myPokemons, selectTarget, secondaryView, pointerPosition, battleObject, backKey } =
+    selector;
 
   useEffect(() => {
-    populatePartyAndInitBattle();
+    if (!isLoaded) populatePartyAndInitBattle();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -41,6 +40,15 @@ const Fight = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointerPosition.index, pointerPosition.view]);
 
+  useEffect(() => {
+    if (!backKey) handleBackKey();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [backKey]);
+
+  function handleBackKey() {
+    dispatch({ type: "SET_SECONDARY_VIEW", payload: "battleInit" });
+  }
+
   async function populatePartyAndInitBattle() {
     if (battleObject === {} || !battleObject) return;
     dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: "battleInit" } });
@@ -58,7 +66,7 @@ const Fight = () => {
     let user = { gymBadges: { attack: true, defense: true, special: true, speed: true } };
     let obj = calculator.createBattleObject(playerMon, opponentMon, user);
     dispatch({ type: "SET_BATTLE_OBJECT", payload: obj });
-    if(isLoaded === false) setIsLoaded(!isLoaded);
+    if (isLoaded === false) setIsLoaded(!isLoaded);
   }
 
   function handleSelect(target) {
@@ -97,32 +105,28 @@ const Fight = () => {
   function calcDamage(attack) {
     if (!attack || battleObject === {}) return;
     let selectedAttack = battleObject.playerMon.moves[parseInt(attack.replace("move", ""))];
-    // let payload = {
-    //   battleId: 1,
-    //   moveId: selectedAttack.id,
-    // };
     let playerAttacksFirst = calculator.playerAttacksFirst(battleObject);
     let responce = calculator.getBothPlayersDamageCalc(
       battleObject,
       selectedAttack.id,
       playerAttacksFirst
     );
-    
+
     let healthAfterDamage = battleObject.playerMon.currentHp - responce.opponentAttackCalc.damage;
     if (healthAfterDamage < 1) {
       playerPokemonFaint();
     } else {
-      let obj = battleObject
-      obj.playerMon.currentHp = healthAfterDamage
+      let obj = battleObject;
+      obj.playerMon.currentHp = healthAfterDamage;
       dispatch({ type: "SET_BATTLE_OBJECT", payload: obj });
     }
 
-    let healthAfterDamage2 = battleObject.playerMon.currentHp - responce.playerAttackCalc.damage;
+    let healthAfterDamage2 = battleObject.opponentMon.currentHp - responce.playerAttackCalc.damage;
     if (healthAfterDamage2 < 1) {
-      opponentPokemonFaint()
+      opponentPokemonFaint();
     } else {
-      let obj = battleObject
-      obj.playerMon.currentHp = healthAfterDamage2
+      let obj = battleObject;
+      obj.opponentMon.currentHp = healthAfterDamage2;
       dispatch({ type: "SET_BATTLE_OBJECT", payload: obj });
     }
   }
@@ -158,8 +162,8 @@ const Fight = () => {
       <div className="relativeP fight-main-background-container">
         <FightBackgrond />
       </div>
-      {isLoaded && <OpponentInFight damage={opponentDamage} />}
-      {isLoaded && <PlayerInFight damage={playerDamage} />}
+      {isLoaded && <OpponentInFight />}
+      {isLoaded && <PlayerInFight />}
     </div>
   );
 };
