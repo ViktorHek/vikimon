@@ -1,13 +1,18 @@
 import dbTypes from "../../database/types";
 import specialMovesList from "../../database/nameLists/specialMoves.js";
-import uniqueMoves from './uniqueMoves'
+import uniqueMoves from "./uniqueMoves";
 
 // { battleId, playerMon, opponentMon, gymBadges, extra, opponentId } = battleObj;
 
 const battleCalculator = function battleCalculator(battleObj, move, playerIsAttacking) {
-  const { playerMon, opponentMon } = battleObj;
-  let attackingMon = playerIsAttacking ? playerMon : opponentMon;
-  let defendingMon = playerIsAttacking ? opponentMon : playerMon;
+  let data = {
+    playerMon: battleObj.playerMon,
+    opponentMon: battleObj.opponentMon,
+    attackingMon: playerIsAttacking ? battleObj.playerMon : battleObj.opponentMon,
+    defendingMon: playerIsAttacking ? battleObj.opponentMon : battleObj.playerMon,
+    move: move,
+    playerIsAttacking: playerIsAttacking,
+  };
   let returnValue = {
     damage: 0,
     status: { name: "", target: "" },
@@ -15,35 +20,22 @@ const battleCalculator = function battleCalculator(battleObj, move, playerIsAtta
     message: "",
     addedEffect: [],
   };
-  let isHitting = checkIfMoveHitts(
-    move,
-    attackingMon.battleStats.accuracy,
-    defendingMon.battleStats.evasion
-  );
-  if (!isHitting) {
+  if (isMissing(data)) {
     returnValue.message = "Attack missed";
     return returnValue;
   }
-
-  let data = {
-    attackingMon: attackingMon,
-    defendingMon: defendingMon,
-    move: move,
-    playerIsAttacking: playerIsAttacking,
-  };
 
   if (specialMovesList.movesWithUniqueCalc.includes(move.name)) {
     return uniqueMoves(data);
   }
 
-  let damageCalc = getDamage(data);
-  returnValue.damage = damageCalc.damage;
+  returnValue.damage = getDamage(data);
   returnValue.status = getStatus(data);
   returnValue.statChange = getStatChange(data);
   returnValue.addedEffect = getAddedEffects(data);
-  let message = getMessage(data, returnValue, damageCalc);
+  const message = getMessage(data, returnValue);
   returnValue.message = message;
-
+  console.log({ returnValue });
   return returnValue;
 };
 
@@ -54,16 +46,17 @@ const battleCalculator = function battleCalculator(battleObj, move, playerIsAtta
  * @param {Number} evasion defending pokemons evasion
  * @returns {Boolean} if true the move hitts, if false the move miss
  */
-function checkIfMoveHitts(move, attackingMonAccuracy, defendingMonEvasion) {
-  // if (global.alwaysHit) return true;
-  if (move.accuracy === null) return true; // if accuracy is null then target is always opponent
-  let moveAccuracy = move.accuracy / 100; // 0 - 1
-  let random = generateRandomNumber(1, 255);
-  let chance = moveAccuracy * 255 * attackingMonAccuracy * defendingMonEvasion;
-  if (random < chance) {
-    return true;
-  } else {
+function isMissing(data) {
+  if (data.move.accuracy === null) return true; // if accuracy is null then target is always opponent
+  let calc =
+    255 *
+    (data.move.accuracy / 100) *
+    data.attackingMon.battleStats.accuracy *
+    data.defendingMon.battleStats.evasion;
+  if (generateRandomNumber(1, 255) < calc) {
     return false;
+  } else {
+    return true;
   }
 }
 
@@ -74,48 +67,27 @@ function checkIfMoveHitts(move, attackingMonAccuracy, defendingMonEvasion) {
  */
 function getDamage(data) {
   if (data.move.meta.stat_change) {
-    let obj = { damage: 0, isCrit: 1, random: 1, effectiveness: 1 };
-    return obj;
+    return { damage: 0, isCrit: 1, random: 0.5, effectiveness: 1 };
   }
   const { attackingMon, defendingMon, move } = data;
-  let isCrit = calculateIfCrit(attackingMon.battleStats.speed, move); // is crit = 2, is not crit = 1
-  let AD = getattackDefenseDifferance(attackingMon, defendingMon, isCrit, move);
-  let STAB = getStab(attackingMon, move);
-  let effectiveness = getTypingCalc(move, defendingMon);
-  let random = getRandomDamage();
-
-  let firstCalc = 2 * attackingMon.level * isCrit;
-  let secondCalc = firstCalc / 5 + 2;
-  let thirdCalc = secondCalc * move.power * AD;
-  let fourthCalc = thirdCalc / 50 + 2;
-  let fifthCalc = fourthCalc * STAB * effectiveness * random;
-  let damage = Math.floor(fifthCalc) < 1 ? 1 : Math.floor(fifthCalc);
-
+  const critThreshold =
+    move.meta.crit_rate === 1
+      ? (attackingMon.battleStats.speed / 2) * 8
+      : attackingMon.battleStats.speed / 2;
+  const isCrit = generateRandomNumber(0, 255) < critThreshold ? 2 : 1;
+  const AD = getattackDefenseDifferance(attackingMon, defendingMon, isCrit, move);
+  const effectiveness = getTypingCalc(move, defendingMon);
+  const stab = attackingMon.types.includes(move.type) ? 1.5 : 1;
+  const random = generateRandomNumber(217, 255) / 255;
+  const calc =
+    ((((2 * attackingMon.level * isCrit) / 5 + 2) * move.power * AD) / 50 + 2) *
+    stab *
+    effectiveness *
+    random;
+  const damage = Math.floor(calc) < 1 ? 1 : Math.floor(calc);
+  console.log("new calc: ", damage);
   return { damage, isCrit, random, effectiveness };
 }
-
-/**
- * does not jet include a check if player uses focus energy or Dire Hit
- * @param {Number} speedStat speed stat of the pokemon after stat boosts
- * @param {{meta: {crit_rate: 1|null}}} move only used for moves with high crit rate
- * @returns {1|2} 2 if crit, 1 if normal hit
- */
-function calculateIfCrit(speedStat, move) {
-  // if (global.setCrit) return global.setCrit;
-  let random = generateRandomNumber(0, 255);
-  let threshold = speedStat / 2;
-  if (move.meta.crit_rate === 1) {
-    threshold = threshold * 8;
-  }
-  if (threshold > 255) {
-    threshold = 255;
-  }
-  if (random < threshold) {
-    return 2;
-  } else {
-    return 1;
-  }
-} // kan kortas ner
 
 /**
  * function that returns attacking pokemons attackpower / defending pokemons defence power.
@@ -126,68 +98,32 @@ function calculateIfCrit(speedStat, move) {
  * @returns {Number}
  */
 function getattackDefenseDifferance(attackingMon, defendingMon, isCrit, move) {
-  const attack = attackingMon.unBuffedStats.attack;
-  const attackSpecial = attackingMon.unBuffedStats.special;
-  const buffedAttack = attackingMon.battleStats.attack;
-  const buffedAttackSpecial = attackingMon.battleStats.special;
-  const defense = defendingMon.unBuffedStats.defense;
-  const defenseSpecial = defendingMon.unBuffedStats.special;
-  const buffedDefense = defendingMon.battleStats.defense;
-  const buffedDefenseSpecial = defendingMon.battleStats.special;
-  const moveDamgageClass = move.meta.damage_class;
-
-  if (isCrit === 2) {
-    if (moveDamgageClass === "physical") {
-      return attack / defense;
-    } else {
-      return attackSpecial / defenseSpecial;
-    }
-  } else {
-    if (moveDamgageClass === "physical") {
-      return buffedAttack / buffedDefense;
-    } else {
-      return buffedAttackSpecial / buffedDefenseSpecial;
-    }
-  }
-}
-
-function getStab(attackingMon, move) {
-  if (attackingMon.types.includes(move.type)) {
-    return 1.5;
-  } else {
-    return 1;
-  }
+  let attackType = move.meta.damage_class === "special" ? "special" : "attack";
+  let defenceType = move.meta.damage_class === "special" ? "special" : "defense";
+  let stats = isCrit === 2 ? "unBuffedStats" : "battleStats";
+  return attackingMon[stats][attackType] / defendingMon[stats][defenceType];
 }
 
 function getTypingCalc(move, opponentMon) {
+  console.log("move: ", move, "opps: ", opponentMon);
   let firstTyping = calcTyping(move.type, opponentMon.types[0]);
-  let secondTyping = 1;
-  if (opponentMon.types[1]) {
-    secondTyping = calcTyping(move.type, opponentMon.types[1]);
-  }
+  let secondTyping = opponentMon.types[1] ? calcTyping(move.type, opponentMon.types[1]) : 1;
   return firstTyping * secondTyping;
 }
 function calcTyping(moveType, targetType) {
-  let moveTypeObj = {};
-  dbTypes.forEach((el) => {
-    if (el.name === moveType) {
-      moveTypeObj = el;
-    }
-  });
-  if (moveTypeObj.superEffective.includes(targetType)) {
-    return 2;
-  } else if (moveTypeObj.notEffective.includes(targetType)) {
-    return 0.5;
-  } else {
-    return 1;
+  let moveTypeObj = dbTypes.filter((el) => el.name === moveType);
+  switch (true) {
+    case moveTypeObj[0].superEffective.includes(targetType):
+      return 2;
+    case moveTypeObj[0].notEffective.includes(targetType):
+      return 0.5;
+    case moveTypeObj[0].noEffect.includes(targetType):
+      return 0;
+    default:
+      return 1;
   }
 }
 
-function getRandomDamage() {
-  // if (global.setRandomBattleValue) return 1;
-  let randomNumber = generateRandomNumber(217, 255);
-  return randomNumber / 255;
-}
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -211,8 +147,7 @@ function checkIfNoStatus(data) {
   let target = playerIsAttacking ? "opponent" : "player";
   let targetPokemon = playerIsAttacking ? defendingMon : attackingMon;
   let chance = move.meta.effect_chance;
-  if (!chance) chance = -1;
-  // if (!chance || global.alwaysHitSecondaryEffect) chance = -1;
+  if (!chance) chance = 0;
   switch (true) {
     case move.meta.status === null:
     case move.meta.status === "burn" && targetPokemon.types.includes("fire"):
@@ -229,27 +164,18 @@ function checkIfNoStatus(data) {
 }
 
 function getStatChange(data) {
-  const { move, playerIsAttacking } = data;
-  if (!move.meta.stat_change) return null;
-  let chanse = generateRandomNumber(1, 100);
+  const { target, effect_chance, stat_change } = data.move.meta;
   let statChange = {
-    change: move.meta.stat_change.change,
-    stat: move.meta.stat_change.stat,
-    target: "opponent",
+    change: null,
+    stat: null,
+    target: target,
   };
-  if (
-    (playerIsAttacking === true && move.meta.target === "user") ||
-    (playerIsAttacking === false && move.meta.target === "opponent")
-  ) {
-    statChange.target = "player";
+  if (!effect_chance || !stat_change) return statChange;
+  if (generateRandomNumber(1, 100) < (effect_chance ? effect_chance : 0)) {
+    statChange.change = stat_change.change;
+    statChange.stat = stat_change.stat;
   }
-
-  if (move.meta.effect_chance === null) return statChange;
-  if (chanse < move.meta.effect_chance) {
-    return statChange;
-  } else {
-    return false;
-  }
+  return statChange;
 }
 
 function getAddedEffects(data) {
@@ -273,20 +199,22 @@ function getAddedEffects(data) {
   }
 }
 
-function getMessage(data, damageCalc) {
-  const { isCrit, effectiveness } = damageCalc;
+function getMessage(data, returnValue) {
   const { attackingMon, move } = data;
-  // const { status, statChange, message, addedEffect } = returnValue;
-  // const { damage, isCrit, random, effectiveness } = damageCalc;
-  // const { attackingMon, defendingMon, move, playerIsAttacking } = data;
-  let messageArr = [];
-
-  messageArr.push(`${attackingMon.name} attacked with ${move.name}`); // what move
-  if (effectiveness === 2) messageArr.push("It is super effective");
-  if (effectiveness === 0.5) messageArr.push("It is not effective");
-  if (isCrit === 2) messageArr.push("It is a critical hit");
-
+  let messageArr = [`${attackingMon.name} attacked with ${move.name}`];
+  switch (true) {
+    case returnValue.damage.isCrit === 2:
+      messageArr.push("It is a critical hit");
+    case returnValue.damage.effectiveness === 2:
+      messageArr.push("It is super effective");
+      break;
+    case returnValue.damage.effectiveness === 0.5:
+      messageArr.push("It is not effective");
+      break;
+    default:
+      break;
+  }
   return messageArr;
 }
 
-export default battleCalculator
+export default battleCalculator;

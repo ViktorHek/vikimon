@@ -50,7 +50,7 @@ const Fight = () => {
   }
 
   async function populatePartyAndInitBattle() {
-    if (battleObject === {} || !battleObject) return;
+    if (!battleObject) return;
     dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: "battleInit" } });
     dispatch({ type: "SET_SECONDARY_VIEW", payload: "battleInit" });
     let populatedPartyList = myPokemons;
@@ -65,6 +65,7 @@ const Fight = () => {
     let opponentMon = populatedPartyList[0];
     let user = { gymBadges: { attack: true, defense: true, special: true, speed: true } };
     let obj = calculator.createBattleObject(playerMon, opponentMon, user);
+    console.log("1111", obj);
     dispatch({ type: "SET_BATTLE_OBJECT", payload: obj });
     if (isLoaded === false) setIsLoaded(!isLoaded);
   }
@@ -103,7 +104,8 @@ const Fight = () => {
    * @returns {void} dispatching to "SET_DAMAGE_TO_OPPONENT" & "SET_DAMAGE_TO_PLAYER"
    */
   function calcDamage(attack) {
-    if (!attack || battleObject === {}) return;
+console.log('4444',battleObject)
+    if (!attack) return;
     let selectedAttack = battleObject.playerMon.moves[parseInt(attack.replace("move", ""))];
     let playerAttacksFirst = calculator.playerAttacksFirst(battleObject);
     let responce = calculator.getBothPlayersDamageCalc(
@@ -111,22 +113,30 @@ const Fight = () => {
       selectedAttack.id,
       playerAttacksFirst
     );
-
+    console.log({ responce });
     let healthAfterDamage = battleObject.playerMon.currentHp - responce.opponentAttackCalc.damage;
     if (healthAfterDamage < 1) {
       playerPokemonFaint();
     } else {
       let obj = battleObject;
+console.log({healthAfterDamage})
       obj.playerMon.currentHp = healthAfterDamage;
+      console.log("222", obj);
+
       dispatch({ type: "SET_BATTLE_OBJECT", payload: obj });
     }
-
+    console.log({ battleObject });
     let healthAfterDamage2 = battleObject.opponentMon.currentHp - responce.playerAttackCalc.damage;
+    console.log({ healthAfterDamage2 });
     if (healthAfterDamage2 < 1) {
+      console.log("ghero");
       opponentPokemonFaint();
     } else {
+      console.log("####");
       let obj = battleObject;
       obj.opponentMon.currentHp = healthAfterDamage2;
+      console.log("333", obj);
+
       dispatch({ type: "SET_BATTLE_OBJECT", payload: obj });
     }
   }

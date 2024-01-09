@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 
 const HealthBar = ({ data }) => {
+console.log({data})
     const [healthBarWidth, setHealthBarWidth] = useState(48)
     let maxHealthWidth = 48
 
