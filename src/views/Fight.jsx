@@ -9,17 +9,25 @@ import PokemonParty from "../components/backpack/PokemonParty";
 import globals from "../utils/globalVariables";
 import ConvertStringToPokemon from "../funktionality/conversion/convertStringToPokemon";
 import calculator from "../funktionality/calculator/calculator";
+import maps from "../maps/maps";
 
 const Fight = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const [showPokemonParty, setShowPokemonParty] = useState(false); //
-  const [pointerPositionIndex, setPointerPositionIndex] = useState(0); 
+  const [pointerPositionIndex, setPointerPositionIndex] = useState(0);
   const [playerDamage, setPlayerDamage] = useState(0);
   const [opponentDamage, setOpponentDamage] = useState(0);
   const [view, setView] = useState("battleInit");
-  const [isLoaded, setIsLoaded] = useState(false)
-  const { myPokemons, selectTarget, secondaryView, pointerPosition, battleObject } = selector;
+  const [isLoaded, setIsLoaded] = useState(false);
+  const {
+    myPokemons,
+    selectTarget,
+    secondaryView,
+    pointerPosition,
+    battleObject,
+    opponentPokemon
+  } = selector;
 
   useEffect(() => {
     populatePartyAndInitBattle();
@@ -42,24 +50,33 @@ const Fight = () => {
   }, [pointerPosition.index, pointerPosition.view]);
 
   async function populatePartyAndInitBattle() {
-    if(battleObject === {} || !battleObject) return 
-    dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: "battleInit" } });
-    dispatch({ type: "SET_SECONDARY_VIEW", payload: "battleInit" });
+    if (
+      !battleObject ||
+      myPokemons.length === 0 ||
+      !localStorage.getItem(globals.lsPokemonParty)
+    )
+      return;
     let populatedPartyList = myPokemons;
-    if (!populatedPartyList.length) {
-      let localStorageString = localStorage.getItem(globals.lsPokemonParty);
-      populatedPartyList = ConvertStringToPokemon(localStorageString);
-      dispatch({
-        type: "POPULATE_POKEMON_PARTY",
-        payload: populatedPartyList,
-      });
-    }
+    populatedPartyList = ConvertStringToPokemon(
+      localStorage.getItem(globals.lsPokemonParty)
+    );
     let playerMon = populatedPartyList[0];
     let opponentMon = populatedPartyList[0];
-    let user = { gymBadges: { attack: true, defense: true, special: true, speed: true } };
+    let user = {
+      gymBadges: { attack: true, defense: true, special: true, speed: true },
+    };
     let obj = calculator.createBattleObject(playerMon, opponentMon, user);
-    dispatch({type: "SET_BATTLE_OBJECT", payload: obj})
-    setIsLoaded(!isLoaded)
+    dispatch({
+      type: "SET_POINTER_POSITION",
+      payload: { index: 0, view: "battleInit" },
+    });
+    dispatch({ type: "SET_SECONDARY_VIEW", payload: "battleInit" });
+    dispatch({
+      type: "POPULATE_POKEMON_PARTY",
+      payload: populatedPartyList,
+    });
+    dispatch({ type: "SET_BATTLE_OBJECT", payload: obj });
+    setIsLoaded(!isLoaded);
   }
 
   function handleSelect(target) {
@@ -69,7 +86,10 @@ const Fight = () => {
       case "move2":
       case "move3":
         dispatch({ type: "SET_SECONDARY_VIEW", payload: "battleInit" });
-        dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: "battleInit" } });
+        dispatch({
+          type: "SET_POINTER_POSITION",
+          payload: { index: 0, view: "battleInit" },
+        });
         calcDamage(target);
         break;
       case "selectMoves":
@@ -96,8 +116,9 @@ const Fight = () => {
    * @returns {void} dispatching to "SET_DAMAGE_TO_OPPONENT" & "SET_DAMAGE_TO_PLAYER"
    */
   function calcDamage(attack) {
-    if (!attack || battleObject === {}) return;
-    let selectedAttack = battleObject.playerMon.moves[parseInt(attack.replace("move", ""))];
+    if (!attack) return;
+    let selectedAttack =
+      battleObject.playerMon.moves[parseInt(attack.replace("move", ""))];
     // let payload = {
     //   battleId: 1,
     //   moveId: selectedAttack.id,
@@ -130,16 +151,15 @@ const Fight = () => {
             position: "absolute",
             top: `${pointerPositions[view][pointerPositionIndex].top}px`,
             left: `${pointerPositions[view][pointerPositionIndex].left}px`,
-          }}>
+          }}
+        >
           <Pointer />
         </div>
       )}
       <div className="relativeP fight-main-background-container">
         <FightBackgrond />
       </div>
-      {isLoaded && (
-        <OpponentInFight damage={opponentDamage} />
-      )}
+      {isLoaded && <OpponentInFight damage={opponentDamage} />}
       {isLoaded && <PlayerInFight damage={playerDamage} />}
     </div>
   );

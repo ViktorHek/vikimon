@@ -4,7 +4,13 @@ import PlayerMove from "./playerMove";
 import pointerPositions from "../../utils/pointerPositions";
 
 const Navigation = (dir, dispatch, selector) => {
-  const { playermovement, backpackOpen, pointerPosition, mainView, secondaryView } = selector;
+  const {
+    playermovement,
+    backpackOpen,
+    pointerPosition,
+    mainView,
+    secondaryView,
+  } = selector;
 
   function checkKeys(dir) {
     if (availableKeys.hasOwnProperty(dir) === false) {
@@ -47,7 +53,10 @@ const Navigation = (dir, dispatch, selector) => {
         dispatch({ type: "SET_SELECT", payload: null });
         break;
       default:
-        console.log("is a valid key, but can not find the type @Player.jsx - identifyTypeOffKey()", dir);
+        console.log(
+          "is a valid key, but can not find the type @Player.jsx - identifyTypeOffKey()",
+          dir
+        );
         break;
     }
   }
@@ -69,7 +78,12 @@ const Navigation = (dir, dispatch, selector) => {
       PlayerMove(dispatch, playermovement, element);
       return;
     }
-    let pointerPositionIndex = MovePointer(pointerPosition, element, secondaryView, dir);
+    let pointerPositionIndex = MovePointer(
+      pointerPosition,
+      element,
+      secondaryView,
+      dir
+    );
 
     dispatch({
       type: "SET_POINTER_POSITION",
@@ -80,14 +94,19 @@ const Navigation = (dir, dispatch, selector) => {
   function identifySelectedTarget() {
     let payloadObj = {
       type: "SET_SELECT",
-      payload: pointerPositions[secondaryView][pointerPosition.index].pointing_to,
+      payload: secondaryView
+        ? pointerPositions[secondaryView][pointerPosition.index].pointing_to
+        : null,
     };
 
     if (secondaryView === "backpackInit" || secondaryView === "battleInit") {
       payloadObj.type = "SET_SECONDARY_VIEW";
     }
 
-    if (payloadObj.payload === "runFromBattle" || payloadObj.payload === "exit") {
+    if (
+      payloadObj.payload === "runFromBattle" ||
+      payloadObj.payload === "exit"
+    ) {
       payloadObj.payload = "";
       dispatch({ type: "SET_MAIN_VIEW", payload: "openWorld" });
     }

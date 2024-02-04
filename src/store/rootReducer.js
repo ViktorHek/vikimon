@@ -59,7 +59,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         selectTarget: action.payload
       }
-
+    case 'SET_WILD_POKEMON':
+      return {
+        ...state,
+        opponentPokemon: action.payload
+      }    
     case 'SET_BATTLE_OBJECT':
       return {
         ...state,

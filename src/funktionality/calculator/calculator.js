@@ -1,8 +1,10 @@
 // const battleCalculator = require("./battleCalculator.js");
 // const allMovesArr = require("../../dataBase/AllMovesArr");
 
-import battleCalculator from './battleCalculator'
-import allMovesArr from '../../database/allMoves';
+import battleCalculator from "./battleCalculator";
+import allMovesArr from "../../database/allMoves";
+import natures from "../../database/natures";
+import pokemons from "../../database/pokemons";
 
 const battleDataArray = [];
 
@@ -22,7 +24,8 @@ const getPokemonStats = function getPokemonStats(pokiObj) {
 function calculatingHp(pokiObj) {
   let baseHpAndIv = pokiObj.dbData.stats.hp + pokiObj.iv.hp;
   let rootEv = Math.sqrt(pokiObj.ev.hp) / 4;
-  let mainCalc = ((baseHpAndIv * 2 + rootEv) * pokiObj.level) / 100 + pokiObj.level + 10;
+  let mainCalc =
+    ((baseHpAndIv * 2 + rootEv) * pokiObj.level) / 100 + pokiObj.level + 10;
   return Math.floor(mainCalc);
 }
 
@@ -38,7 +41,7 @@ const generateRandomNumber = function generateRandomNumber(min, max) {
 };
 
 function playerAttacksFirst(battleOblect) {
-  const { playerMon, opponentMon } = battleOblect
+  const { playerMon, opponentMon } = battleOblect;
   let playerSpeed = playerMon.battleStats.speed;
   let opponentSpeed = opponentMon.battleStats.speed;
   let speedTie = playerSpeed === opponentSpeed && Math.random() < 0.5;
@@ -81,7 +84,10 @@ function uppdateBattleDataArray(battleObj, statChange) {
       let hasBadgeBoost = battleObj.gymBadges[el];
       if (el === "accuracy" || el === "evasion") hasBadgeBoost = false;
       if (statChange.stat === el) {
-        newVal = newVal * statChangesEffectPercent(statChange.change) * (hasBadgeBoost ? 1.125 : 1);
+        newVal =
+          newVal *
+          statChangesEffectPercent(statChange.change) *
+          (hasBadgeBoost ? 1.125 : 1);
       } else {
         newVal = newVal * (hasBadgeBoost ? 1.125 : 1);
       }
@@ -142,7 +148,11 @@ function statChangesEffectPercent(statChanges) {
   }
 }
 
-const createBattleObject = function createBattleObject(playersPokemon, opponentsPokemon, user) {
+const createBattleObject = function createBattleObject(
+  playersPokemon,
+  opponentsPokemon,
+  user
+) {
   let returnValue = {
     playerMon: {
       id: playersPokemon.id,
@@ -182,7 +192,7 @@ const createBattleObject = function createBattleObject(playersPokemon, opponents
       },
       status: null, // null means no status aka "Fine"
       types: opponentsPokemon.dbData.types,
-      isPlayer: false
+      isPlayer: false,
     },
     gymBadges: user.gymBadges,
     extra: [],
@@ -192,6 +202,52 @@ const createBattleObject = function createBattleObject(playersPokemon, opponents
   return returnValue;
 };
 
+const generateWildPokemon = function generateWildPokemon(pokemon) {
+  let obj = {
+    id: pokemon.id,
+    level: generateRandomNumber(
+      pokemon.posibleLevels.from,
+      pokemon.posibleLevels.to
+    ),
+    abilitie: 0,
+    nature: natures[generateRandomNumber(0, natures.length - 1)],
+    currentHp: 10,
+    name: pokemon.name,
+    iv: {
+      hp: generateRandomNumber(1, 15),
+      attack: generateRandomNumber(1, 15),
+      defense: generateRandomNumber(1, 15),
+      special: generateRandomNumber(1, 15),
+      speed: generateRandomNumber(1, 15),
+    },
+    ev: {
+      hp: 0,
+      attack: 0,
+      defense: 0,
+      special: 0,
+      speed: 0,
+    },
+    moves: getWildPokemonMoves(pokemon),
+    dbData: pokemons[pokemon.id-0],
+    stats: {},
+    status: null,
+    statChanges: [],
+  };
+  obj.stats = getPokemonStats(obj)
+  obj.currentHp = obj.stats.hp
+  return obj;
+};
+
+function getWildPokemonMoves(pokemon) {
+  let arr = []
+  pokemons[pokemon.id-1].moves.forEach((el) => {
+    if(pokemon.level > el.level_learned_at -1){
+      arr.push(el.name)
+    }
+  })
+  return arr
+}
+
 const calculator = {
   getPokemonStats,
   generateRandomNumber,
@@ -199,6 +255,7 @@ const calculator = {
   getBothPlayersDamageCalc,
   createBattleObject,
   battleDataArray,
+  generateWildPokemon,
 };
 
 export default calculator;

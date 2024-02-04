@@ -13,8 +13,8 @@ const initialState = {
   secondaryView: "", // battleInit || selectMoves || backpackInit || pokemonParty
   selectTarget: false,
   pointerPosition: { index: 0, view: "" },
-
   battleObject: {},
+  opponentPokemon: {},
   damageOpponent: null,
   damagePlayer: null,
   playerMonsHealth: null,
