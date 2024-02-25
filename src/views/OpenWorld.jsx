@@ -21,10 +21,9 @@ const OpenWorld = () => {
   }, [playermovement.img]);
 
   function handlemapPosition(x, y) {
-    let left = 16 - x * 16;
-    let right = 16 - y * 16;
-    setLeft(left);
-    setRight(right);
+    console.log(x,y)
+    setLeft(16 - x * 16);
+    setRight(16 - y * 16);
   }
 
   return (

@@ -20,6 +20,16 @@ const e = {
   nextPos: [5, 5],
 };
 
+const encounters = {
+  enconterRate: 25,
+  grass: [
+    {name: 'rattata', id: 19, posibleLevels: {from:2,to:4},chanse: 50},
+    {name: 'pidgey', id: 16, posibleLevels: {from:2,to:5},chanse: 50},
+  ],
+  water: [],
+  cave: []
+}
+
 
 // taile array
 const grid = [
@@ -49,6 +59,7 @@ const main = {
   height: "288px",
   width: "320px",
   grid: grid,
+  encounters: encounters,
   src: "/images/maps/palletTown/main.jpg",
 };
 

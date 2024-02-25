@@ -16,6 +16,7 @@ import allMoves from "../../database/allMoves";
 
 const ConvertStringToPokemon = (pokemonStrings) => {
   const pokemonArr = JSON.parse(pokemonStrings);
+  console.log(pokemonArr)
   let pokemonPartyArr = [];
   for (let index = 0; index < pokemonArr.length; index++) {
     const pokemon = pokemonArr[index];

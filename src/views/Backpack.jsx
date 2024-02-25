@@ -30,6 +30,7 @@ const Backpack = () => {
   }, [backpackOpen]);
 
   useEffect(() => {
+    console.log(selectTarget)
     if (selectTarget && backpackOpen) handleSelect(selectTarget);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectTarget]);

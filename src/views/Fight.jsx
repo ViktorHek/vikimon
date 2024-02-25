@@ -9,6 +9,7 @@ import PokemonParty from "../components/backpack/PokemonParty";
 import globals from "../utils/globalVariables";
 import ConvertStringToPokemon from "../funktionality/conversion/convertStringToPokemon";
 import calculator from "../funktionality/calculator/calculator";
+import maps from "../maps/maps";
 
 const Fight = () => {
   const dispatch = useDispatch();
@@ -63,7 +64,9 @@ const Fight = () => {
     }
     let playerMon = populatedPartyList[0];
     let opponentMon = populatedPartyList[0];
-    let user = { gymBadges: { attack: true, defense: true, special: true, speed: true } };
+    let user = {
+      gymBadges: { attack: true, defense: true, special: true, speed: true },
+    };
     let obj = calculator.createBattleObject(playerMon, opponentMon, user);
     console.log("1111", obj);
     dispatch({ type: "SET_BATTLE_OBJECT", payload: obj });
@@ -77,7 +80,10 @@ const Fight = () => {
       case "move2":
       case "move3":
         dispatch({ type: "SET_SECONDARY_VIEW", payload: "battleInit" });
-        dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: "battleInit" } });
+        dispatch({
+          type: "SET_POINTER_POSITION",
+          payload: { index: 0, view: "battleInit" },
+        });
         calcDamage(target);
         break;
       case "selectMoves":
@@ -165,7 +171,8 @@ console.log({healthAfterDamage})
             position: "absolute",
             top: `${pointerPositions[view][pointerPositionIndex].top}px`,
             left: `${pointerPositions[view][pointerPositionIndex].left}px`,
-          }}>
+          }}
+        >
           <Pointer />
         </div>
       )}

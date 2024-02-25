@@ -1,5 +1,7 @@
 import ashSprite from "../../utils/spritePosition";
 import maps from "../../maps/maps";
+import natures from "../../database/natures";
+import calculator from "../calculator/calculator";
 
 let currentMap = "palletTownMain"; // handcoded for testing
 
@@ -30,7 +32,7 @@ const PlayerMove = (dispatch, playermovement, direction) => {
   }
   let nextTileType = getNextTileType(payload);
   if (nextTileType.nextMap) {
-    currentMap = nextTileType.nextMap
+    currentMap = nextTileType.nextMap;
     payload.img = nextTileType.nextMap;
     payload.map.y = nextTileType.nextPos[0];
     payload.map.x = nextTileType.nextPos[1];
@@ -45,8 +47,10 @@ const PlayerMove = (dispatch, playermovement, direction) => {
         if (newMap) payload.img = newMap;
         break;
       case "grass":
+        checkForEnconter(payload, dispatch, "grass");
+        break;
       case "water":
-        dispatch({ type: "SET_MAIN_VIEW", payload: "fight" });
+        checkForEnconter(payload, dispatch, "water");
         break;
       default:
         break;
@@ -54,6 +58,23 @@ const PlayerMove = (dispatch, playermovement, direction) => {
   }
   dispatch({ type: "SET_PLAYER_MOVEMENT", payload });
 };
+
+function checkForEnconter(data, dispatch, type) {
+  if (
+    calculator.generateRandomNumber(1, 100) >
+    maps[data.img].encounters.enconterRate
+  ) {
+    return;
+  }
+  let posibleEnconters = maps[data.img].encounters[type];
+  let selectedEnconter =
+    posibleEnconters[
+      calculator.generateRandomNumber(1, posibleEnconters.length)
+    ];
+  let generatedMon = calculator.generateWildPokemon(selectedEnconter);
+  dispatch({ type: "SET_MAIN_VIEW", payload: "fight" });
+  dispatch({ type: "SET_WILD_POKEMON", payload: generatedMon });
+}
 
 function getNewMap() {
   return false;
