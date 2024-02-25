@@ -14,7 +14,6 @@ const Navigation = (dir, dispatch, selector) => {
 
   function checkKeys(dir) {
     if (availableKeys.hasOwnProperty(dir) === false) {
-      console.log("Not a valid Key @Player.jsx - useKey()", dir);
       return null;
     }
     for (const key in availableKeys) {

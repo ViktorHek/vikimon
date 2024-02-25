@@ -69,7 +69,7 @@ function checkForEnconter(data, dispatch, type) {
   let posibleEnconters = maps[data.img].encounters[type];
   let selectedEnconter =
     posibleEnconters[
-      calculator.generateRandomNumber(1, posibleEnconters.length)
+      calculator.generateRandomNumber(0, posibleEnconters.length-1)
     ];
   let generatedMon = calculator.generateWildPokemon(selectedEnconter);
   dispatch({ type: "SET_MAIN_VIEW", payload: "fight" });

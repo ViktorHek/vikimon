@@ -47,7 +47,7 @@ const OpenPokedex = () => {
     };
     function populatePokedexList() {
         let populatedPokedexList = [];
-        if (pokedexDB === []) { return };
+        if (!pokedexDB.length) { return };
         pokedexDB.forEach((el) => {
             populatedPokedexList.push(el);
         })

@@ -58,7 +58,6 @@ const getBothPlayersDamageCalc = function getBothPlayersDamageCalc(
   playerAttacksFirst
 ) {
   let data = battleObj
-console.log('fffff',data)
   let playerAttackCalc = {};
   let opponentAttackCalc = {};
   let playerMove = getMoveFromId(moveId);
@@ -75,7 +74,6 @@ console.log('fffff',data)
     playerAttackCalc = battleCalculator(data, playerMove, true);
     uppdateBattleDataArray(data, playerAttackCalc.statChange);
   }
-  console.log('gggggg',data)
   return { playerAttackCalc, opponentAttackCalc };
 };
 

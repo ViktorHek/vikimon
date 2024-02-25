@@ -35,7 +35,6 @@ const battleCalculator = function battleCalculator(battleObj, move, playerIsAtta
   returnValue.addedEffect = getAddedEffects(data);
   const message = getMessage(data, returnValue);
   returnValue.message = message;
-  console.log({ returnValue });
   return returnValue;
 };
 
@@ -85,7 +84,6 @@ function getDamage(data) {
     effectiveness *
     random;
   const damage = Math.floor(calc) < 1 ? 1 : Math.floor(calc);
-  console.log("new calc: ", damage);
   return { damage, isCrit, random, effectiveness };
 }
 
@@ -105,7 +103,6 @@ function getattackDefenseDifferance(attackingMon, defendingMon, isCrit, move) {
 }
 
 function getTypingCalc(move, opponentMon) {
-  console.log("move: ", move, "opps: ", opponentMon);
   let firstTyping = calcTyping(move.type, opponentMon.types[0]);
   let secondTyping = opponentMon.types[1] ? calcTyping(move.type, opponentMon.types[1]) : 1;
   return firstTyping * secondTyping;

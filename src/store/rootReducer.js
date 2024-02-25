@@ -1,8 +1,6 @@
 import initialState from './initialState'
 
 const rootReducer = (state = initialState, action) => {
-  // console.log('redux type', action.type)
-  // console.log('redux payload', action.payload)
   switch (action.type) {
     case 'SET_PLAYER_MOVEMENT':
       return {

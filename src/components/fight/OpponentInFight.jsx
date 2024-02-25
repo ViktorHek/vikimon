@@ -4,7 +4,6 @@ import HealthBar from "../../animatios/HealthBar";
 
 const OpponentInFight = () => {
   const { battleObject } = useSelector((state) => state);
-  console.log({battleObject})
   const maxHealth = battleObject.opponentMon.unBuffedStats.hp;
   let currentHp = battleObject.opponentMon.currentHp;
 
