@@ -18,29 +18,25 @@ const Fight = () => {
   const [pointerPositionIndex, setPointerPositionIndex] = useState(0);
   const [view, setView] = useState("battleInit");
   const [isLoaded, setIsLoaded] = useState(false);
-  const { myPokemons, selectTarget, secondaryView, pointerPosition, battleObject, backKey } =
+  const { myPokemons, selectTarget, secondaryView, pointerPosition, battleObject, backKey, opponentPokemon } =
     selector;
 
   useEffect(() => {
     if (!isLoaded) populatePartyAndInitBattle();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     if (selectTarget) handleSelect(selectTarget);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectTarget]);
-
   useEffect(() => {
     if (secondaryView) setView(secondaryView);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [secondaryView]);
-
   useEffect(() => {
     if (pointerPosition.view) setPointerPositionIndex(pointerPosition.index);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointerPosition.index, pointerPosition.view]);
-
   useEffect(() => {
     if (!backKey) handleBackKey();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,7 +59,7 @@ const Fight = () => {
       });
     }
     let playerMon = populatedPartyList[0];
-    let opponentMon = populatedPartyList[0];
+    let opponentMon = opponentPokemon;
     let user = {
       gymBadges: { attack: true, defense: true, special: true, speed: true },
     };

@@ -75,9 +75,11 @@ function getDamage(data) {
       : attackingMon.battleStats.speed / 2;
   const isCrit = generateRandomNumber(0, 255) < critThreshold ? 2 : 1;
   const AD = getattackDefenseDifferance(attackingMon, defendingMon, isCrit, move);
-  const effectiveness = getTypingCalc(move, defendingMon);
   const stab = attackingMon.types.includes(move.type) ? 1.5 : 1;
   const random = generateRandomNumber(217, 255) / 255;
+  const effectiveness = defendingMon.types[1]
+    ? calcTyping(move.type, defendingMon.types[0])
+    : calcTyping(move.type, defendingMon.types[0]) * calcTyping(move.type, defendingMon.types[1]);
   const calc =
     ((((2 * attackingMon.level * isCrit) / 5 + 2) * move.power * AD) / 50 + 2) *
     stab *
@@ -102,11 +104,12 @@ function getattackDefenseDifferance(attackingMon, defendingMon, isCrit, move) {
   return attackingMon[stats][attackType] / defendingMon[stats][defenceType];
 }
 
-function getTypingCalc(move, opponentMon) {
-  let firstTyping = calcTyping(move.type, opponentMon.types[0]);
-  let secondTyping = opponentMon.types[1] ? calcTyping(move.type, opponentMon.types[1]) : 1;
-  return firstTyping * secondTyping;
-}
+// function getTypingCalc(move, opponentMon) {
+//   let firstTyping = calcTyping(move.type, opponentMon.types[0]);
+//   let secondTyping = opponentMon.types[1] ? calcTyping(move.type, opponentMon.types[1]) : 1;
+//   return firstTyping * secondTyping;
+// }
+
 function calcTyping(moveType, targetType) {
   let moveTypeObj = dbTypes.filter((el) => el.name === moveType);
   switch (true) {
@@ -168,7 +171,7 @@ function getStatChange(data) {
     target: target,
   };
   if (!effect_chance || !stat_change) return statChange;
-  if (generateRandomNumber(1, 100) < (effect_chance ? effect_chance : 0)) {
+  if (generateRandomNumber(1, 100) < effect_chance) {
     statChange.change = stat_change.change;
     statChange.stat = stat_change.stat;
   }
