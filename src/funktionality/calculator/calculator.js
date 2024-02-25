@@ -57,22 +57,25 @@ const getBothPlayersDamageCalc = function getBothPlayersDamageCalc(
   moveId,
   playerAttacksFirst
 ) {
+  let data = battleObj
+console.log('fffff',data)
   let playerAttackCalc = {};
   let opponentAttackCalc = {};
   let playerMove = getMoveFromId(moveId);
   let opponentMove = getMoveFromId(moveId);
   // let opponentMove = getMoveFromtrainerAI(battleId);
   if (playerAttacksFirst) {
-    playerAttackCalc = battleCalculator(battleObj, playerMove, true);
-    uppdateBattleDataArray(battleObj, playerAttackCalc.statChange);
-    opponentAttackCalc = battleCalculator(battleObj, opponentMove, false);
-    uppdateBattleDataArray(battleObj, opponentAttackCalc.statChange);
+    playerAttackCalc = battleCalculator(data, playerMove, true);
+    uppdateBattleDataArray(data, playerAttackCalc.statChange);
+    opponentAttackCalc = battleCalculator(data, opponentMove, false);
+    uppdateBattleDataArray(data, opponentAttackCalc.statChange);
   } else {
-    opponentAttackCalc = battleCalculator(battleObj, opponentMove, false);
-    uppdateBattleDataArray(battleObj, opponentAttackCalc.statChange);
-    playerAttackCalc = battleCalculator(battleObj, playerMove, true);
-    uppdateBattleDataArray(battleObj, playerAttackCalc.statChange);
+    opponentAttackCalc = battleCalculator(data, opponentMove, false);
+    uppdateBattleDataArray(data, opponentAttackCalc.statChange);
+    playerAttackCalc = battleCalculator(data, playerMove, true);
+    uppdateBattleDataArray(data, playerAttackCalc.statChange);
   }
+  console.log('gggggg',data)
   return { playerAttackCalc, opponentAttackCalc };
 };
 

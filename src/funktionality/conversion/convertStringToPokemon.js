@@ -15,7 +15,6 @@ import allMoves from "../../database/allMoves";
 // '[80,40,1,"s",143,"viktor",15,35000,35000,35000,35000,35000,2635,9435,335,435]'
 
 const ConvertStringToPokemon = (pokemonStrings) => {
-  console.log('pokemonStrings', pokemonStrings)
   const pokemonArr = JSON.parse(pokemonStrings);
   console.log(pokemonArr)
   let pokemonPartyArr = [];
@@ -28,7 +27,6 @@ const ConvertStringToPokemon = (pokemonStrings) => {
       level: getLevel(pokemon[1]),
       abilitie: parseInt(pokemon[2]),
       nature: getNatures(uniqueId.slice(3, 4)),
-      currentHp: parseInt(pokemon[3]),
       name: getName(uniqueId),
       iv: {
         hp: parseInt(uniqueId.slice(4, 6)),
@@ -47,12 +45,14 @@ const ConvertStringToPokemon = (pokemonStrings) => {
       moves: getMoves(pokemon[6]),
       dbData: getDbData(parseInt(pokemon[0])),
       stats: {},
+      currentHp: null,
       status: getStatus(pokemon[4]),
       statChanges: [],
       uid: uniqueId,
     };
 
     pokemonObject.stats = calculator.getPokemonStats(pokemonObject);
+    pokemonObject.currentHp = getCurrentHp(pokemon[3], pokemonObject.stats.hp)
     pokemonPartyArr.push(pokemonObject);
   }
   return pokemonPartyArr;
@@ -158,6 +158,14 @@ function getDbData(id) {
     }
   });
   return returnValue;
+}
+
+function getCurrentHp(hp, maxHp) {
+  if(hp === "m") {
+    return maxHp
+  } else {
+    return parseInt(hp)
+  }
 }
 
 export default ConvertStringToPokemon

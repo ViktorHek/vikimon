@@ -14,9 +14,6 @@ const FightBackgrond = () => {
           <rect x="12" y="28" width="1" height="1" fill="black" />
           <rect x="13" y="27" width="73" height="2" fill="black" />
           <rect x="80" y="25" width="2" height="2" fill="black" />
-          <rect x="80" y="19" width="1" height="2" fill="black" />
-          <rect x="32" y="18" width="48" height="1" fill="black" />
-          <rect x="31" y="19" width="1" height="2" fill="black" />
           <rect x="22" y="18" width="2" height="4" fill="black" />
           <rect x="17" y="18" width="2" height="4" fill="black" />
           <rect x="19" y="20" width="1" height="1" fill="black" />
@@ -30,7 +27,6 @@ const FightBackgrond = () => {
           <rect x="35" y="10" width="2" height="5" fill="black" />
           <rect x="37" y="14" width="2" height="1" fill="black" />
           <rect x="27" y="21" width="1" height="1" fill="black" />
-          <rect x="32" y="21" width="48" height="1" fill="black" />
           <rect x="82" y="26" width="2" height="1" fill="black" />
           <rect x="86" y="28" width="2" height="1" fill="black" />
           <path d="M113 67H114V68H113V67Z" fill="black" />
