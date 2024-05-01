@@ -13,8 +13,9 @@ const battleCalculator = function battleCalculator(battleObj, move, playerIsAtta
     move: move,
     playerIsAttacking: playerIsAttacking,
   };
+console.log({move})
   let returnValue = {
-    damage: 0,
+    damage: { damage: 0, isCrit: 1, random: 0.5, effectiveness: 1 },
     status: { name: "", target: "" },
     statChange: { type: "", value: 0, target: "" },
     message: "",
@@ -46,7 +47,7 @@ const battleCalculator = function battleCalculator(battleObj, move, playerIsAtta
  * @returns {Boolean} if true the move hitts, if false the move miss
  */
 function isMissing(data) {
-  if (data.move.accuracy === null) return true; // if accuracy is null then target is always opponent
+  if (data.move.accuracy === null) return false; // if accuracy is null then target is always opponent
   let calc =
     255 *
     (data.move.accuracy / 100) *

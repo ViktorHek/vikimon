@@ -23,6 +23,23 @@ body {
   width: 100vw;
 }
 
+.gameboy-container {
+  height: 400px;
+  width: 250px;
+  background-color: red;
+  z-index: -2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.gameboy-controls {
+  height: 200px;
+  width: 100%;
+  background-color: green;
+}
+
 .GameBox {
   height: 144px;
   width: 160px;

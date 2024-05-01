@@ -18,8 +18,15 @@ const Fight = () => {
   const [pointerPositionIndex, setPointerPositionIndex] = useState(0);
   const [view, setView] = useState("battleInit");
   const [isLoaded, setIsLoaded] = useState(false);
-  const { myPokemons, selectTarget, secondaryView, pointerPosition, battleObject, backKey, opponentPokemon } =
-    selector;
+  const {
+    myPokemons,
+    selectTarget,
+    secondaryView,
+    pointerPosition,
+    battleObject,
+    backKey,
+    opponentPokemon,
+  } = selector;
 
   useEffect(() => {
     if (!isLoaded) populatePartyAndInitBattle();
@@ -48,27 +55,25 @@ const Fight = () => {
 
   async function populatePartyAndInitBattle() {
     if (!battleObject) return;
+    const populatedPartyList = myPokemons.length
+      ? myPokemons
+      : ConvertStringToPokemon(localStorage.getItem(globals.lsPokemonParty));
+    console.log({ populatedPartyList });
+    const obj = calculator.createBattleObject(
+      populatedPartyList[0],
+      populatedPartyList[2],
+      globals.user
+    );
+    // const obj = calculator.createBattleObject(populatedPartyList[0], opponentPokemon, globals.user);
+    dispatch({ type: "POPULATE_POKEMON_PARTY", payload: populatedPartyList });
     dispatch({ type: "SET_POINTER_POSITION", payload: { index: 0, view: "battleInit" } });
     dispatch({ type: "SET_SECONDARY_VIEW", payload: "battleInit" });
-    let populatedPartyList = myPokemons;
-    if (!populatedPartyList.length) {
-      populatedPartyList = ConvertStringToPokemon(localStorage.getItem(globals.lsPokemonParty));
-      dispatch({
-        type: "POPULATE_POKEMON_PARTY",
-        payload: populatedPartyList,
-      });
-    }
-    let playerMon = populatedPartyList[0];
-    let opponentMon = opponentPokemon;
-    let user = {
-      gymBadges: { attack: true, defense: true, special: true, speed: true },
-    };
-    let obj = calculator.createBattleObject(playerMon, opponentMon, user);
     dispatch({ type: "SET_BATTLE_OBJECT", payload: obj });
     if (isLoaded === false) setIsLoaded(!isLoaded);
   }
 
   function handleSelect(target) {
+    console.log({ target });
     switch (target) {
       case "move0":
       case "move1":
@@ -113,7 +118,9 @@ const Fight = () => {
       selectedAttack.id,
       playerAttacksFirst
     );
-    let healthAfterDamage = battleObject.playerMon.currentHp - responce.opponentAttackCalc.damage;
+    console.log("selectedAttack", responce);
+    let healthAfterDamage =
+      battleObject.playerMon.currentHp - responce.opponentAttackCalc.damage.damage;
     if (healthAfterDamage < 1) {
       playerPokemonFaint();
     } else {
@@ -122,7 +129,10 @@ const Fight = () => {
 
       dispatch({ type: "SET_BATTLE_OBJECT", payload: obj });
     }
-    let healthAfterDamage2 = battleObject.opponentMon.currentHp - responce.playerAttackCalc.damage;
+    let healthAfterDamage2 =
+      battleObject.opponentMon.currentHp - responce.playerAttackCalc.damage.damage;
+    console.log(responce.opponentAttackCalc.damage);
+    console.log({ healthAfterDamage2 });
     if (healthAfterDamage2 < 1) {
       opponentPokemonFaint();
     } else {
@@ -157,8 +167,7 @@ const Fight = () => {
             position: "absolute",
             top: `${pointerPositions[view][pointerPositionIndex].top}px`,
             left: `${pointerPositions[view][pointerPositionIndex].left}px`,
-          }}
-        >
+          }}>
           <Pointer />
         </div>
       )}

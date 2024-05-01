@@ -25,9 +25,12 @@ function App() {
 
   return (
     <div className="main_game_container">
-      <div className="GameBox">
-        <OpenWorld />
-        {displayedView === "fight" && <Fight />}
+      <div className="gameboy-container">
+        <div className="GameBox">
+          <OpenWorld />
+          {displayedView === "fight" && <Fight />}
+        </div>
+        <div className="gameboy-controls"></div>
       </div>
     </div>
   );
